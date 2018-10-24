@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:name=".app.WristbandApplication"
         android:allowBackup="true"
@@ -15,26 +14,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-        android:name=".activity.SplashActivity"
-        android:alwaysRetainTaskState="true"
-        android:configChanges="orientation|keyboardHidden"
-        android:theme="@android:style/Theme.Translucent">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:name=".activity.SplashActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-            <category android:name="android.intent.category.BROWSABLE" />
-            <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
 
-            <data android:scheme="fly_voice" />
-        </intent-filter>
-    </activity>
-        <activity android:name=".activity.MainActivity">
+                <data android:scheme="fly_voice" />
+            </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity android:name=".activity.LoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>
