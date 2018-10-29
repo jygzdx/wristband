@@ -47,7 +47,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginMainActivity"
-            android:label="@string/title_activity_login_main"></activity>
+            android:label="@string/title_activity_login_main" />
+        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

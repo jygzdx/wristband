@@ -17,6 +17,6 @@ private View view ;
     public PasswordLoginView(Context context) {
         super(context);
         this.mContext = context;
-        view = LayoutInflater.from(mContext).inflate(R.layout., this);
+        view = LayoutInflater.from(mContext).inflate(R.layout.layout_password_view, this);
     }
 }
