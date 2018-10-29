@@ -1,5 +1,6 @@
 package com.slogan.wristband.wristband.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.widget.ImageView;
@@ -38,6 +39,7 @@ public class SplashActivity extends BaseActivity {
 
     @OnClick(R.id.iv_logo)
     public void onViewClicked() {
-
+        Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+        startActivity(intent);
     }
 }
