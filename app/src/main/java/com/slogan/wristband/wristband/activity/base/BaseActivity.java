@@ -229,7 +229,7 @@ public class BaseActivity extends Activity implements HttpMsg, RequestTypeCode {
 
     }
 
-    public void handleMessageInfo(Message message) {
+    public void handleMessageInfo(Message msg) {
 
     }
 
