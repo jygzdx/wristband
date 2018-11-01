@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.adapter.CommonPagerAdapter;
+import com.slogan.wristband.wristband.widght.CodeLoginView;
 import com.slogan.wristband.wristband.widght.PasswordLoginView;
 
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class LoginMainActivity extends BaseActivity {
 
         PasswordLoginView passwordLoginView = new PasswordLoginView(mContext);
         views.add(passwordLoginView);
-        PasswordLoginView passwordLoginView1 = new PasswordLoginView(mContext);
-        views.add(passwordLoginView1);
+        CodeLoginView codeLoginView = new CodeLoginView(mContext);
+        views.add(codeLoginView);
         adapter = new CommonPagerAdapter(views);
         vpLogin.setAdapter(adapter);
         vpLogin.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -68,7 +69,7 @@ public class LoginMainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+switchView(position);
             }
 
             @Override
@@ -83,10 +84,22 @@ public class LoginMainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.ll_password:
                 vpLogin.setCurrentItem(0);
+                switchView(0);
                 break;
             case R.id.ll_verify:
                 vpLogin.setCurrentItem(1);
+                switchView(1);
                 break;
+        }
+    }
+
+    private void switchView(int position){
+        if(position == 0){
+            tvLine1.setVisibility(View.VISIBLE);
+            tvLine2.setVisibility(View.GONE);
+        }else{
+            tvLine1.setVisibility(View.GONE);
+            tvLine2.setVisibility(View.VISIBLE);
         }
     }
 }

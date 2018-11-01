@@ -25,6 +25,7 @@ public class SplashActivity extends BaseActivity {
         ButterKnife.bind(this);
         StatusBarCompat.compat(this);
         initHandler();
+        handler.sendEmptyMessageDelayed(1,1000);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) btn_count_down.getLayoutParams();
 //            layoutParams.topMargin = DisplayUtils.getStatusBarHeight() + DisplayUtils.dip2px(this, 24);
@@ -34,12 +35,16 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void handleMessageInfo(Message message) {
         super.handleMessageInfo(message);
-
+switch (message.what){
+    case 1:
+        Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+        startActivity(intent);
+        break;
+}
     }
 
     @OnClick(R.id.iv_logo)
     public void onViewClicked() {
-        Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
-        startActivity(intent);
+
     }
 }

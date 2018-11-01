@@ -1,6 +1,5 @@
 package com.slogan.wristband.wristband.widght;
 
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +10,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.RegisterActivity;
-import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.utils.StringUtils;
 
 import butterknife.BindView;
@@ -28,27 +25,24 @@ import butterknife.OnClick;
  * Created by free_boy on 2018/10/24.
  */
 
-public class PasswordLoginView extends LinearLayout {
+public class CodeLoginView extends LinearLayout {
     private final Context mContext;
-    @BindView(R.id.et_user)
-    EditText etUser;
-    @BindView(R.id.et_password)
-    EditText etPassword;
-    @BindView(R.id.tv_show_password)
-    ImageView tvShowPassword;
-    @BindView(R.id.tv_to_register)
-    TextView tvToRegister;
-    @BindView(R.id.tv_forget_password)
-    TextView tvForgetPassword;
+    @BindView(R.id.et_phone_number)
+    EditText etPhoneNumber;
+    @BindView(R.id.et_verify_code)
+    EditText etVerifyCode;
+    @BindView(R.id.tv_verify_time)
+    TextView tvVerifyTime;
     @BindView(R.id.tv_login)
     TextView tvLogin;
+
     private View view;
     private Handler handler;
 
-    public PasswordLoginView(Context context) {
+    public CodeLoginView(Context context) {
         super(context);
         this.mContext = context;
-        view = LayoutInflater.from(mContext).inflate(R.layout.layout_password_view, this);
+        view = LayoutInflater.from(mContext).inflate(R.layout.layout_code_login_view, this);
         ButterKnife.bind(view);
         initHandler();
         initWidget();
@@ -56,7 +50,7 @@ public class PasswordLoginView extends LinearLayout {
 
     private void initWidget() {
         tvLogin.setEnabled(false);
-        etUser.addTextChangedListener(new TextWatcher() {
+        etPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -69,15 +63,15 @@ public class PasswordLoginView extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                account = etUser.getText().toString().trim();
-                if(StringUtils.isBlank(account)||StringUtils.isBlank(password)){
+                phone = etPhoneNumber.getText().toString().trim();
+                if (StringUtils.isBlank(phone) || StringUtils.isBlank(code)) {
                     tvLogin.setEnabled(false);
-                }else{
+                } else {
                     tvLogin.setEnabled(true);
                 }
             }
         });
-        etPassword.addTextChangedListener(new TextWatcher() {
+        etVerifyCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -90,26 +84,26 @@ public class PasswordLoginView extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                password = etPassword.getText().toString().trim();
-                if(StringUtils.isBlank(account)||StringUtils.isBlank(password)){
+                code = etVerifyCode.getText().toString().trim();
+                if (StringUtils.isBlank(phone) || StringUtils.isBlank(code)) {
                     tvLogin.setEnabled(false);
-                }else{
+                } else {
                     tvLogin.setEnabled(true);
                 }
             }
         });
     }
 
-    private String account;
-    private String password;
+    private String phone;
+    private String code;
 
     @SuppressLint("HandlerLeak")
     public void initHandler() {
-        handler = new Handler(){
+        handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what){
+                switch (msg.what) {
                     case 1:
                         break;
                 }
@@ -117,16 +111,11 @@ public class PasswordLoginView extends LinearLayout {
         };
     }
 
-    @OnClick({R.id.tv_show_password, R.id.tv_to_register, R.id.tv_forget_password, R.id.tv_login})
+
+    @OnClick({R.id.tv_verify_time, R.id.tv_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_show_password:
-                break;
-            case R.id.tv_to_register:
-                Intent register = new Intent(mContext, RegisterActivity.class);
-                mContext.startActivity(register);
-                break;
-            case R.id.tv_forget_password:
+            case R.id.tv_verify_time:
                 break;
             case R.id.tv_login:
                 break;
