@@ -4,9 +4,14 @@ android {
 
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
     defaultConfig {
         applicationId "com.slogan.wristband.wristband"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"

@@ -1,5 +1,6 @@
 package com.slogan.wristband.wristband.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,8 @@ import com.slogan.wristband.wristband.fragment.FindFragment;
 import com.slogan.wristband.wristband.fragment.HomeFragment;
 import com.slogan.wristband.wristband.fragment.MeFragment;
 import com.slogan.wristband.wristband.utils.CommTool;
+import com.veclink.hw.bleservice.VLBleServiceManager;
+import com.veclink.hw.bleservice.util.Keeper;
 
 import java.util.AbstractSequentialList;
 import java.util.ArrayList;
@@ -50,6 +53,12 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        if(Keeper.getUserHasBindBand(this)){
+            VLBleServiceManager.getInstance().bindService(getApplication());
+//            Intent intent = new Intent(this,TestBraceletBleActivity.class);
+//            startActivity(intent);
+//            finish();
+        }
         initHandler();
         initWidget();
     }
