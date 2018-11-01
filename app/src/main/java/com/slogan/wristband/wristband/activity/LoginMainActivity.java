@@ -55,9 +55,9 @@ public class LoginMainActivity extends BaseActivity {
     public void initWidget() {
         super.initWidget();
 
-        PasswordLoginView passwordLoginView = new PasswordLoginView(mContext);
+        final PasswordLoginView passwordLoginView = new PasswordLoginView(mContext);
         views.add(passwordLoginView);
-        CodeLoginView codeLoginView = new CodeLoginView(mContext);
+        final CodeLoginView codeLoginView = new CodeLoginView(mContext);
         views.add(codeLoginView);
         adapter = new CommonPagerAdapter(views);
         vpLogin.setAdapter(adapter);
@@ -69,7 +69,9 @@ public class LoginMainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-switchView(position);
+                switchView(position);
+                passwordLoginView.closeKeybroad();
+                codeLoginView.closeKeybroad();
             }
 
             @Override
@@ -93,11 +95,11 @@ switchView(position);
         }
     }
 
-    private void switchView(int position){
-        if(position == 0){
+    private void switchView(int position) {
+        if (position == 0) {
             tvLine1.setVisibility(View.VISIBLE);
             tvLine2.setVisibility(View.GONE);
-        }else{
+        } else {
             tvLine1.setVisibility(View.GONE);
             tvLine2.setVisibility(View.VISIBLE);
         }

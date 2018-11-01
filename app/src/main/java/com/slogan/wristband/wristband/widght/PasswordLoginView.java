@@ -2,6 +2,7 @@ package com.slogan.wristband.wristband.widght;
 
 import android.accounts.Account;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.RegisterActivity;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
+import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.utils.StringUtils;
 
 import butterknife.BindView;
@@ -131,5 +133,10 @@ public class PasswordLoginView extends LinearLayout {
             case R.id.tv_login:
                 break;
         }
+    }
+
+    public void closeKeybroad() {
+        CommTool.closeKeyBord((Activity) mContext,etUser);
+        CommTool.closeKeyBord((Activity) mContext,etPassword);
     }
 }

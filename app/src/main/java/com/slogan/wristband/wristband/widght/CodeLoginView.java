@@ -1,6 +1,7 @@
 package com.slogan.wristband.wristband.widght;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.RegisterActivity;
+import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.utils.StringUtils;
 
 import butterknife.BindView;
@@ -120,5 +122,10 @@ public class CodeLoginView extends LinearLayout {
             case R.id.tv_login:
                 break;
         }
+    }
+
+    public void closeKeybroad() {
+        CommTool.closeKeyBord((Activity) mContext,etPhoneNumber);
+        CommTool.closeKeyBord((Activity) mContext,etVerifyCode);
     }
 }
