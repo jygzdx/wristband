@@ -1,7 +1,9 @@
 package com.slogan.wristband.wristband.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +20,10 @@ import com.slogan.wristband.wristband.fragment.FindFragment;
 import com.slogan.wristband.wristband.fragment.HomeFragment;
 import com.slogan.wristband.wristband.fragment.MeFragment;
 import com.slogan.wristband.wristband.utils.CommTool;
+import com.slogan.wristband.wristband.utils.LogDataUtils;
+import com.veclink.bracelet.bletask.BleCallBack;
+import com.veclink.bracelet.bletask.BleRequestBindDevice;
+import com.veclink.bracelet.bletask.BleScanDeviceTask;
 import com.veclink.hw.bleservice.VLBleServiceManager;
 import com.veclink.hw.bleservice.util.Keeper;
 
@@ -53,15 +59,47 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        if(Keeper.getUserHasBindBand(this)){
+//        if(Keeper.getUserHasBindBand(this)){
             VLBleServiceManager.getInstance().bindService(getApplication());
-//            Intent intent = new Intent(this,TestBraceletBleActivity.class);
-//            startActivity(intent);
-//            finish();
-        }
+//            BleCallBack requestBindDeviceCallBack
+//                    = new BleCallBack(requestBindDeviceHandler);
+//            BleRequestBindDevice bleRequestBindDevice = new BleRequestBindDevice(mContext, requestBindDeviceCallBack);
+//            bleRequestBindDevice.work();
+        BleScanDeviceTask scanTask = new BleScanDeviceTask(this, scanDeviceCallBack);
+        scanTask.execute(0);
+
+//        }
         initHandler();
         initWidget();
     }
+
+    Handler scanBleDeviceHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case BleCallBack.TASK_START:
+                    LogDataUtils.logData("scanBleDeviceHandler","TASK_START");
+
+                    break;
+
+                case BleCallBack.TASK_PROGRESS:
+                    LogDataUtils.logData("scanBleDeviceHandler","TASK_PROGRESS");
+
+                    break;
+                case BleCallBack.TASK_FINISH:
+                    LogDataUtils.logData("scanBleDeviceHandler","TASK_FINISH");
+
+                    break;
+
+                case BleCallBack.TASK_FAILED:
+                    LogDataUtils.logData("scanBleDeviceHandler","TASK_FAILED");
+
+                    break;
+            }
+        }
+    };
+    BleCallBack scanDeviceCallBack = new BleCallBack(scanBleDeviceHandler);
+
 
     @Override
     public void initWidget() {
@@ -78,6 +116,34 @@ public class MainActivity extends BaseFragmentActivity {
         ft.commit();
         homeTabImg.setSelected(true);
     }
+@SuppressLint("HandlerLeak")
+    Handler requestBindDeviceHandler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case BleCallBack.TASK_START:
+                    LogDataUtils.logData("requestBindDeviceHandler","TASK_START");
+                    break;
+
+                case BleCallBack.TASK_PROGRESS:
+                    LogDataUtils.logData("requestBindDeviceHandler","TASK_PROGRESS");
+
+                    break;
+                case BleCallBack.TASK_FINISH:
+                    //这里提示用户敲击手环进行绑定
+//				canBindStartTime = System.currentTimeMillis();
+                    LogDataUtils.logData("requestBindDeviceHandler","TASK_FINISH");
+
+                    break;
+                case BleCallBack.TASK_FAILED:
+                    LogDataUtils.logData("requestBindDeviceHandler","TASK_FAILED");
+
+                    break;
+            }
+        }
+
+    };
 
     @Override
     public void handleMessageInfo(Message msg) {

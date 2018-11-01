@@ -363,7 +363,7 @@ public class CommTool {
             Manifest.permission.RECORD_AUDIO
     };
 
-//    public static void checkAudioPermission(Activity context) {
+    public static void checkAudioPermission(Activity context) {
 //        int permission = ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO);
 //        if (permission != PackageManager.PERMISSION_GRANTED) {
 //            // We don't have permission so prompt the user
@@ -373,7 +373,7 @@ public class CommTool {
 //                    ActivityResultCode.ACTIVITY_PERMISSION_AUDION
 //            );
 //        }
-//    }
+    }
 
     public static String getModel() {
         try {

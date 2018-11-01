@@ -49,11 +49,14 @@ public class BaseFragmentActivity extends FragmentActivity implements HttpMsg, R
 
     private String loginKey;
 
+    public Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        this.mContext = this;
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         screenWidth = dm.widthPixels;
