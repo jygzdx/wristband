@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.activity.base.BaseFragmentActivity;
+import com.slogan.wristband.wristband.app.WristbandApplication;
 import com.slogan.wristband.wristband.fragment.FindFragment;
 import com.slogan.wristband.wristband.fragment.HomeFragment;
 import com.slogan.wristband.wristband.fragment.MeFragment;
@@ -78,84 +79,21 @@ public class MainActivity extends BaseFragmentActivity {
 //        }
         initHandler();
         initWidget();
-
-
-        initReciver();
-//        VLBleServiceManager.getInstance().setAutoReConnect(true);
-//        VLBleServiceManager.getInstance().bindService(getApplication(),new BraceletGattAttributes());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        scanTask = new BleScanDeviceTask(this, scanDeviceCallBack);
-        scanTask.execute(0);
+        if(!Keeper.getUserHasBindBand(WristbandApplication.getInstance())){
+            Intent intent = new Intent(mContext,BindDeviceActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(connectDeviceInfoReceiver);
     }
-
-    private void initReciver() {
-        intentFilter.addAction(VLBleService.ACTION_GATT_CONNECTED);
-        intentFilter.addAction(VLBleService.ACTION_GATT_DISCONNECTED);
-        intentFilter.addAction(VLBleService.ACTION_GATT_SERVICES_DISCOVERED);
-        intentFilter.addAction(VLBleService.ACTION_USER_HAD_CLICK_DEVICE);
-        registerReceiver(connectDeviceInfoReceiver, intentFilter);
-    }
-
-    IntentFilter intentFilter = new IntentFilter();
-
-    BroadcastReceiver connectDeviceInfoReceiver = new BroadcastReceiver(){
-
-        @Override
-        public void onReceive(Context arg0, Intent intent) {
-            String action = intent.getAction();
-            if(action.equals(VLBleService.ACTION_GATT_SERVICES_DISCOVERED)){
-                LogDataUtils.logData("connectDeviceInfoReceiver","ACTION_GATT_SERVICES_DISCOVERED");
-            }else if(action.equals(VLBleService.ACTION_USER_HAD_CLICK_DEVICE)){
-                LogDataUtils.logData("connectDeviceInfoReceiver","ACTION_USER_HAD_CLICK_DEVICE");
-
-            }else if(action.equals(VLBleService.ACTION_GATT_DISCONNECTED)){
-                LogDataUtils.logData("connectDeviceInfoReceiver","ACTION_GATT_DISCONNECTED");
-
-            }else if(action.equals(VLBleService.ACTION_GATT_CONNECTED)){
-                LogDataUtils.logData("connectDeviceInfoReceiver","ACTION_GATT_CONNECTED");
-
-            }
-
-        }
-
-    };
-
-    Handler scanBleDeviceHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case BleCallBack.TASK_START:
-                    LogDataUtils.logData("scanBleDeviceHandler","TASK_START");
-
-                    break;
-
-                case BleCallBack.TASK_PROGRESS:
-                    LogDataUtils.logData("scanBleDeviceHandler","TASK_PROGRESS");
-
-                    break;
-                case BleCallBack.TASK_FINISH:
-                    LogDataUtils.logData("scanBleDeviceHandler","TASK_FINISH");
-
-                    break;
-
-                case BleCallBack.TASK_FAILED:
-                    LogDataUtils.logData("scanBleDeviceHandler","TASK_FAILED");
-
-                    break;
-            }
-        }
-    };
-    BleCallBack scanDeviceCallBack = new BleCallBack(scanBleDeviceHandler);
 
 
     @Override
@@ -173,34 +111,6 @@ public class MainActivity extends BaseFragmentActivity {
         ft.commit();
         homeTabImg.setSelected(true);
     }
-@SuppressLint("HandlerLeak")
-    Handler requestBindDeviceHandler = new Handler(){
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case BleCallBack.TASK_START:
-                    LogDataUtils.logData("requestBindDeviceHandler","TASK_START");
-                    break;
-
-                case BleCallBack.TASK_PROGRESS:
-                    LogDataUtils.logData("requestBindDeviceHandler","TASK_PROGRESS");
-
-                    break;
-                case BleCallBack.TASK_FINISH:
-                    //这里提示用户敲击手环进行绑定
-//				canBindStartTime = System.currentTimeMillis();
-                    LogDataUtils.logData("requestBindDeviceHandler","TASK_FINISH");
-
-                    break;
-                case BleCallBack.TASK_FAILED:
-                    LogDataUtils.logData("requestBindDeviceHandler","TASK_FAILED");
-
-                    break;
-            }
-        }
-
-    };
 
     @Override
     public void handleMessageInfo(Message msg) {
