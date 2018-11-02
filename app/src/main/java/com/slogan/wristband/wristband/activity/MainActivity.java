@@ -1,7 +1,10 @@
 package com.slogan.wristband.wristband.activity;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,7 +27,10 @@ import com.slogan.wristband.wristband.utils.LogDataUtils;
 import com.veclink.bracelet.bletask.BleCallBack;
 import com.veclink.bracelet.bletask.BleRequestBindDevice;
 import com.veclink.bracelet.bletask.BleScanDeviceTask;
+import com.veclink.bracelet.bletask.BleSyncParamsTask;
+import com.veclink.hw.bleservice.VLBleService;
 import com.veclink.hw.bleservice.VLBleServiceManager;
+import com.veclink.hw.bleservice.profile.BraceletGattAttributes;
 import com.veclink.hw.bleservice.util.Keeper;
 
 import java.util.AbstractSequentialList;
@@ -53,6 +59,7 @@ public class MainActivity extends BaseFragmentActivity {
     private List<Fragment> fragments = new ArrayList<>();
     private int tab_content;
     private int current = 0;
+    private BleScanDeviceTask scanTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +67,68 @@ public class MainActivity extends BaseFragmentActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 //        if(Keeper.getUserHasBindBand(this)){
-            VLBleServiceManager.getInstance().bindService(getApplication());
+//            VLBleServiceManager.getInstance().bindService(getApplication());
 //            BleCallBack requestBindDeviceCallBack
 //                    = new BleCallBack(requestBindDeviceHandler);
 //            BleRequestBindDevice bleRequestBindDevice = new BleRequestBindDevice(mContext, requestBindDeviceCallBack);
 //            bleRequestBindDevice.work();
-        BleScanDeviceTask scanTask = new BleScanDeviceTask(this, scanDeviceCallBack);
-        scanTask.execute(0);
+//        BleScanDeviceTask scanTask = new BleScanDeviceTask(this, scanDeviceCallBack);
+//        scanTask.execute(0);
 
 //        }
         initHandler();
         initWidget();
+
+
+        initReciver();
+//        VLBleServiceManager.getInstance().setAutoReConnect(true);
+//        VLBleServiceManager.getInstance().bindService(getApplication(),new BraceletGattAttributes());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        scanTask = new BleScanDeviceTask(this, scanDeviceCallBack);
+        scanTask.execute(0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(connectDeviceInfoReceiver);
+    }
+
+    private void initReciver() {
+        intentFilter.addAction(VLBleService.ACTION_GATT_CONNECTED);
+        intentFilter.addAction(VLBleService.ACTION_GATT_DISCONNECTED);
+        intentFilter.addAction(VLBleService.ACTION_GATT_SERVICES_DISCOVERED);
+        intentFilter.addAction(VLBleService.ACTION_USER_HAD_CLICK_DEVICE);
+        registerReceiver(connectDeviceInfoReceiver, intentFilter);
+    }
+
+    IntentFilter intentFilter = new IntentFilter();
+
+    BroadcastReceiver connectDeviceInfoReceiver = new BroadcastReceiver(){
+
+        @Override
+        public void onReceive(Context arg0, Intent intent) {
+            String action = intent.getAction();
+            if(action.equals(VLBleService.ACTION_GATT_SERVICES_DISCOVERED)){
+                LogDataUtils.logData("connectDeviceInfoReceiver","ACTION_GATT_SERVICES_DISCOVERED");
+            }else if(action.equals(VLBleService.ACTION_USER_HAD_CLICK_DEVICE)){
+                LogDataUtils.logData("connectDeviceInfoReceiver","ACTION_USER_HAD_CLICK_DEVICE");
+
+            }else if(action.equals(VLBleService.ACTION_GATT_DISCONNECTED)){
+                LogDataUtils.logData("connectDeviceInfoReceiver","ACTION_GATT_DISCONNECTED");
+
+            }else if(action.equals(VLBleService.ACTION_GATT_CONNECTED)){
+                LogDataUtils.logData("connectDeviceInfoReceiver","ACTION_GATT_CONNECTED");
+
+            }
+
+        }
+
+    };
 
     Handler scanBleDeviceHandler = new Handler(){
         @Override
