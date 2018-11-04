@@ -60,25 +60,19 @@ public class MainActivity extends BaseFragmentActivity {
     private List<Fragment> fragments = new ArrayList<>();
     private int tab_content;
     private int current = 0;
-    private BleScanDeviceTask scanTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-//        if(Keeper.getUserHasBindBand(this)){
-//            VLBleServiceManager.getInstance().bindService(getApplication());
-//            BleCallBack requestBindDeviceCallBack
-//                    = new BleCallBack(requestBindDeviceHandler);
-//            BleRequestBindDevice bleRequestBindDevice = new BleRequestBindDevice(mContext, requestBindDeviceCallBack);
-//            bleRequestBindDevice.work();
-//        BleScanDeviceTask scanTask = new BleScanDeviceTask(this, scanDeviceCallBack);
-//        scanTask.execute(0);
-
-//        }
+        if(Keeper.getUserHasBindBand(WristbandApplication.getInstance())){
+            VLBleServiceManager.setAutoReConnect(true);
+            VLBleServiceManager.getInstance().bindService(WristbandApplication.getInstance());
+        }
         initHandler();
         initWidget();
+        initReciver();
     }
 
     @Override
@@ -93,6 +87,7 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        VLBleServiceManager.getInstance().unBindService(WristbandApplication.getInstance());
     }
 
 
@@ -116,6 +111,44 @@ public class MainActivity extends BaseFragmentActivity {
     public void handleMessageInfo(Message msg) {
         super.handleMessageInfo(msg);
     }
+
+    private void initReciver(){
+        intentFilter.addAction(VLBleService.ACTION_GATT_SERVICES_DISCOVERED);
+        intentFilter.addAction(VLBleService.ACTION_GATT_CONNECTED);
+        intentFilter.addAction(VLBleService.ACTION_GATT_DISCONNECTED);
+        intentFilter.addAction(VLBleService.ACTION_SHORT_SPORT_DATA);
+        intentFilter.addAction(VLBleService.ACTION_POWER_CHANGE_DATA);
+        registerReceiver(getdeviceMessageReceiver, intentFilter);
+    }
+    IntentFilter intentFilter = new IntentFilter();
+    private static final String TAG = "MainActivity";
+    BroadcastReceiver getdeviceMessageReceiver = new BroadcastReceiver(){
+
+        @Override
+        public void onReceive(Context arg0, Intent intent) {
+            String action = intent.getAction();
+            if(action.equals(VLBleService.ACTION_GATT_SERVICES_DISCOVERED)){
+//                connectHandler.sendEmptyMessage(DEVICE_SERVERDISCOVER);
+                LogDataUtils.logData(TAG,"ACTION_GATT_SERVICES_DISCOVERED");
+            }else if(action.equals(VLBleService.ACTION_GATT_DISCONNECTED)){
+//                connectHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
+                LogDataUtils.logData(TAG,"ACTION_GATT_DISCONNECTED");
+            }else if(action.equals(VLBleService.ACTION_GATT_CONNECTED)){
+//                connectHandler.sendEmptyMessage(DEVICE_CONNECTED);
+                LogDataUtils.logData(TAG,"ACTION_GATT_CONNECTED");
+            }else if(action.equals(VLBleService.ACTION_SHORT_SPORT_DATA)){
+//                int sportSteps = intent.getIntExtra(VLBleService.EXTRA_DATA, 0);
+//                showMsgView.setText(getString(R.string.today_step,sportSteps));
+                LogDataUtils.logData(TAG,"ACTION_SHORT_SPORT_DATA");
+            }else if(action.equals(VLBleService.ACTION_POWER_CHANGE_DATA)){
+//                int powerValue = intent.getIntExtra(VLBleService.EXTRA_DATA, 0);
+//                showMsgView.setText(getString(R.string.power_value,powerValue));
+                LogDataUtils.logData(TAG,"ACTION_POWER_CHANGE_DATA");
+            }
+
+        }
+
+    };
 
     @OnClick({R.id.home_tab_img, R.id.find_tab_img, R.id.me_tab_img})
     public void onViewClicked(View view) {

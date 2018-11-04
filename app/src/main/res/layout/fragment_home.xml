@@ -1,11 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<TextView
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:text="home"
-    />
-</LinearLayout>
+    android:layout_height="match_parent">
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:background="@color/main_color"
+        >
+        <RelativeLayout
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            >
+            <com.slogan.wristband.wristband.widght.XiaoMiStep
+                android:id="@+id/xiao_mi_step"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:backGroundColor="@color/transparent"
+                app:outerCircleColor="@color/white"
+                app:outerDotColor="@color/white"
+                app:lineColor="@color/white"
+                app:ringColor="@color/white"
+                app:othetTextColor="@color/white"
+                app:stepNumColor="@color/white"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/main_color"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_sport_bg"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_launcher"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:text="昨晚睡眠"
+                    android:textColor="#FF4F4F4F"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="102dp"
+                    android:layout_height="14dp"
+                    android:text="10月16日  中午 11:23"
+                    android:textColor="#FF999999"
+                    android:textSize="10sp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_sleep_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:text="16时"
+                android:gravity="bottom"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
