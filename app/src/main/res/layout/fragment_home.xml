@@ -53,57 +53,377 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/shape_sport_bg"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/shape_sport_bg"
-            android:orientation="horizontal"
             >
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_launcher"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
-                />
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
                 >
-                <TextView
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:text="昨晚睡眠"
+                        android:textColor="#FF4F4F4F"
+                        android:textSize="14sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="102dp"
+                        android:layout_height="14dp"
+                        android:text="10月16日  中午 11:23"
+                        android:textColor="#FF999999"
+                        android:textSize="10sp"
+                        />
+
+                </LinearLayout>
+
+                <com.slogan.wristband.wristband.widght.TimeView
+                    android:id="@+id/tv_total_sleep_time"
                     android:layout_width="wrap_content"
-                    android:layout_height="22dp"
-                    android:text="昨晚睡眠"
-                    android:textColor="#FF4F4F4F"
-                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="10dp"
                     />
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="102dp"
-                    android:layout_height="14dp"
-                    android:text="10月16日  中午 11:23"
-                    android:textColor="#FF999999"
-                    android:textSize="10sp"
-                    />
-
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_sleep_time"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+                    <com.slogan.wristband.wristband.widght.TimeView
+                        android:id="@+id/time_deep_sleep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </com.slogan.wristband.wristband.widght.TimeView>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="14dp"
+                        android:text="深睡"
+                        android:textColor="#FF999999"
+                        android:textSize="10sp"
+                        android:layout_marginTop="2dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+                    <com.slogan.wristband.wristband.widght.TimeView
+                        android:id="@+id/time_light_sleep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </com.slogan.wristband.wristband.widght.TimeView>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="14dp"
+                        android:text="浅睡"
+                        android:textColor="#FF999999"
+                        android:textSize="10sp"
+                        android:layout_marginTop="2dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
+                    <com.slogan.wristband.wristband.widght.TimeView
+                        android:id="@+id/time_clear_sleep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </com.slogan.wristband.wristband.widght.TimeView>
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="14dp"
+                        android:text="清醒"
+                        android:textColor="#FF999999"
+                        android:textSize="10sp"
+                        android:layout_marginTop="2dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@color/main_color"
+                >
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="10dp"
+                    android:text="晚上 11:06"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="8sp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_centerVertical="true"
+                    />
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="10dp"
+                    android:text="早上 07:13"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="8sp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp"
-                android:text="16时"
-                android:gravity="bottom"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:text="心率"
+                        android:textColor="#FF4F4F4F"
+                        android:textSize="14sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_heart_rate_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="14dp"
+                        android:text="10月16日  中午 11:23"
+                        android:textColor="#FF999999"
+                        android:textSize="10sp"
+                        />
+
+                </LinearLayout>
+
+                <com.slogan.wristband.wristband.widght.TimeView
+                    android:id="@+id/heart_rate_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="340dp"
+                android:layout_height="1dp"
+                android:background="#FFF8F8F8"
                 />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:text="血压"
+                        android:textColor="#FF4F4F4F"
+                        android:textSize="14sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_blood_pressure_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="14dp"
+                        android:text="10月16日  中午 11:23"
+                        android:textColor="#FF999999"
+                        android:textSize="10sp"
+                        />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_blood_pressure_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:textColor="#4c4c4c"
+                    android:textSize="24sp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="10dp"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="340dp"
+                android:layout_height="1dp"
+                android:background="#FFF8F8F8"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:text="血氧"
+                        android:textColor="#FF4F4F4F"
+                        android:textSize="14sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_blood_oxygen_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="14dp"
+                        android:text="10月16日  中午 11:23"
+                        android:textColor="#FF999999"
+                        android:textSize="10sp"
+                        />
+
+                </LinearLayout>
+
+                <com.slogan.wristband.wristband.widght.TimeView
+                    android:id="@+id/blood_oxygen_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="340dp"
+                android:layout_height="1dp"
+                android:background="#FFF8F8F8"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:text="已连续达标"
+                        android:textColor="#FF4F4F4F"
+                        android:textSize="14sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_most_arrive_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="14dp"
+                        android:text=""
+                        android:textColor="#FF999999"
+                        android:textSize="10sp"
+                        />
+
+                </LinearLayout>
+
+                <com.slogan.wristband.wristband.widght.TimeView
+                    android:id="@+id/arrive_count_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
         </LinearLayout>
+
+
     </RelativeLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

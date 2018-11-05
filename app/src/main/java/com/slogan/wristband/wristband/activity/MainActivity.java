@@ -136,6 +136,7 @@ public class MainActivity extends BaseFragmentActivity {
             }else if(action.equals(VLBleService.ACTION_GATT_CONNECTED)){
 //                connectHandler.sendEmptyMessage(DEVICE_CONNECTED);
                 LogDataUtils.logData(TAG,"ACTION_GATT_CONNECTED");
+                homeFragment.connectDeviceSuccess();
             }else if(action.equals(VLBleService.ACTION_SHORT_SPORT_DATA)){
 //                int sportSteps = intent.getIntExtra(VLBleService.EXTRA_DATA, 0);
 //                showMsgView.setText(getString(R.string.today_step,sportSteps));

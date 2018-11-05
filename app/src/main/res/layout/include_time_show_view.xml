@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="2"
+        android:textColor="#FF4C4C4C"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tv_shi"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:text="时"
+        android:textColor="#FF999999"
+        android:textSize="10sp"
+        android:layout_marginLeft="2dp"
+        />
+    <TextView
+        android:id="@+id/tv_second"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="2"
+        android:textColor="#FF4C4C4C"
+        android:textSize="21sp"
+        android:layout_marginLeft="2dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tv_fen"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:text="分"
+        android:textColor="#FF999999"
+        android:textSize="10sp"
+        android:layout_marginLeft="2dp"
+
+        />
+</LinearLayout>

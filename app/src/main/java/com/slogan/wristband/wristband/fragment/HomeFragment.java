@@ -12,6 +12,7 @@ import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.utils.LogDataUtils;
 import com.slogan.wristband.wristband.widght.XiaoMiStep;
 import com.slogan.wristband.wristband.widght.YueDuPaiMing;
+import com.veclink.bracelet.bean.DeviceSleepData;
 import com.veclink.bracelet.bean.DeviceSportAndSleepData;
 import com.veclink.bracelet.bean.DeviceSportData;
 import com.veclink.bracelet.bletask.BleCallBack;
@@ -35,6 +36,8 @@ public class HomeFragment extends BaseFragment {
     private BleSyncNewDeviceDataTask sportTask;
     private Unbinder unbind;
 
+    private BleSyncNewDeviceDataTask sleepTask;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.fragment_home;
@@ -44,19 +47,12 @@ public class HomeFragment extends BaseFragment {
     protected void initView() {
         unbind = ButterKnife.bind(this,mRootView);
         initHandler();
-        xiaoMiStep.setMyFootNum(4500);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Date startDate = new Date();
-        Date endDate = new Date();
-        if (sportTask == null) {
-            sportTask = new BleSyncNewDeviceDataTask(mContext, syncStepDataCallBack,
-                    BraceletNewDevice.SPORT_DATA, startDate, endDate);
-        }
-        sportTask.work();
+
     }
 
     @Override
@@ -92,6 +88,43 @@ public class HomeFragment extends BaseFragment {
                             totalStep = totalStep + step;
                         }
                         LogDataUtils.logData(TAG, totalStep + "");
+                        xiaoMiStep.setMyFootNum(totalStep);
+                    }
+
+                    break;
+
+                case BleCallBack.TASK_FAILED:
+                    LogDataUtils.logData(TAG, "TASK_FAILED");
+                    break;
+            }
+        }
+
+    };
+
+    @SuppressLint("HandlerLeak")
+    Handler sleepHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case BleCallBack.TASK_START:
+                    LogDataUtils.logData(TAG, "TASK_START");
+                    break;
+                case BleCallBack.TASK_PROGRESS:
+                    LogDataUtils.logData(TAG, "TASK_PROGRESS");
+                    break;
+
+                case BleCallBack.TASK_FINISH:
+                    LogDataUtils.logData(TAG, "TASK_FINISH");
+                    if (msg.obj != null) {
+//                        DeviceSportAndSleepData deviceSportAndSleepData = (DeviceSportAndSleepData) msg.obj;
+//                        List<DeviceSleepData> sleepDataList = deviceSportAndSleepData.syncSleepDataResult;
+//                        int totalStep = 0;
+//                        for (int i = 0; i < sleepDataList.size(); i++) {
+//                            int step = sportDataList.get(i).sportStep;
+//                            totalStep = totalStep + step;
+//                        }
+//                        LogDataUtils.logData(TAG, totalStep + "");
+//                        xiaoMiStep.setMyFootNum(totalStep);
                     }
 
                     break;
@@ -105,10 +138,26 @@ public class HomeFragment extends BaseFragment {
     };
 
     BleCallBack syncStepDataCallBack = new BleCallBack(syncStepDataHandler);
+    private BleCallBack syncSleepCallBack = new BleCallBack(sleepHandler);
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         unbind.unbind();
+    }
+
+    public void connectDeviceSuccess() {
+        Date startDate = new Date();
+        Date endDate = new Date();
+        if (sportTask == null) {
+            sportTask = new BleSyncNewDeviceDataTask(mContext, syncStepDataCallBack,
+                    BraceletNewDevice.SPORT_DATA, startDate, endDate);
+        }
+        sportTask.work();
+        if(sleepTask == null){
+            sleepTask = new BleSyncNewDeviceDataTask(mContext,
+                    syncSleepCallBack,BraceletNewDevice.SLEEP_DATA,startDate,endDate);
+        }
+        sleepTask.work();
     }
 }
