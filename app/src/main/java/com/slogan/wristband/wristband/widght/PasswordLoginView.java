@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.activity.MainActivity;
 import com.slogan.wristband.wristband.activity.RegisterActivity;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
@@ -131,8 +132,14 @@ public class PasswordLoginView extends LinearLayout {
             case R.id.tv_forget_password:
                 break;
             case R.id.tv_login:
+                gotoMainActivity();
                 break;
         }
+    }
+
+    private void gotoMainActivity() {
+        Intent intent = new Intent(mContext,MainActivity.class);
+        mContext.startActivity(intent);
     }
 
     public void closeKeybroad() {
