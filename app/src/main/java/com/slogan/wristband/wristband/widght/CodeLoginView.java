@@ -15,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.activity.MainActivity;
 import com.slogan.wristband.wristband.activity.RegisterActivity;
+import com.slogan.wristband.wristband.activity.VerifyCodeActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.utils.StringUtils;
 
@@ -120,8 +122,14 @@ public class CodeLoginView extends LinearLayout {
             case R.id.tv_verify_time:
                 break;
             case R.id.tv_login:
+                gotoMainActivity();
                 break;
         }
+    }
+
+    private void gotoMainActivity() {
+        Intent intent = new Intent(mContext,MainActivity.class);
+        mContext.startActivity(intent);
     }
 
     public void closeKeybroad() {
