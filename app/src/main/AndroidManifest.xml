@@ -64,7 +64,8 @@
             android:name="com.veclink.hw.bleservice.VLBleService"
             android:enabled="true" />
 
-        <activity android:name=".activity.BindDeviceActivity"></activity>
+        <activity android:name=".activity.BindDeviceActivity" />
+        <activity android:name=".activity.UserInfoActivity"></activity>
     </application>
 
 </manifest>
