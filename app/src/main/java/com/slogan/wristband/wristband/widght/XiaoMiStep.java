@@ -208,7 +208,7 @@ public class XiaoMiStep extends View {
         //小数点后一位
         java.text.DecimalFormat df = new java.text.DecimalFormat("#.0");
         String currentDis = df.format(currentDistance);
-        canvas.drawText(currentDis + "公里", (widthBg / 3 - 30), heightBg / 2 + 150, textPaint);
+        canvas.drawText((currentDis.equals(".0")?0:currentDis) + "公里", (widthBg / 3 - 30), heightBg / 2 + 150, textPaint);
         //中间竖线
         mPaint.setStrokeWidth(3);
         canvas.drawLine(widthBg / 2 + 10, heightBg / 2 + 120, widthBg / 2 + 10, heightBg / 2 + 155, mPaint);
