@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.utils.DisplayUtils;
 
 
 /**
@@ -154,8 +155,9 @@ public class XiaoMiStep extends View {
         }
         widthBg = width;
         heightBg = height;
-        ra_out_circle = heightBg * 1/2 - 2;
-        ra_inner_circle = heightBg * 9 / 20;
+        ra_out_circle = heightBg * 1/2 - DisplayUtils.dip2px(getContext(),5);
+//        ra_inner_circle = heightBg * 9 / 20;
+        ra_inner_circle = ra_out_circle - DisplayUtils.dip2px(getContext(),5);
         line_length = 30;
         setMeasuredDimension(width, height);
         startAnim();
@@ -177,7 +179,7 @@ public class XiaoMiStep extends View {
         canvas.drawCircle(widthBg / 2, heightBg / 2, ra_out_circle, mPaint);
         //绘制圆上的小圆点
         pointPaint.setColor(outer_dot_color);
-        pointPaint.setStrokeWidth(10);
+        pointPaint.setStrokeWidth(5);
         canvas.drawCircle((float) (widthBg / 2 + ra_out_circle * Math.cos(angle * 3.14 / 180)), (float) (heightBg / 2 + ra_out_circle * Math.sin(angle * 3.14 / 180)), 10, pointPaint);
         //画line
         drawLines(canvas);

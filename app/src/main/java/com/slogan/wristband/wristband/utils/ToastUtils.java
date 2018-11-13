@@ -3,7 +3,6 @@ package com.slogan.wristband.wristband.utils;
 import android.widget.Toast;
 
 import com.slogan.wristband.wristband.app.WristbandApplication;
-import com.veclink.hw.bleservice.MsgService;
 
 /**
  * Created by free_boy on 2018/11/2.

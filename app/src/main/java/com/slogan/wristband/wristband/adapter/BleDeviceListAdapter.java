@@ -85,9 +85,9 @@ public class BleDeviceListAdapter  extends BaseAdapter{
 			holder = (ViewHolder) contentView.getTag();
 		}
 		
-		holder.name_view.setText(device.getDevice_name());
-		holder.address_view.setText(device.getDevice_address());
-		holder.rssi_view.setText(String.valueOf(device.getDevice_rssi()));
+		holder.name_view.setText(device.getName());
+		holder.address_view.setText(device.getAddress());
+		holder.rssi_view.setText(String.valueOf(device.getRssi()));
 		return contentView;
 	}
 	

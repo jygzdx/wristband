@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.activity.base.BaseFragmentActivity;
@@ -25,6 +26,8 @@ import com.slogan.wristband.wristband.fragment.HomeFragment;
 import com.slogan.wristband.wristband.fragment.MeFragment;
 import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.utils.LogDataUtils;
+import com.slogan.wristband.wristband.utils.ToastUtils;
+import com.veclink.bracelet.bean.BluetoothDeviceBean;
 import com.veclink.bracelet.bletask.BleCallBack;
 import com.veclink.bracelet.bletask.BleRequestBindDevice;
 import com.veclink.bracelet.bletask.BleScanDeviceTask;
@@ -33,6 +36,9 @@ import com.veclink.hw.bleservice.VLBleService;
 import com.veclink.hw.bleservice.VLBleServiceManager;
 import com.veclink.hw.bleservice.profile.BraceletGattAttributes;
 import com.veclink.hw.bleservice.util.Keeper;
+import com.veclink.sdk.DeviceStateObserver;
+import com.veclink.sdk.ScanDeviceListener;
+import com.veclink.sdk.VeclinkSDK;
 
 import java.util.AbstractSequentialList;
 import java.util.ArrayList;
@@ -66,29 +72,53 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        if(Keeper.getUserHasBindBand(WristbandApplication.getInstance())){
-            VLBleServiceManager.setAutoReConnect(true);
-            VLBleServiceManager.getInstance().bindService(WristbandApplication.getInstance());
-        }
+VeclinkSDK.getInstance().registerDeviceStateObserver(deviceStateObserver);
         initHandler();
         initWidget();
-        initReciver();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(!Keeper.getUserHasBindBand(WristbandApplication.getInstance())){
-            Intent intent = new Intent(mContext,BindDeviceActivity.class);
+        if(!VeclinkSDK.getInstance().isHasBindDevice()){
+            Intent intent = new Intent(MainActivity.this,BindDeviceActivity.class);
             startActivity(intent);
         }
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        VLBleServiceManager.getInstance().unBindService(WristbandApplication.getInstance());
+        VeclinkSDK.getInstance().unregisterDeviceStateObserver(deviceStateObserver);
     }
+
+    private DeviceStateObserver deviceStateObserver = new DeviceStateObserver() {
+        @Override
+        public void connecting() {
+            Logger.d("connecting");
+        }
+
+        @Override
+        public void connected() {
+            Logger.d("connected");
+            if(!VeclinkSDK.getInstance().isHasBindDevice()){
+                Intent intent = new Intent(MainActivity.this,BindDeviceActivity.class);
+                startActivity(intent);
+            }
+        }
+
+        @Override
+        public void disConnected() {
+            Logger.d("disConnected");
+            VeclinkSDK.getInstance().reConnectDevice();
+        }
+
+        @Override
+        public void blueToothClose() {
+            Logger.d("blueToothClose");
+            ToastUtils.showToast("请打开蓝牙");
+        }
+    };
 
 
     @Override
@@ -112,44 +142,7 @@ public class MainActivity extends BaseFragmentActivity {
         super.handleMessageInfo(msg);
     }
 
-    private void initReciver(){
-        intentFilter.addAction(VLBleService.ACTION_GATT_SERVICES_DISCOVERED);
-        intentFilter.addAction(VLBleService.ACTION_GATT_CONNECTED);
-        intentFilter.addAction(VLBleService.ACTION_GATT_DISCONNECTED);
-        intentFilter.addAction(VLBleService.ACTION_SHORT_SPORT_DATA);
-        intentFilter.addAction(VLBleService.ACTION_POWER_CHANGE_DATA);
-        registerReceiver(getdeviceMessageReceiver, intentFilter);
-    }
-    IntentFilter intentFilter = new IntentFilter();
     private static final String TAG = "MainActivity";
-    BroadcastReceiver getdeviceMessageReceiver = new BroadcastReceiver(){
-
-        @Override
-        public void onReceive(Context arg0, Intent intent) {
-            String action = intent.getAction();
-            if(action.equals(VLBleService.ACTION_GATT_SERVICES_DISCOVERED)){
-//                connectHandler.sendEmptyMessage(DEVICE_SERVERDISCOVER);
-                LogDataUtils.logData(TAG,"ACTION_GATT_SERVICES_DISCOVERED");
-            }else if(action.equals(VLBleService.ACTION_GATT_DISCONNECTED)){
-//                connectHandler.sendEmptyMessage(DEVICE_DISCONNECTED);
-                LogDataUtils.logData(TAG,"ACTION_GATT_DISCONNECTED");
-            }else if(action.equals(VLBleService.ACTION_GATT_CONNECTED)){
-//                connectHandler.sendEmptyMessage(DEVICE_CONNECTED);
-                LogDataUtils.logData(TAG,"ACTION_GATT_CONNECTED");
-                homeFragment.connectDeviceSuccess();
-            }else if(action.equals(VLBleService.ACTION_SHORT_SPORT_DATA)){
-//                int sportSteps = intent.getIntExtra(VLBleService.EXTRA_DATA, 0);
-//                showMsgView.setText(getString(R.string.today_step,sportSteps));
-                LogDataUtils.logData(TAG,"ACTION_SHORT_SPORT_DATA");
-            }else if(action.equals(VLBleService.ACTION_POWER_CHANGE_DATA)){
-//                int powerValue = intent.getIntExtra(VLBleService.EXTRA_DATA, 0);
-//                showMsgView.setText(getString(R.string.power_value,powerValue));
-                LogDataUtils.logData(TAG,"ACTION_POWER_CHANGE_DATA");
-            }
-
-        }
-
-    };
 
     @OnClick({R.id.home_tab_img, R.id.find_tab_img, R.id.me_tab_img})
     public void onViewClicked(View view) {

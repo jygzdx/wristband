@@ -37,6 +37,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'pinyindb/pinyin_mapping.xml'
+        exclude 'pinyindb/pinyin_gwoyeu_mapping.xml'
+        exclude 'pinyindb/unicode_to_hanyu_pinyin.txt'
+    }
 }
 
 dependencies {
