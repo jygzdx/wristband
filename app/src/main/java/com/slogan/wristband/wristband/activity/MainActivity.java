@@ -78,6 +78,8 @@ VeclinkSDK.getInstance().registerDeviceStateObserver(deviceStateObserver);
         if(!VeclinkSDK.getInstance().isHasBindDevice()){
             Intent intent = new Intent(MainActivity.this,BindDeviceActivity.class);
             startActivity(intent);
+        }else{
+
         }
     }
 

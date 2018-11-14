@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.widght.TimeView;
@@ -80,6 +81,87 @@ public class HomeFragment extends BaseFragment {
     private void refreshData() {
         refreshSport();
         refreshSleep();
+        refreshHeartRate();
+        refreshBloodPressure();
+        refreshBloodOxygen();
+    }
+
+    /**
+     * 血氧
+     */
+    private void refreshBloodOxygen() {
+        long startTimeInmills  =  Calendar.getInstance().getTimeInMillis()-12*60*60*1000;
+        long endTimeInMills  =  Calendar.getInstance().getTimeInMillis();
+        VeclinkSDK.getInstance().syncBloodOxygenData(startTimeInmills,  endTimeInMills,  new BleProgressCallback()  {
+            @Override
+            public  void  onProgress(Object  progress)  {
+                Logger.d("refreshBloodOxygen--onProgress" + progress);
+            }
+            @Override
+            public  void  onStart(Object  startObject)  {
+                Logger.d("refreshBloodOxygen--onStart");
+            }
+            @Override
+            public  void  onFailed(Object  error)  {
+                Logger.d("refreshBloodOxygen--onFailed");
+            }
+            @Override
+            public  void  onFinish(Object  result)  {
+                Logger.d("refreshBloodOxygen--onFinish" + new Gson().toJson((BleDeviceData)result));
+            }
+        });
+    }
+
+    /**
+     * 血压
+     */
+    private void refreshBloodPressure() {
+        long startTimeInmills  =  Calendar.getInstance().getTimeInMillis()-12*60*60*1000;
+        long endTimeInMills  =  Calendar.getInstance().getTimeInMillis();
+        VeclinkSDK.getInstance().syncBloodPressData(startTimeInmills,  endTimeInMills,  new BleProgressCallback()  {
+            @Override
+            public  void  onProgress(Object  progress)  {
+                Logger.d("refreshBloodPressure--onProgress" + progress);
+            }
+            @Override
+            public  void  onStart(Object  startObject)  {
+                Logger.d("refreshBloodPressure--onStart");
+            }
+            @Override
+            public  void  onFailed(Object  error)  {
+                Logger.d("refreshBloodPressure--onFailed");
+            }
+            @Override
+            public  void  onFinish(Object  result)  {
+                Logger.d("refreshBloodPressure--onFinish" + new Gson().toJson((BleDeviceData)result));
+            }
+        });
+    }
+
+    /**
+     * 心率
+     */
+    private void refreshHeartRate() {
+        long startTimeInmills  =  Calendar.getInstance().getTimeInMillis()-12*60*60*1000;
+        long endTimeInMills  =  Calendar.getInstance().getTimeInMillis();
+        VeclinkSDK.getInstance().syncHeartRateData(startTimeInmills,  endTimeInMills,  new BleProgressCallback()  {
+            @Override
+            public  void  onProgress(Object  progress)  {
+                Logger.d("refreshHeartRate--onProgress" + progress);
+            }
+            @Override
+            public  void  onStart(Object  startObject)  {
+                Logger.d("refreshHeartRate--onStart");
+            }
+            @Override
+            public  void  onFailed(Object  error)  {
+                Logger.d("refreshHeartRate--onFailed");
+            }
+            @Override
+            public  void  onFinish(Object  result)  {
+                Logger.d("refreshHeartRate--onFinish" + new Gson().toJson((BleDeviceData)result));
+            }
+        });
     }
 
     private void refreshSleep() {
@@ -103,7 +185,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onFinish(Object result) {
-                Logger.d("refreshSleep--onFinish");
+                Logger.d("refreshSleep--onFinish"+new Gson().toJson((BleDeviceData)result));
                 BleDeviceData deviceData = (BleDeviceData) result;
                 List<DeviceSleepData> sleepData = deviceData.syncSleepDataResult;
                 refreshSleepUi(sleepData);
@@ -116,7 +198,7 @@ public class HomeFragment extends BaseFragment {
         int total = 0;
         for (int i = 0; i < size; i++) {
             DeviceSleepData data = sleepData.get(i);
-            total = total + data.startTime;
+            total = total + data.sleepDuration;
         }
         tvTotalSleepTime.setTime(total/60,total%60);
     }
