@@ -91,7 +91,7 @@ public class HomeFragment extends BaseFragment {
      * 血氧
      */
     private void refreshBloodOxygen() {
-        long startTimeInmills = Calendar.getInstance().getTimeInMillis() - 12 * 60 * 60 * 1000;
+        long startTimeInmills = Calendar.getInstance().getTimeInMillis();
         long endTimeInMills = Calendar.getInstance().getTimeInMillis();
         VeclinkSDK.getInstance().syncBloodOxygenData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
             @Override
@@ -120,7 +120,7 @@ public class HomeFragment extends BaseFragment {
      * 血压
      */
     private void refreshBloodPressure() {
-        long startTimeInmills = Calendar.getInstance().getTimeInMillis() - 12 * 60 * 60 * 1000;
+        long startTimeInmills = Calendar.getInstance().getTimeInMillis();
         long endTimeInMills = Calendar.getInstance().getTimeInMillis();
         VeclinkSDK.getInstance().syncBloodPressData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
             @Override
@@ -149,7 +149,7 @@ public class HomeFragment extends BaseFragment {
      * 心率
      */
     private void refreshHeartRate() {
-        long startTimeInmills = Calendar.getInstance().getTimeInMillis() - 12 * 60 * 60 * 1000;
+        long startTimeInmills = Calendar.getInstance().getTimeInMillis();
         long endTimeInMills = Calendar.getInstance().getTimeInMillis();
         VeclinkSDK.getInstance().syncHeartRateData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
             @Override
