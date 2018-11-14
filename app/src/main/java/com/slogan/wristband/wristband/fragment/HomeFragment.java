@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -90,24 +91,27 @@ public class HomeFragment extends BaseFragment {
      * 血氧
      */
     private void refreshBloodOxygen() {
-        long startTimeInmills  =  Calendar.getInstance().getTimeInMillis()-12*60*60*1000;
-        long endTimeInMills  =  Calendar.getInstance().getTimeInMillis();
-        VeclinkSDK.getInstance().syncBloodOxygenData(startTimeInmills,  endTimeInMills,  new BleProgressCallback()  {
+        long startTimeInmills = Calendar.getInstance().getTimeInMillis() - 12 * 60 * 60 * 1000;
+        long endTimeInMills = Calendar.getInstance().getTimeInMillis();
+        VeclinkSDK.getInstance().syncBloodOxygenData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
             @Override
-            public  void  onProgress(Object  progress)  {
+            public void onProgress(Object progress) {
                 Logger.d("refreshBloodOxygen--onProgress" + progress);
             }
+
             @Override
-            public  void  onStart(Object  startObject)  {
+            public void onStart(Object startObject) {
                 Logger.d("refreshBloodOxygen--onStart");
             }
+
             @Override
-            public  void  onFailed(Object  error)  {
+            public void onFailed(Object error) {
                 Logger.d("refreshBloodOxygen--onFailed");
             }
+
             @Override
-            public  void  onFinish(Object  result)  {
-                Logger.d("refreshBloodOxygen--onFinish" + new Gson().toJson((BleDeviceData)result));
+            public void onFinish(Object result) {
+                Logger.d("refreshBloodOxygen--onFinish" + new Gson().toJson((BleDeviceData) result));
             }
         });
     }
@@ -116,24 +120,27 @@ public class HomeFragment extends BaseFragment {
      * 血压
      */
     private void refreshBloodPressure() {
-        long startTimeInmills  =  Calendar.getInstance().getTimeInMillis()-12*60*60*1000;
-        long endTimeInMills  =  Calendar.getInstance().getTimeInMillis();
-        VeclinkSDK.getInstance().syncBloodPressData(startTimeInmills,  endTimeInMills,  new BleProgressCallback()  {
+        long startTimeInmills = Calendar.getInstance().getTimeInMillis() - 12 * 60 * 60 * 1000;
+        long endTimeInMills = Calendar.getInstance().getTimeInMillis();
+        VeclinkSDK.getInstance().syncBloodPressData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
             @Override
-            public  void  onProgress(Object  progress)  {
+            public void onProgress(Object progress) {
                 Logger.d("refreshBloodPressure--onProgress" + progress);
             }
+
             @Override
-            public  void  onStart(Object  startObject)  {
+            public void onStart(Object startObject) {
                 Logger.d("refreshBloodPressure--onStart");
             }
+
             @Override
-            public  void  onFailed(Object  error)  {
+            public void onFailed(Object error) {
                 Logger.d("refreshBloodPressure--onFailed");
             }
+
             @Override
-            public  void  onFinish(Object  result)  {
-                Logger.d("refreshBloodPressure--onFinish" + new Gson().toJson((BleDeviceData)result));
+            public void onFinish(Object result) {
+                Logger.d("refreshBloodPressure--onFinish" + new Gson().toJson((BleDeviceData) result));
             }
         });
     }
@@ -142,24 +149,27 @@ public class HomeFragment extends BaseFragment {
      * 心率
      */
     private void refreshHeartRate() {
-        long startTimeInmills  =  Calendar.getInstance().getTimeInMillis()-12*60*60*1000;
-        long endTimeInMills  =  Calendar.getInstance().getTimeInMillis();
-        VeclinkSDK.getInstance().syncHeartRateData(startTimeInmills,  endTimeInMills,  new BleProgressCallback()  {
+        long startTimeInmills = Calendar.getInstance().getTimeInMillis() - 12 * 60 * 60 * 1000;
+        long endTimeInMills = Calendar.getInstance().getTimeInMillis();
+        VeclinkSDK.getInstance().syncHeartRateData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
             @Override
-            public  void  onProgress(Object  progress)  {
+            public void onProgress(Object progress) {
                 Logger.d("refreshHeartRate--onProgress" + progress);
             }
+
             @Override
-            public  void  onStart(Object  startObject)  {
+            public void onStart(Object startObject) {
                 Logger.d("refreshHeartRate--onStart");
             }
+
             @Override
-            public  void  onFailed(Object  error)  {
+            public void onFailed(Object error) {
                 Logger.d("refreshHeartRate--onFailed");
             }
+
             @Override
-            public  void  onFinish(Object  result)  {
-                Logger.d("refreshHeartRate--onFinish" + new Gson().toJson((BleDeviceData)result));
+            public void onFinish(Object result) {
+                Logger.d("refreshHeartRate--onFinish" + new Gson().toJson((BleDeviceData) result));
             }
         });
     }
@@ -185,7 +195,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onFinish(Object result) {
-                Logger.d("refreshSleep--onFinish"+new Gson().toJson((BleDeviceData)result));
+                Logger.d("refreshSleep--onFinish" + new Gson().toJson((BleDeviceData) result));
                 BleDeviceData deviceData = (BleDeviceData) result;
                 List<DeviceSleepData> sleepData = deviceData.syncSleepDataResult;
                 refreshSleepUi(sleepData);
@@ -200,7 +210,7 @@ public class HomeFragment extends BaseFragment {
             DeviceSleepData data = sleepData.get(i);
             total = total + data.sleepDuration;
         }
-        tvTotalSleepTime.setTime(total/60,total%60);
+        tvTotalSleepTime.setTime(total / 60, total % 60);
     }
 
     private void refreshSport() {
@@ -269,5 +279,19 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick({R.id.ll_heart_rate, R.id.ll_blood_pressure, R.id.ll_blood_oxygen, R.id.ll_most_arrive})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_heart_rate:
+                break;
+            case R.id.ll_blood_pressure:
+                break;
+            case R.id.ll_blood_oxygen:
+                break;
+            case R.id.ll_most_arrive:
+                break;
+        }
     }
 }

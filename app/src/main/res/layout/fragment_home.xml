@@ -208,6 +208,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/ll_heart_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -262,6 +263,7 @@
                 android:background="#FFF8F8F8"
                 />
             <LinearLayout
+                android:id="@+id/ll_blood_pressure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -319,6 +321,7 @@
                 android:background="#FFF8F8F8"
                 />
             <LinearLayout
+                android:id="@+id/ll_blood_oxygen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -373,6 +376,7 @@
                 android:background="#FFF8F8F8"
                 />
             <LinearLayout
+                android:id="@+id/ll_most_arrive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

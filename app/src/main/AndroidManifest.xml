@@ -10,10 +10,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission  android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
-    <uses-permission  android:name="android.permission.READ_EXTERNAL_STORAGE"  />
-    <uses-permission  android:name="android.permission.ACCESS_COARSE_LOCATION"  />
-    <uses-permission  android:name="android.permission.ACCESS_FINE_LOCATION"  />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".app.WristbandApplication"
         android:allowBackup="true"
@@ -22,31 +23,33 @@
         android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service
-            android:name="com.veclink.hw.bleservice.VLBleService" android:enabled="true">
-            <intent-filter  android:priority="1000">
-                <action  android:name="com.veclink.hw.bleservice.VLBleServic"/>
+            android:name="com.veclink.hw.bleservice.VLBleService"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="com.veclink.hw.bleservice.VLBleServic" />
             </intent-filter>
         </service>
         <service
-            android:name="com.veclink.healthy.photo.RecordService" android:enabled="true"/>
+            android:name="com.veclink.healthy.photo.RecordService"
+            android:enabled="true" />
 
-        <!--CySmartOta  这段配置仅为芯片为赛普拉丝芯片 ota 使用，如果设备不是此芯片可以不配置 -->
+        <!-- CySmartOta  这段配置仅为芯片为赛普拉丝芯片 ota 使用，如果设备不是此芯片可以不配置 -->
         <service
-
-            android:name="com.cypress.cysmart.BLEConnectionServices.BluetoothLeService" android:enabled="true"  />
+            android:name="com.cypress.cysmart.BLEConnectionServices.BluetoothLeService"
+            android:enabled="true" />
 
         <receiver android:name="com.cypress.cysmart.OTAFirmwareUpdate.OTAResponseReceiver">
             <intent-filter>
-                <action android:name="com.cysmart.bluetooth.le.ACTION_OTA_DATA_AVAILABLE"  />
+                <action android:name="com.cysmart.bluetooth.le.ACTION_OTA_DATA_AVAILABLE" />
             </intent-filter>
         </receiver>
-        <receiver  android:name="com.cypress.cysmart.BLEStatusReceiver">
-        <intent-filter>
-        <action android:name="com.veclink.bluetooth.ACTION_GATT_DISCONNECTED"  />
-        </intent-filter>
+        <receiver android:name="com.cypress.cysmart.BLEStatusReceiver">
+            <intent-filter>
+                <action android:name="com.veclink.bluetooth.ACTION_GATT_DISCONNECTED" />
+            </intent-filter>
         </receiver>
+
         <activity
             android:name=".activity.SplashActivity"
             android:alwaysRetainTaskState="true"
@@ -69,9 +72,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name"
@@ -88,9 +89,9 @@
             android:name=".activity.VerifyCodeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-
         <activity android:name=".activity.BindDeviceActivity" />
-        <activity android:name=".activity.UserInfoActivity"></activity>
+        <activity android:name=".activity.UserInfoActivity" />
+        <activity android:name=".activity.HeartRateActivity"></activity>
     </application>
 
 </manifest>
