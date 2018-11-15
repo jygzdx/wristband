@@ -10,11 +10,17 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.utils.CommTool;
+import com.slogan.wristband.wristband.utils.ToastUtils;
 import com.slogan.wristband.wristband.widght.TimeView;
 import com.slogan.wristband.wristband.widght.XiaoMiStep;
 import com.veclink.bracelet.bean.BleDeviceData;
+import com.veclink.bracelet.bean.BloodOxygenBean;
+import com.veclink.bracelet.bean.BloodOxygenData;
+import com.veclink.bracelet.bean.BloodPressBean;
 import com.veclink.bracelet.bean.DeviceSleepData;
 import com.veclink.bracelet.bean.DeviceSportData;
+import com.veclink.bracelet.bean.HeartRateBean;
 import com.veclink.bracelet.bletask.BleProgressCallback;
 import com.veclink.sdk.VeclinkSDK;
 
@@ -93,7 +99,7 @@ public class HomeFragment extends BaseFragment {
     private void refreshBloodOxygen() {
         long startTimeInmills = Calendar.getInstance().getTimeInMillis();
         long endTimeInMills = Calendar.getInstance().getTimeInMillis();
-        VeclinkSDK.getInstance().syncBloodOxygenData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
+        VeclinkSDK.getInstance().syncBloodOxygenData( new BleProgressCallback() {
             @Override
             public void onProgress(Object progress) {
                 Logger.d("refreshBloodOxygen--onProgress" + progress);
@@ -107,11 +113,20 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onFailed(Object error) {
                 Logger.d("refreshBloodOxygen--onFailed");
+//                ToastUtils.showToast("查询血氧数据出错");
             }
 
             @Override
             public void onFinish(Object result) {
                 Logger.d("refreshBloodOxygen--onFinish" + new Gson().toJson((BleDeviceData) result));
+                BleDeviceData deviceData = (BleDeviceData) result;
+                List<BloodOxygenBean> bloodOxygenData = deviceData.syncBloodOxygenDataResult;
+                int size = bloodOxygenData.size();
+                if(size>0){
+                    BloodOxygenBean bean = bloodOxygenData.get(0);
+                    tvBloodOxygenTime.setText(CommTool.getHearRateTime(bean.getDate()+"",bean.getMinute()));
+                    bloodOxygenNum.setOneCount(bean.getBloodOxygen(),"%");
+                }
             }
         });
     }
@@ -122,7 +137,7 @@ public class HomeFragment extends BaseFragment {
     private void refreshBloodPressure() {
         long startTimeInmills = Calendar.getInstance().getTimeInMillis();
         long endTimeInMills = Calendar.getInstance().getTimeInMillis();
-        VeclinkSDK.getInstance().syncBloodPressData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
+        VeclinkSDK.getInstance().syncBloodPressData(new BleProgressCallback() {
             @Override
             public void onProgress(Object progress) {
                 Logger.d("refreshBloodPressure--onProgress" + progress);
@@ -136,11 +151,20 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onFailed(Object error) {
                 Logger.d("refreshBloodPressure--onFailed");
+//                ToastUtils.showToast("查询血压数据出错");
             }
 
             @Override
             public void onFinish(Object result) {
                 Logger.d("refreshBloodPressure--onFinish" + new Gson().toJson((BleDeviceData) result));
+                BleDeviceData deviceData = (BleDeviceData) result;
+                List<BloodPressBean> bloodPressBeans = deviceData.syncBloodPressDataResult;
+                int size = bloodPressBeans.size();
+                if(size>0){
+                    BloodPressBean bean = bloodPressBeans.get(0);
+                    tvBloodPressureTime.setText(CommTool.getBloodPressTime(bean.getDate()+""));
+                    tvBloodPressureNum.setText(bean.getHightpress()+"/"+bean.getLowpress());
+                }
             }
         });
     }
@@ -151,7 +175,7 @@ public class HomeFragment extends BaseFragment {
     private void refreshHeartRate() {
         long startTimeInmills = Calendar.getInstance().getTimeInMillis();
         long endTimeInMills = Calendar.getInstance().getTimeInMillis();
-        VeclinkSDK.getInstance().syncHeartRateData(startTimeInmills, endTimeInMills, new BleProgressCallback() {
+        VeclinkSDK.getInstance().syncAllHeartRateData(new BleProgressCallback() {
             @Override
             public void onProgress(Object progress) {
                 Logger.d("refreshHeartRate--onProgress" + progress);
@@ -165,11 +189,20 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onFailed(Object error) {
                 Logger.d("refreshHeartRate--onFailed");
+//                ToastUtils.showToast("查询心率数据出错");
             }
 
             @Override
             public void onFinish(Object result) {
                 Logger.d("refreshHeartRate--onFinish" + new Gson().toJson((BleDeviceData) result));
+                BleDeviceData deviceData = (BleDeviceData) result;
+                List<HeartRateBean> heartRateBeans = deviceData.syncHeartRateDataResult;
+                int size = heartRateBeans.size();
+                if(size>0){
+                    HeartRateBean bean = heartRateBeans.get(0);
+                    tvHeartRateTime.setText(CommTool.getHearRateTime(bean.getDate()+"",bean.getMinute()));
+                    heartRateNum.setOneCount(bean.getHeartRate(),"次/分");
+                }
             }
         });
     }
@@ -209,6 +242,15 @@ public class HomeFragment extends BaseFragment {
         for (int i = 0; i < size; i++) {
             DeviceSleepData data = sleepData.get(i);
             total = total + data.sleepDuration;
+            int status = data.sleepState;
+            int duration = data.sleepDuration;
+            if(status<=1){
+                timeDeepSleep.setTime(duration/60,duration%60);
+            }else if(status>1&&status<=3){
+                timeLightSleep.setTime(duration/60,duration%60);
+            }else{
+                timeClearSleep.setTime(duration/60,duration%60);
+            }
         }
         tvTotalSleepTime.setTime(total / 60, total % 60);
     }

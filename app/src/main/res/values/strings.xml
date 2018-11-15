@@ -4,5 +4,8 @@
     <string name="main_tab_home">状态</string>
     <string name="main_tab_find">发现</string>
     <string name="main_tab_me">我的</string>
-
+    <string name="sleep_tag_info">详细数据</string>
+    <string name="sleep_tag_day">日视图</string>
+    <string name="sleep_tag_week">周视图</string>
+    <string name="sleep_tag_month">月视图</string>
 </resources>

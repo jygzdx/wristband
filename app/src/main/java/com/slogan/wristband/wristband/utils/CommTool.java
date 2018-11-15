@@ -64,7 +64,27 @@ public class CommTool {
         return s;
     }
 
+    public static String getHearRateTime(String data ,int minute){
+        String s = "";
+        String month = data.substring(4,6);
+        String day = data.substring(6,8);
+        int hour = minute/60;
+        int m = minute%60;
+        s = month +"月"+day+"日 "+hour+":"+m;
+        return s;
+    }
 
+    /**
+     * 血压时间
+     * @return
+     */
+    public static String getBloodPressTime(String data){
+        String s = "";
+        String month = data.substring(4,6);
+        String day = data.substring(6,8);
+        s = month +"月"+day+"日";
+        return s;
+    }
 
 
     public static List<Activity> activities;

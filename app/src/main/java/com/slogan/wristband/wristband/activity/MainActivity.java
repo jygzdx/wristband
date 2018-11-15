@@ -112,6 +112,7 @@ VeclinkSDK.getInstance().registerDeviceStateObserver(deviceStateObserver);
         @Override
         public void disConnected() {
             Logger.d("disConnected");
+            ToastUtils.showToast("蓝牙断开连接，请检查手机蓝牙是否打开");
             VeclinkSDK.getInstance().reConnectDevice();
         }
 
