@@ -37,7 +37,9 @@ import com.veclink.hw.bleservice.VLBleServiceManager;
 import com.veclink.hw.bleservice.profile.BraceletGattAttributes;
 import com.veclink.hw.bleservice.util.Keeper;
 import com.veclink.sdk.DeviceStateObserver;
+import com.veclink.sdk.RssiListener;
 import com.veclink.sdk.ScanDeviceListener;
+import com.veclink.sdk.SittingRemindObserver;
 import com.veclink.sdk.VeclinkSDK;
 
 import java.util.AbstractSequentialList;
@@ -48,7 +50,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity implements RssiListener {
 
     @BindView(R.id.tab_content)
     FrameLayout tabContent;
@@ -73,6 +75,8 @@ public class MainActivity extends BaseFragmentActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 VeclinkSDK.getInstance().registerDeviceStateObserver(deviceStateObserver);
+VeclinkSDK.getInstance().registerSittingRemindObserver(sittingRemindObserver);
+VeclinkSDK.getInstance().getRssi(this);
         initHandler();
         initWidget();
         if(!VeclinkSDK.getInstance().isHasBindDevice()){
@@ -92,7 +96,15 @@ VeclinkSDK.getInstance().registerDeviceStateObserver(deviceStateObserver);
     protected void onDestroy() {
         super.onDestroy();
         VeclinkSDK.getInstance().unregisterDeviceStateObserver(deviceStateObserver);
+        VeclinkSDK.getInstance().unregisterSittingRemindObserver(sittingRemindObserver);
     }
+
+    private SittingRemindObserver sittingRemindObserver = new SittingRemindObserver() {
+        @Override
+        public void onReceiveSittingRemind() {
+            Logger.d("onReceiveSittingRemind");
+        }
+    };
 
     private DeviceStateObserver deviceStateObserver = new DeviceStateObserver() {
         @Override
@@ -229,4 +241,8 @@ VeclinkSDK.getInstance().registerDeviceStateObserver(deviceStateObserver);
         }
     }
 
+    @Override
+    public void rssiChange(int i) {
+        Logger.d("rssiChange"+i);
+    }
 }

@@ -1,26 +1,29 @@
 package com.slogan.wristband.wristband.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.activity.HeartRateActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
-import com.slogan.wristband.wristband.utils.ToastUtils;
 import com.slogan.wristband.wristband.widght.TimeView;
 import com.slogan.wristband.wristband.widght.XiaoMiStep;
 import com.veclink.bracelet.bean.BleDeviceData;
+import com.veclink.bracelet.bean.BleLongSittingRemindParam;
 import com.veclink.bracelet.bean.BloodOxygenBean;
-import com.veclink.bracelet.bean.BloodOxygenData;
 import com.veclink.bracelet.bean.BloodPressBean;
 import com.veclink.bracelet.bean.DeviceSleepData;
 import com.veclink.bracelet.bean.DeviceSportData;
 import com.veclink.bracelet.bean.HeartRateBean;
+import com.veclink.bracelet.bletask.BleCallBack;
 import com.veclink.bracelet.bletask.BleProgressCallback;
 import com.veclink.sdk.VeclinkSDK;
 
@@ -66,6 +69,14 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.arrive_count_day)
     TimeView arriveCountDay;
     Unbinder unbinder;
+    @BindView(R.id.ll_heart_rate)
+    LinearLayout llHeartRate;
+    @BindView(R.id.ll_blood_pressure)
+    LinearLayout llBloodPressure;
+    @BindView(R.id.ll_blood_oxygen)
+    LinearLayout llBloodOxygen;
+    @BindView(R.id.ll_most_arrive)
+    LinearLayout llMostArrive;
     private Unbinder unbind;
 
     @Override
@@ -91,6 +102,32 @@ public class HomeFragment extends BaseFragment {
         refreshHeartRate();
         refreshBloodPressure();
         refreshBloodOxygen();
+        setLongSeatRemind();
+    }
+
+    private void setLongSeatRemind() {
+        BleLongSittingRemindParam bleLongSittingRemindParam = new BleLongSittingRemindParam(0, 10, 9, 20, 22, 10, BleLongSittingRemindParam.OPEN_REMIND);
+        // bleLongSittingRemindParam.openflag = BleLongSittingRemindParam.OPEN_REMIND;
+        // 设置为 OPEN_RMIND 表示打开久坐提醒
+        // bleLongSittingRemindParam.openflag = BleLongSittingRemindParam.CLOSE_REMIND;
+        // 设置为CLOSE_REMIND表示关闭久坐提醒
+        VeclinkSDK.getInstance().setLongSittingRemind(new BleCallBack() {
+            @Override
+            public void onStart(Object o) {
+                Logger.d("setLongSeatRemind--onStart" + o.toString());
+            }
+
+            @Override
+            public void onFailed(Object o) {
+                Logger.d("setLongSeatRemind--onFailed" + o.toString());
+            }
+
+            @Override
+            public void onFinish(Object o) {
+                Logger.d("setLongSeatRemind--onFinish" + o.toString());
+            }
+        }, bleLongSittingRemindParam);
+
     }
 
     /**
@@ -99,7 +136,7 @@ public class HomeFragment extends BaseFragment {
     private void refreshBloodOxygen() {
         long startTimeInmills = Calendar.getInstance().getTimeInMillis();
         long endTimeInMills = Calendar.getInstance().getTimeInMillis();
-        VeclinkSDK.getInstance().syncBloodOxygenData( new BleProgressCallback() {
+        VeclinkSDK.getInstance().syncBloodOxygenData(new BleProgressCallback() {
             @Override
             public void onProgress(Object progress) {
                 Logger.d("refreshBloodOxygen--onProgress" + progress);
@@ -122,10 +159,10 @@ public class HomeFragment extends BaseFragment {
                 BleDeviceData deviceData = (BleDeviceData) result;
                 List<BloodOxygenBean> bloodOxygenData = deviceData.syncBloodOxygenDataResult;
                 int size = bloodOxygenData.size();
-                if(size>0){
+                if (size > 0) {
                     BloodOxygenBean bean = bloodOxygenData.get(0);
-                    tvBloodOxygenTime.setText(CommTool.getHearRateTime(bean.getDate()+"",bean.getMinute()));
-                    bloodOxygenNum.setOneCount(bean.getBloodOxygen(),"%");
+                    tvBloodOxygenTime.setText(CommTool.getHearRateTime(bean.getDate() + "", bean.getMinute()));
+                    bloodOxygenNum.setOneCount(bean.getBloodOxygen(), "%");
                 }
             }
         });
@@ -160,10 +197,10 @@ public class HomeFragment extends BaseFragment {
                 BleDeviceData deviceData = (BleDeviceData) result;
                 List<BloodPressBean> bloodPressBeans = deviceData.syncBloodPressDataResult;
                 int size = bloodPressBeans.size();
-                if(size>0){
+                if (size > 0) {
                     BloodPressBean bean = bloodPressBeans.get(0);
-                    tvBloodPressureTime.setText(CommTool.getBloodPressTime(bean.getDate()+""));
-                    tvBloodPressureNum.setText(bean.getHightpress()+"/"+bean.getLowpress());
+                    tvBloodPressureTime.setText(CommTool.getBloodPressTime(bean.getDate() + ""));
+                    tvBloodPressureNum.setText(bean.getHightpress() + "/" + bean.getLowpress());
                 }
             }
         });
@@ -198,10 +235,10 @@ public class HomeFragment extends BaseFragment {
                 BleDeviceData deviceData = (BleDeviceData) result;
                 List<HeartRateBean> heartRateBeans = deviceData.syncHeartRateDataResult;
                 int size = heartRateBeans.size();
-                if(size>0){
+                if (size > 0) {
                     HeartRateBean bean = heartRateBeans.get(0);
-                    tvHeartRateTime.setText(CommTool.getHearRateTime(bean.getDate()+"",bean.getMinute()));
-                    heartRateNum.setOneCount(bean.getHeartRate(),"次/分");
+                    tvHeartRateTime.setText(CommTool.getHearRateTime(bean.getDate() + "", bean.getMinute()));
+                    heartRateNum.setOneCount(bean.getHeartRate(), "次/分");
                 }
             }
         });
@@ -239,19 +276,26 @@ public class HomeFragment extends BaseFragment {
     private void refreshSleepUi(List<DeviceSleepData> sleepData) {
         int size = sleepData.size();
         int total = 0;
+        int deepDuration = 0;
+        int lightDuration = 0;
+        int clearDuration = 0;
         for (int i = 0; i < size; i++) {
             DeviceSleepData data = sleepData.get(i);
             total = total + data.sleepDuration;
             int status = data.sleepState;
             int duration = data.sleepDuration;
-            if(status<=1){
-                timeDeepSleep.setTime(duration/60,duration%60);
-            }else if(status>1&&status<=3){
-                timeLightSleep.setTime(duration/60,duration%60);
-            }else{
-                timeClearSleep.setTime(duration/60,duration%60);
+            if (status <= 1) {
+                deepDuration = deepDuration + duration;
+            } else if (status > 1 && status <= 3) {
+                lightDuration = lightDuration + duration;
+            } else {
+                clearDuration = clearDuration + duration;
             }
         }
+        timeDeepSleep.setTime(deepDuration / 60, deepDuration % 60);
+        timeLightSleep.setTime(lightDuration / 60, lightDuration % 60);
+        timeClearSleep.setTime(clearDuration / 60, clearDuration % 60);
+
         tvTotalSleepTime.setTime(total / 60, total % 60);
     }
 
@@ -323,7 +367,9 @@ public class HomeFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ll_heart_rate, R.id.ll_blood_pressure, R.id.ll_blood_oxygen, R.id.ll_most_arrive})
+    @OnClick({R.id.ll_heart_rate, R.id.ll_blood_pressure, R.id.ll_blood_oxygen, R.id.ll_most_arrive,
+            R.id.ll_sleep
+    })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_heart_rate:
@@ -333,6 +379,10 @@ public class HomeFragment extends BaseFragment {
             case R.id.ll_blood_oxygen:
                 break;
             case R.id.ll_most_arrive:
+                break;
+            case R.id.ll_sleep:
+                Intent sleepIntent = new Intent(getContext(),HeartRateActivity.class);
+                startActivity(sleepIntent);
                 break;
         }
     }

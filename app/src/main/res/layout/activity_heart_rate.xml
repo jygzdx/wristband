@@ -7,9 +7,9 @@
     android:orientation="vertical"
     tools:context=".activity.HeartRateActivity">
     <include layout="@layout/include_title_bar"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -57,7 +57,8 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 >
                 <View
@@ -67,7 +68,8 @@
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="104dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     >
                     <LinearLayout
@@ -163,7 +165,8 @@
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="104dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     >
                     <LinearLayout
@@ -316,6 +319,6 @@
                     />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    <!--</ScrollView>-->
 
 </LinearLayout>

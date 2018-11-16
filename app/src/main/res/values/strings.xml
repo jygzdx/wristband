@@ -8,4 +8,16 @@
     <string name="sleep_tag_day">日视图</string>
     <string name="sleep_tag_week">周视图</string>
     <string name="sleep_tag_month">月视图</string>
+    <string name="sleep_time">全天睡眠</string>
+    <string name="deep_sleep">全天深睡</string>
+    <string name="light_sleep">全天浅睡</string>
+    <string name="yes_sleep">昨晚入睡</string>
+    <string name="day_clear_sleep">今天醒来</string>
+    <string name="clear_sleep">清醒时长</string>
+    <string name="average_sleep_time">日均睡眠</string>
+    <string name="average_deep_sleep">日均深睡</string>
+    <string name="average_light_sleep">日均浅睡</string>
+    <string name="average_yes_sleep">日均入睡</string>
+    <string name="average_day_clear_sleep">日均醒来</string>
+    <string name="average_clear_sleep">日均清醒</string>
 </resources>
