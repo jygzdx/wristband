@@ -36,6 +36,7 @@ import com.veclink.hw.devicetype.DeviceProductFactory;
 import com.veclink.hw.devicetype.pojo.BaseDeviceProduct;
 import com.veclink.sdk.BindDeviceListener;
 import com.veclink.sdk.ScanDeviceListener;
+import com.veclink.sdk.UnBindDeviceListener;
 import com.veclink.sdk.VeclinkSDK;
 
 import java.util.Calendar;
@@ -62,6 +63,18 @@ public class BindDeviceActivity extends BaseActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_bind_device);
         ButterKnife.bind(this);
 //        initReciver();
+
+//        VeclinkSDK.getInstance().unBindDevice(new UnBindDeviceListener() {
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//
+//            @Override
+//            public void onFail(String s) {
+//
+//            }
+//        });
         VeclinkSDK.getInstance().startScanDevice(scanDeviceListener);
         tvTitle.setText("绑定设备");
         ivRight.setVisibility(View.GONE);
@@ -270,7 +283,12 @@ public class BindDeviceActivity extends BaseActivity implements AdapterView.OnIt
         int  distanceUnit  =  0;
         boolean  keptOnOffblean  =  false;
         int  keptOnOff  =  keptOnOffblean==true?1:0;
-        BleUserInfoBean  bean  =  new  BleUserInfoBean(targetStep,  wearLocation, sport_mode,  sex,  age,  weight,  height,  distanceUnit,  keptOnOff);
+        int deviceLanguage = 0;
+        int callRemind = 0;
+        int messageRemind = 0;
+        int contactRemind = 0;
+        BleUserInfoBean  bean  =  new  BleUserInfoBean(targetStep,  wearLocation, sport_mode,  sex,  age,  weight,  height,  distanceUnit,
+                keptOnOff,deviceLanguage,callRemind,messageRemind,contactRemind);
         VeclinkSDK.getInstance().syncParams(bean,  new  BleCallBack()  {
             @Override
             public  void  onStart(Object  startObject)  {

@@ -24,4 +24,5 @@ public class WristbandApplication extends Application {
         veclinkSDK.init(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
     }
+
 }

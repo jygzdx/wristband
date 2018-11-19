@@ -14,6 +14,7 @@ import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.HeartRateActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
+import com.slogan.wristband.wristband.widght.SleepQualityView;
 import com.slogan.wristband.wristband.widght.TimeView;
 import com.slogan.wristband.wristband.widght.XiaoMiStep;
 import com.veclink.bracelet.bean.BleDeviceData;
@@ -77,7 +78,14 @@ public class HomeFragment extends BaseFragment {
     LinearLayout llBloodOxygen;
     @BindView(R.id.ll_most_arrive)
     LinearLayout llMostArrive;
+    @BindView(R.id.sqv_sleep)
+    SleepQualityView sqvSleep;
     private Unbinder unbind;
+    private BleDeviceData sleepData = new BleDeviceData();
+    private BleDeviceData sportData = new BleDeviceData();
+    private BleDeviceData rateData = new BleDeviceData();
+    private BleDeviceData pressureData = new BleDeviceData();
+    private BleDeviceData oxygenData = new BleDeviceData();
 
     @Override
     protected int getLayoutResId() {
@@ -106,7 +114,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void setLongSeatRemind() {
-        BleLongSittingRemindParam bleLongSittingRemindParam = new BleLongSittingRemindParam(0, 10, 9, 20, 22, 10, BleLongSittingRemindParam.OPEN_REMIND);
+        BleLongSittingRemindParam bleLongSittingRemindParam = new BleLongSittingRemindParam(0, 1000, 9, 20, 22, 10, BleLongSittingRemindParam.OPEN_REMIND);
         // bleLongSittingRemindParam.openflag = BleLongSittingRemindParam.OPEN_REMIND;
         // 设置为 OPEN_RMIND 表示打开久坐提醒
         // bleLongSittingRemindParam.openflag = BleLongSittingRemindParam.CLOSE_REMIND;
@@ -266,9 +274,10 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onFinish(Object result) {
                 Logger.d("refreshSleep--onFinish" + new Gson().toJson((BleDeviceData) result));
-                BleDeviceData deviceData = (BleDeviceData) result;
-                List<DeviceSleepData> sleepData = deviceData.syncSleepDataResult;
-                refreshSleepUi(sleepData);
+                sleepData = (BleDeviceData) result;
+
+                List<DeviceSleepData> sleeps = sleepData.syncSleepDataResult;
+                refreshSleepUi(sleeps);
             }
         });
     }
@@ -297,6 +306,8 @@ public class HomeFragment extends BaseFragment {
         timeClearSleep.setTime(clearDuration / 60, clearDuration % 60);
 
         tvTotalSleepTime.setTime(total / 60, total % 60);
+
+        sqvSleep.refreshView(sleepData);
     }
 
     private void refreshSport() {

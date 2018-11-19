@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
@@ -28,6 +29,7 @@ import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.utils.LogDataUtils;
 import com.slogan.wristband.wristband.utils.ToastUtils;
 import com.veclink.bracelet.bean.BluetoothDeviceBean;
+import com.veclink.bracelet.bean.DeviceInfo;
 import com.veclink.bracelet.bletask.BleCallBack;
 import com.veclink.bracelet.bletask.BleRequestBindDevice;
 import com.veclink.bracelet.bletask.BleScanDeviceTask;
@@ -79,6 +81,25 @@ VeclinkSDK.getInstance().registerSittingRemindObserver(sittingRemindObserver);
 VeclinkSDK.getInstance().getRssi(this);
         initHandler();
         initWidget();
+
+        VeclinkSDK.getInstance().queryFirmwareVersion(new BleCallBack() {
+            @Override
+            public void onStart(Object o) {
+                Logger.d("queryFirmwareVersion->onStart"+o.toString());
+            }
+
+            @Override
+            public void onFailed(Object o) {
+                Logger.d("queryFirmwareVersion->onFailed"+o.toString());
+            }
+
+            @Override
+            public void onFinish(Object o) {
+                Logger.d("queryFirmwareVersion->onFinish"+ new Gson().toJson((DeviceInfo) o));
+            }
+        });
+
+
         if(!VeclinkSDK.getInstance().isHasBindDevice()){
             Intent intent = new Intent(MainActivity.this,BindDeviceActivity.class);
             startActivity(intent);

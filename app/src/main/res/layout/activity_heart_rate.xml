@@ -18,13 +18,49 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="243dp"
+                android:background="#8863E2"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     >
-
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp">
+                        <TextView
+                            android:id="@+id/tv_sleep_time_top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="晚上 11:06(睡)"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="10sp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            />
+                        <TextView
+                            android:id="@+id/tv_wake_time_top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="晚上 11:06(睡)"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="10sp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            />
+                    </RelativeLayout>
+                    <com.slogan.wristband.wristband.widght.SleepQualityView
+                        android:id="@+id/sqv_sleep"
+                        android:layout_width="match_parent"
+                        android:layout_height="192dp">
+                        
+                    </com.slogan.wristband.wristband.widght.SleepQualityView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_detailed_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp"></android.support.v7.widget.RecyclerView>
                 </LinearLayout>
             </FrameLayout>
             <View

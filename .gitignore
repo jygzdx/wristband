@@ -170,3 +170,4 @@ fabric.properties
 /app/app.iml
 
 # End of https://www.gitignore.io/api/android,androidstudio
+app/libs/veclinkBleLib.aar
