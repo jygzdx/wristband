@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".activity.RegisterSuccessActivity">
+
+    <include layout="@layout/include_title_bar"/>
+    
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/png_register_success"
+        android:layout_marginTop="96dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册成功，欢迎加入华卓"
+        android:textColor="@color/text_333"
+        android:textSize="20sp"
+        android:layout_marginTop="16dp"
+        />
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="接下来请填写你的个人相关数据，以方便我们为你提供更精准的建议"
+        android:textColor="#FF4F4F4F"
+        android:textSize="14sp"
+        android:layout_marginTop="72dp"
+        />
+    
+    <TextView
+        android:id="@+id/tv_go_write_user_info"
+        android:layout_width="300dp"
+        android:layout_height="44dp"
+        android:text="GO"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/shape_register_success_bottom_bg"
+        />
+</LinearLayout>

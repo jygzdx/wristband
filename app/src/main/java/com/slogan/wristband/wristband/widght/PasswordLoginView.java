@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.MainActivity;
 import com.slogan.wristband.wristband.activity.RegisterActivity;
+import com.slogan.wristband.wristband.activity.RegisterSuccessActivity;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.utils.StringUtils;
@@ -130,6 +131,8 @@ public class PasswordLoginView extends LinearLayout {
                 mContext.startActivity(register);
                 break;
             case R.id.tv_forget_password:
+                Intent loginSuccess = new Intent(mContext,RegisterSuccessActivity.class);
+                mContext.startActivity(loginSuccess);
                 break;
             case R.id.tv_login:
                 gotoMainActivity();
