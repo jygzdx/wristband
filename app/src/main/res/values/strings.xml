@@ -20,4 +20,7 @@
     <string name="average_yes_sleep">日均入睡</string>
     <string name="average_day_clear_sleep">日均醒来</string>
     <string name="average_clear_sleep">日均清醒</string>
+    <string name="cancel">取消</string>
+    <string name="ensure">確定</string>
+    <string name="sport_step_selected">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020步</string>
 </resources>

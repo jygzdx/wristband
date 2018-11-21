@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_comm_color"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/dialog_text"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="14dp"
+        android:textColor="@color/ext_text_color"
+        android:textSize="@dimen/dec_text_size"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/bottom_bar_line_color"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:dividerHeight="0.0dip"
+        android:fadingEdge="none"
+        android:listSelector="@null"
+        android:scrollbars="none" />
+
+
+    <Button
+        android:id="@+id/btn_finish"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_list_item_selector"
+        android:text="@string/cancel"
+        android:textColor="#888888"
+        android:textSize="@dimen/main_text_size" />
+</LinearLayout>
+

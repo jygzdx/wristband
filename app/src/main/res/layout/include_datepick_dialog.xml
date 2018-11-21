@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bg_datepick_dialog"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/dialog_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="12dp"
+            android:textColor="@color/text_999"
+            android:textSize="@dimen/main_text_size" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line_bg" >
+        </View>
+
+        <LinearLayout
+            android:id="@+id/timePicker1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="36dp"
+            android:layout_marginLeft="21dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="36dp"
+            android:gravity="center_horizontal" >
+
+            <com.slogan.wristband.wristband.widght.WheelView
+                android:id="@+id/year"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+            <com.slogan.wristband.wristband.widght.WheelView
+                android:id="@+id/month"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1" />
+
+            <com.slogan.wristband.wristband.widght.WheelView
+                android:id="@+id/day"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:visibility="gone"
+            android:background="@color/line_bg" >
+        </View>
+
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+           android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/btn_dialog1"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:text="@string/cancel"
+                android:textColor="@color/text_999"
+                android:textSize="@dimen/main_text_size" />
+
+            <Button
+                android:id="@+id/btn_finish"
+                android:layout_width="36dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="32dp"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:text="@string/ensure"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_text_size" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

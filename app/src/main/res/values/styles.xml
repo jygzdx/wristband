@@ -8,4 +8,18 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <style name="MyDialogStyle" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+    <style name="AnimationBottom">
+
+        <!-- PopupWindow上下弹出的效果 -->
+        <item name="android:windowEnterAnimation">@anim/in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/out_bottom</item>
+    </style>
 </resources>

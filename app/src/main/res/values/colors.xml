@@ -15,4 +15,10 @@
     <color name="deep_sleep">#5A48B0</color>
     <color name="light_sleep">#8E80D2</color>
     <color name="clear_sleep">#EAC129</color>
+    <color name="bg_listview_color_select">#E4E4E4</color>
+    <color name="main_text_color">#333333</color>
+    <color name="bottom_bar_line_color">#DDDDDD</color>
+    <color name="bg_comm_color">#EBEBEB</color>
+    <color name="ext_text_color">#666666</color>
+    <color name="line_color_login">#CCCCCC</color>
 </resources>
