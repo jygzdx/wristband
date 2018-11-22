@@ -1,6 +1,8 @@
 package com.slogan.wristband.wristband.widght.user;
 
 import android.Manifest;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +12,11 @@ import android.widget.LinearLayout;
 
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.AddUserInfoActivity;
+import com.slogan.wristband.wristband.utils.ImageUtil;
 import com.slogan.wristband.wristband.utils.PermissionUtils;
 import com.slogan.wristband.wristband.widght.ChoosePicPop;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +32,7 @@ public class HeadAndNameView extends LinearLayout {
     ImageView tvShowPassword;
     private AddUserInfoActivity activity;
     private ChoosePicPop choosePicPop;
+    public String DOWNLOADPATH;
 
     public HeadAndNameView(AddUserInfoActivity activity) {
         super(activity.mContext);
@@ -46,6 +52,10 @@ public class HeadAndNameView extends LinearLayout {
         }
     }
 
+    public void showHead(String url){
+        ImageUtil.setCircleImage(url,ivAddPic);
+    }
+
     private void showAddPicPop() {
         if(choosePicPop == null){
            choosePicPop = new ChoosePicPop(this.getContext());
@@ -54,12 +64,20 @@ public class HeadAndNameView extends LinearLayout {
         choosePicPop.setOnClickListener(new ChoosePicPop.OnClickListener() {
             @Override
             public void onCameraClick() {
-               
+                DOWNLOADPATH = Environment.getExternalStorageDirectory().getPath()
+                        + File.separator + "wristband" + File.separator + "head"
+                        + File.separator+System.currentTimeMillis()+".jpg";
+                File file = new File(DOWNLOADPATH);
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                Uri imageUri = Uri.fromFile(file);
+                activity.choosePhoto(imageUri);
             }
 
             @Override
             public void onPicClick() {
-
+                activity.choosePic();
             }
         });
     }

@@ -3,13 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-
+    android:background="@color/white"
     >
     <TextView
         android:id="@+id/tv_camera"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="50dp"
         android:text="相机拍摄"
         android:textColor="#FF333333"
         android:textSize="14sp"
@@ -19,8 +18,7 @@
     <TextView
         android:id="@+id/tv_pic"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="50dp"
         android:text="手机相册"
         android:textColor="#FF333333"
         android:textSize="14sp"
