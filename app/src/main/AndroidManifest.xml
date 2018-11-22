@@ -98,7 +98,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".activity.HeartRateActivity"
+        <activity android:name=".activity.SleepQualityActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             />

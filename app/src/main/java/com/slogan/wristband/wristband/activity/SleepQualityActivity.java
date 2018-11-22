@@ -26,7 +26,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HeartRateActivity extends BaseActivity {
+/**
+ * 睡眠质量
+ */
+public class SleepQualityActivity extends BaseActivity {
 
     @BindView(R.id.iv_left)
     ImageView ivLeft;
