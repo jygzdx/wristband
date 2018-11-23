@@ -90,7 +90,7 @@ public class SleepQualityActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_heart_rate);
+        setContentView(R.layout.activity_sleep_quality);
         ButterKnife.bind(this);
         VeclinkSDK.getInstance().syncAllSleepData(new BleProgressCallback() {
             @Override

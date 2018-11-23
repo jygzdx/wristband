@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.SleepQualityActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
-import com.slogan.wristband.wristband.widght.SleepQualityActivityView;
+import com.slogan.wristband.wristband.widght.SleepQualityView;
 import com.slogan.wristband.wristband.widght.TimeView;
 import com.slogan.wristband.wristband.widght.XiaoMiStep;
 import com.veclink.bracelet.bean.BleDeviceData;
@@ -79,7 +79,7 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.ll_most_arrive)
     LinearLayout llMostArrive;
     @BindView(R.id.sqv_sleep)
-    SleepQualityActivityView sqvSleep;
+    SleepQualityView sqvSleep;
     private Unbinder unbind;
     private BleDeviceData sleepData = new BleDeviceData();
     private BleDeviceData sportData = new BleDeviceData();
