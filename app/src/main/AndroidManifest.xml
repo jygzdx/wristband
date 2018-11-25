@@ -64,16 +64,17 @@
 
                 <data android:scheme="wristband" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name=".activity.LoginActivity"
@@ -100,9 +101,12 @@
         <activity android:name=".activity.HeartRateTipActivity" />
         <activity android:name=".activity.HeartRateTestActivity" />
         <activity android:name=".activity.HeartRateFirstTestActivity" />
-        <activity android:name=".activity.BloodPressureActivity"></activity>
+        <activity android:name=".activity.BloodPressureActivity" />
         <activity android:name=".activity.BloodPressureTestActivity" />
-        <activity android:name=".activity.BloodPressureFirstTestActivity"></activity>
+        <activity android:name=".activity.BloodPressureFirstTestActivity" />
+        <activity android:name=".activity.BloodOxygenActivity" />
+        <activity android:name=".activity.BloodOxygenFirstTestActivity" />
+        <activity android:name=".activity.BloodOxygenTestActivity"></activity>
     </application>
 
 </manifest>

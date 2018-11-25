@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.activity.BloodOxygenActivity;
 import com.slogan.wristband.wristband.activity.BloodPressureActivity;
 import com.slogan.wristband.wristband.activity.HeartRate2Activity;
 import com.slogan.wristband.wristband.activity.HeartRateActivity;
@@ -392,6 +393,7 @@ public class HomeFragment extends BaseFragment {
                 startActivity(new Intent(getContext(),BloodPressureActivity.class));
                 break;
             case R.id.ll_blood_oxygen:
+                startActivity(new Intent(getContext(),BloodOxygenActivity.class));
                 break;
             case R.id.ll_most_arrive:
                 break;

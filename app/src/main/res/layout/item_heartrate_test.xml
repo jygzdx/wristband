@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="86"
+            android:textStyle="bold"
             android:textColor="#4c4c4c"
             android:textSize="24sp" />
 

@@ -27,6 +27,7 @@ public final class SPUtils {
      */
     public static final String SP_OPEN_HEART_RATE_FIRST = "open_heart_rate_first";
     public static final String SP_OPEN_BLOOD_PRESSURE_FIRST = "open_blood_pressure_first";
+    public static final String SP_OPEN_BLOOD_OXYGEN_FIRST = "open_blood_oxygen_first";
 
     private static final SimpleArrayMap<String, SPUtils> SP_UTILS_MAP = new SimpleArrayMap<>();
     private SharedPreferences sp;
