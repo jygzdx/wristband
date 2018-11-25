@@ -68,7 +68,13 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name"
@@ -90,16 +96,13 @@
         <activity android:name=".activity.HeartRateActivity" />
         <activity android:name=".activity.RegisterSuccessActivity" />
         <activity android:name=".activity.AddUserInfoActivity" />
-        <activity android:name=".activity.HeartRate2Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.HeartRate2Activity" />
         <activity android:name=".activity.HeartRateTipActivity" />
-        <activity android:name=".activity.HeartRateTestActivity"></activity>
-        <activity android:name=".activity.HeartRateFirstTestActivity"></activity>
+        <activity android:name=".activity.HeartRateTestActivity" />
+        <activity android:name=".activity.HeartRateFirstTestActivity" />
+        <activity android:name=".activity.BloodPressureActivity"></activity>
+        <activity android:name=".activity.BloodPressureTestActivity" />
+        <activity android:name=".activity.BloodPressureFirstTestActivity"></activity>
     </application>
 
 </manifest>

@@ -49,35 +49,33 @@ public class ItemHeartRateView extends LinearLayout {
         mRootView = LayoutInflater.from(context).inflate(R.layout.view_heart_rate_item, this);
         ButterKnife.bind(mRootView);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ItemHeartRateView);
-        int num = array.getInteger(R.styleable.ItemHeartRateView_ihr_num, 0);
+        String num = array.getString(R.styleable.ItemHeartRateView_ihr_num);
         int icon = array.getResourceId(R.styleable.ItemHeartRateView_ihr_icon,R.drawable.ic_heartrate_avg);
         String name = array.getString(R.styleable.ItemHeartRateView_ihr_name);
+        String unit = array.getString(R.styleable.ItemHeartRateView_ihr_unit);
 
-        tvNum.setText(num + "");
+        tvNum.setText(num);
         ivIcon.setImageResource(icon);
         tvName.setText(name);
+        tvUnit.setText(unit);
 
         array.recycle();
     }
 
-    public void setTvNum(TextView tvNum) {
-        this.tvNum = tvNum;
+    public void setTvNum(String num) {
+        tvNum.setText(num);
     }
 
-    public void setTvUnit(TextView tvUnit) {
-        this.tvUnit = tvUnit;
+    public void setTvUnit(String unit) {
+        tvUnit.setText(unit);
     }
 
-    public void setIvIcon(ImageView ivIcon) {
-        this.ivIcon = ivIcon;
+    public void setIvIcon(int res) {
+        ivIcon.setImageResource(res);
     }
 
-    public void setTvName(TextView tvName) {
-        this.tvName = tvName;
-    }
-
-    public void setmRootView(View mRootView) {
-        this.mRootView = mRootView;
+    public void setTvName(String name) {
+        tvName.setText(name);
     }
 
 }

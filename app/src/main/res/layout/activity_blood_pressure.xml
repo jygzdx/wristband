@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.HeartRate2Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#06D0BE">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_left"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="血压"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_title" />
+    </RelativeLayout>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_chart"
+                android:background="@drawable/bg_linear_blood_pressure" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="28dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <com.slogan.wristband.wristband.widght.heartrate.ItemHeartRateView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:ihr_icon="@drawable/ic_heartrate_avg"
+                    app:ihr_name="平均血压"
+                    app:ihr_unit=""
+                    app:ihr_num="111/69" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line_bg" />
+
+                <com.slogan.wristband.wristband.widght.heartrate.ItemHeartRateView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:ihr_icon="@drawable/ic_heartrate_max"
+                    app:ihr_name="最高收缩压"
+                    app:ihr_unit="mmHg"
+                    app:ihr_num="118" />
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line_bg" />
+
+                <com.slogan.wristband.wristband.widght.heartrate.ItemHeartRateView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:ihr_icon="@drawable/ic_heartrate_max"
+                    app:ihr_name="最高舒张压"
+                    app:ihr_unit="mmHg"
+                    app:ihr_num="12" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <com.slogan.wristband.wristband.widght.heartrate.ItemHeartRateView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:ihr_icon="@drawable/ic_heartrate_avg"
+                    app:ihr_name="平均脉压"
+                    app:ihr_unit="mmHg"
+                    app:ihr_num="44" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line_bg" />
+
+                <com.slogan.wristband.wristband.widght.heartrate.ItemHeartRateView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:ihr_icon="@drawable/ic_star"
+                    app:ihr_name="正常结果"
+                    app:ihr_unit="次"
+                    app:ihr_num="12" />
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/line_bg" />
+
+                <com.slogan.wristband.wristband.widght.heartrate.ItemHeartRateView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:ihr_icon="@drawable/ic_high"
+                    app:ihr_name="偏高结果"
+                    app:ihr_unit="次"
+                    app:ihr_num="0" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/c_default" />
+
+            <LinearLayout
+                android:id="@+id/ll_hand_test"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@color/white">
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_heartrate_hand_test"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手动测量"
+                    android:textSize="14sp"
+                    android:paddingLeft="10dp"
+                    android:textColor="#2883ed"/>
+            </LinearLayout>
+
+
+
+
+</LinearLayout>

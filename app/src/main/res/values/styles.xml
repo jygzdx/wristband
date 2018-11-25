@@ -10,9 +10,10 @@
 
     <!--ItemHeartRateView-->
     <declare-styleable name="ItemHeartRateView">
-        <attr name="ihr_num" format="integer"/>
+        <attr name="ihr_num" format="string"/>
         <attr name="ihr_icon" format="reference"/>
         <attr name="ihr_name" format="string|reference"/>
+        <attr name="ihr_unit" format="string|reference"/>
     </declare-styleable>
 
     <style name="HeartRateText">

@@ -24,7 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HeartRateTestActivity extends BaseActivity {
+public class BloodPressureTestActivity extends BaseActivity {
+
 
     @BindView(R.id.cp_progress)
     CircularProgressBar cpProgress;
@@ -44,7 +45,7 @@ public class HeartRateTestActivity extends BaseActivity {
     private List<ItemTestDataModel> data = new ArrayList<>();
     private static final int UPDATE_PROGRESS = 1000;
     private int progress;
-    private HeartRateAdapter adapter = new HeartRateAdapter(R.layout.item_heartrate_test,data);
+    private HeartRateAdapter adapter = new HeartRateAdapter(R.layout.item_blood_pressure_test,data);
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
         @Override
@@ -60,16 +61,16 @@ public class HeartRateTestActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_heart_rate_test);
+        setContentView(R.layout.activity_blood_pressure_test);
         ButterKnife.bind(this);
         initRV();
         startTest();
     }
 
     private void initRV() {
-        data.add(new ItemTestDataModel("11月11日  上午10:54","112/34"));
-        data.add(new ItemTestDataModel("11月11日  上午10:53","122/23"));
-        data.add(new ItemTestDataModel("11月11日  上午10:52","132/22"));
+        data.add(new ItemTestDataModel("11月11日  上午10:54","112"));
+        data.add(new ItemTestDataModel("11月11日  上午10:53","122"));
+        data.add(new ItemTestDataModel("11月11日  上午10:52","132"));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(linearLayoutManager);
         rv.setAdapter(adapter);
@@ -117,9 +118,8 @@ public class HeartRateTestActivity extends BaseActivity {
         tvTesting.setVisibility(View.GONE);
         tvRetry.setVisibility(View.VISIBLE);
 
-        tvNum.setText("99/11");
-        data.add(0,new ItemTestDataModel("12月22日  上午10：00","99/11"));
+        tvNum.setText("99");
+        data.add(0,new ItemTestDataModel("12月22日  上午10：00","99"));
         adapter.notifyDataSetChanged();
     }
-
 }
