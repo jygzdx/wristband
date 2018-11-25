@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/heart_rate_bg"
+    android:gravity="center_horizontal"
+    tools:context=".activity.HeartRateFirstTestActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测量时请保持放松"
+        android:textSize="24sp"
+        android:textColor="#fff"
+        android:layout_marginTop="50dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请戴紧手环，手环在手腕上方2CM处测量更精准哦"
+        android:textSize="10sp"
+        android:textColor="#fff"
+        android:layout_marginTop="16dp"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/ic_heartrate_first_test"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="不再提醒"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#fff" />
+    <TextView
+        android:id="@+id/tv_know"
+        android:layout_width="240dp"
+        android:layout_height="36dp"
+        android:text="我知道了"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/bg_heartrate_first_btn"
+        android:textColor="#fff" />
+</LinearLayout>

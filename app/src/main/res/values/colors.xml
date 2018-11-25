@@ -15,4 +15,17 @@
     <color name="deep_sleep">#5A48B0</color>
     <color name="light_sleep">#8E80D2</color>
     <color name="clear_sleep">#EAC129</color>
+
+    <color name="heart_rate_bg">#E77C33</color>
+
+    <color name="c_4c4c4c">#4C4C4C</color>
+    <color name="c_999999">#999999</color>
+    <color name="c_default">#F8F8F8</color>
+
+    <color name="heart_rate_state_1">#569cf8</color>
+    <color name="heart_rate_state_2">#61d268</color>
+    <color name="heart_rate_state_3">#f5bc47</color>
+    <color name="heart_rate_state_4">#ee7b46</color>
+    <color name="heart_rate_state_5">#eb4833</color>
+    <color name="heart_rate_state_6">#d1d5e3</color>
 </resources>

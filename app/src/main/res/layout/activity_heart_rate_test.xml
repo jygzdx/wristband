@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.HeartRate2Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/heart_rate_bg">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_left"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_white" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="测量心率"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_title" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_chart"
+        android:background="@color/heart_rate_bg"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:gravity="center">
+
+            <com.slogan.wristband.wristband.widght.CircularProgressBar
+                android:id="@+id/cp_progress"
+                android:layout_width="136dp"
+                android:layout_height="136dp"
+                android:layout_centerInParent="true"
+                app:cpb_background_progressbar_color="#00FFFFFF"
+                app:cpb_progress="0"
+                app:cpb_progressbar_color="#fff"
+                app:cpb_progressbar_width="1dp" />
+
+            <ImageView
+                android:id="@+id/iv_anim"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_heartrate_anim"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/ll_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="86"
+                    android:textColor="#fff"
+                    android:textSize="48sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="本次测量结果"
+                    android:textColor="#fff"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_testing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测量中..."
+                android:textColor="#fff"
+                android:textSize="10sp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_retry"
+                android:layout_width="64dp"
+                android:layout_height="24dp"
+                android:background="@drawable/bg_heartrate_test_btn"
+                android:gravity="center"
+                android:text="重新测量"
+                android:textColor="#fff"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="28dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_bg" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_heartrate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

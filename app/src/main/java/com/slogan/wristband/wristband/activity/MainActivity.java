@@ -1,16 +1,10 @@
 package com.slogan.wristband.wristband.activity;
 
-import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -19,32 +13,19 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
-import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.activity.base.BaseFragmentActivity;
-import com.slogan.wristband.wristband.app.WristbandApplication;
 import com.slogan.wristband.wristband.fragment.FindFragment;
 import com.slogan.wristband.wristband.fragment.HomeFragment;
 import com.slogan.wristband.wristband.fragment.MeFragment;
 import com.slogan.wristband.wristband.utils.CommTool;
-import com.slogan.wristband.wristband.utils.LogDataUtils;
 import com.slogan.wristband.wristband.utils.ToastUtils;
-import com.veclink.bracelet.bean.BluetoothDeviceBean;
 import com.veclink.bracelet.bean.DeviceInfo;
 import com.veclink.bracelet.bletask.BleCallBack;
-import com.veclink.bracelet.bletask.BleRequestBindDevice;
-import com.veclink.bracelet.bletask.BleScanDeviceTask;
-import com.veclink.bracelet.bletask.BleSyncParamsTask;
-import com.veclink.hw.bleservice.VLBleService;
-import com.veclink.hw.bleservice.VLBleServiceManager;
-import com.veclink.hw.bleservice.profile.BraceletGattAttributes;
-import com.veclink.hw.bleservice.util.Keeper;
 import com.veclink.sdk.DeviceStateObserver;
 import com.veclink.sdk.RssiListener;
-import com.veclink.sdk.ScanDeviceListener;
 import com.veclink.sdk.SittingRemindObserver;
 import com.veclink.sdk.VeclinkSDK;
 
-import java.util.AbstractSequentialList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,34 +57,34 @@ public class MainActivity extends BaseFragmentActivity implements RssiListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-VeclinkSDK.getInstance().registerDeviceStateObserver(deviceStateObserver);
-VeclinkSDK.getInstance().registerSittingRemindObserver(sittingRemindObserver);
-VeclinkSDK.getInstance().getRssi(this);
+        VeclinkSDK.getInstance().registerDeviceStateObserver(deviceStateObserver);
+        VeclinkSDK.getInstance().registerSittingRemindObserver(sittingRemindObserver);
+        VeclinkSDK.getInstance().getRssi(this);
         initHandler();
         initWidget();
 
         VeclinkSDK.getInstance().queryFirmwareVersion(new BleCallBack() {
             @Override
             public void onStart(Object o) {
-                Logger.d("queryFirmwareVersion->onStart"+o.toString());
+                Logger.d("queryFirmwareVersion->onStart" + o.toString());
             }
 
             @Override
             public void onFailed(Object o) {
-                Logger.d("queryFirmwareVersion->onFailed"+o.toString());
+                Logger.d("queryFirmwareVersion->onFailed" + o.toString());
             }
 
             @Override
             public void onFinish(Object o) {
-                Logger.d("queryFirmwareVersion->onFinish"+ new Gson().toJson((DeviceInfo) o));
+                Logger.d("queryFirmwareVersion->onFinish" + new Gson().toJson((DeviceInfo) o));
             }
         });
 
 
-        if(!VeclinkSDK.getInstance().isHasBindDevice()){
-            Intent intent = new Intent(MainActivity.this,BindDeviceActivity.class);
+        if (!VeclinkSDK.getInstance().isHasBindDevice()) {
+            Intent intent = new Intent(MainActivity.this, BindDeviceActivity.class);
             startActivity(intent);
-        }else{
+        } else {
 
         }
     }
@@ -136,8 +117,8 @@ VeclinkSDK.getInstance().getRssi(this);
         @Override
         public void connected() {
             Logger.d("connected");
-            if(!VeclinkSDK.getInstance().isHasBindDevice()){
-                Intent intent = new Intent(MainActivity.this,BindDeviceActivity.class);
+            if (!VeclinkSDK.getInstance().isHasBindDevice()) {
+                Intent intent = new Intent(MainActivity.this, BindDeviceActivity.class);
                 startActivity(intent);
             }
         }
@@ -264,6 +245,6 @@ VeclinkSDK.getInstance().getRssi(this);
 
     @Override
     public void rssiChange(int i) {
-        Logger.d("rssiChange"+i);
+        Logger.d("rssiChange" + i);
     }
 }
