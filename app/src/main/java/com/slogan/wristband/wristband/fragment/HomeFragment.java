@@ -15,7 +15,6 @@ import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.BloodOxygenActivity;
 import com.slogan.wristband.wristband.activity.BloodPressureActivity;
 import com.slogan.wristband.wristband.activity.HeartRate2Activity;
-import com.slogan.wristband.wristband.activity.HeartRateActivity;
 import com.slogan.wristband.wristband.activity.SleepQualityActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.widght.SleepQualityView;

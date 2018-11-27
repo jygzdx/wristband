@@ -126,11 +126,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <activity android:name=".activity.BindDeviceActivity" />
-        <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".activity.HeartRateActivity" />
-        <activity android:name=".activity.RegisterSuccessActivity" />
-        <activity android:name=".activity.AddUserInfoActivity" />
         <activity android:name=".activity.HeartRate2Activity" />
         <activity android:name=".activity.HeartRateTipActivity" />
         <activity android:name=".activity.HeartRateTestActivity" />
