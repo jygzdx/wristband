@@ -28,4 +28,11 @@
     <color name="heart_rate_state_4">#ee7b46</color>
     <color name="heart_rate_state_5">#eb4833</color>
     <color name="heart_rate_state_6">#d1d5e3</color>
+    <color name="bg_listview_color_select">#E4E4E4</color>
+    <color name="main_text_color">#333333</color>
+    <color name="bottom_bar_line_color">#DDDDDD</color>
+    <color name="bg_comm_color">#EBEBEB</color>
+    <color name="ext_text_color">#666666</color>
+    <color name="line_color_login">#CCCCCC</color>
+    <color name="char_text_color">#2883ed</color>
 </resources>

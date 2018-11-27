@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.HeartRateActivity">
+    tools:context=".activity.SleepQualityActivity">
     <include layout="@layout/include_title_bar"/>
     <!--<ScrollView-->
         <!--android:layout_width="match_parent"-->
@@ -21,6 +21,7 @@
                 android:background="#8863E2"
                 >
                 <LinearLayout
+                    android:id="@+id/ll_detailed"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -62,6 +63,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="28dp"></android.support.v7.widget.RecyclerView>
                 </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_undetailed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/sleep_quality_barchart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </com.github.mikephil.charting.charts.BarChart>
+                </RelativeLayout>
             </FrameLayout>
             <View
                 android:layout_width="match_parent"

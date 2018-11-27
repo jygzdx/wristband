@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name=".app.WristbandApplication"
@@ -92,6 +93,39 @@
             android:name=".activity.VerifyCodeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.BindDeviceActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.UserInfoActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.SleepQualityActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.RegisterSuccessActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.AddUserInfoActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            ></activity>
+
+
+        <!--适配7.0传递文件到外部程序-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.slogan.wristband.wristband.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <!--元数据-->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <activity android:name=".activity.BindDeviceActivity" />
         <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".activity.HeartRateActivity" />

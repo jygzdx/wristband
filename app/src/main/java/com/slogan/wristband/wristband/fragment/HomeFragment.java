@@ -16,6 +16,7 @@ import com.slogan.wristband.wristband.activity.BloodOxygenActivity;
 import com.slogan.wristband.wristband.activity.BloodPressureActivity;
 import com.slogan.wristband.wristband.activity.HeartRate2Activity;
 import com.slogan.wristband.wristband.activity.HeartRateActivity;
+import com.slogan.wristband.wristband.activity.SleepQualityActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.widght.SleepQualityView;
 import com.slogan.wristband.wristband.widght.TimeView;
@@ -398,7 +399,7 @@ public class HomeFragment extends BaseFragment {
             case R.id.ll_most_arrive:
                 break;
             case R.id.ll_sleep:
-                Intent sleepIntent = new Intent(getContext(),HeartRateActivity.class);
+                Intent sleepIntent = new Intent(getContext(),SleepQualityActivity.class);
                 startActivity(sleepIntent);
                 break;
         }

@@ -1,17 +1,23 @@
 package com.slogan.wristband.wristband.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.bean.ExSleepEntity;
+import com.slogan.wristband.wristband.utils.MPChartUtils;
 import com.slogan.wristband.wristband.widght.SleepQualityView;
 import com.slogan.wristband.wristband.widght.TimeView;
 import com.veclink.bracelet.bean.BleDeviceData;
@@ -26,7 +32,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HeartRateActivity extends BaseActivity {
+/**
+ * 睡眠质量
+ */
+public class SleepQualityActivity extends BaseActivity {
 
     @BindView(R.id.iv_left)
     ImageView ivLeft;
@@ -78,17 +87,24 @@ public class HeartRateActivity extends BaseActivity {
     SleepQualityView sqvSleep;
     @BindView(R.id.rv_detailed_time)
     RecyclerView rvDetailedTime;
+    @BindView(R.id.ll_detailed)
+    LinearLayout llDetailed;
+    @BindView(R.id.sleep_quality_barchart)
+    BarChart sleepQualityBarchart;
+    @BindView(R.id.rl_undetailed)
+    RelativeLayout rlUndetailed;
     /**
      * 0->详细信息,1->日视图,2->周视图,3->月视图
      */
     private int state;
-    private List<DeviceSleepData> sleeps= new ArrayList<>();
+    private List<DeviceSleepData> sleeps = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_heart_rate);
+        setContentView(R.layout.activity_sleep_quality);
         ButterKnife.bind(this);
+        initWidget();
         VeclinkSDK.getInstance().syncAllSleepData(new BleProgressCallback() {
             @Override
             public void onProgress(Object progress) {
@@ -116,31 +132,33 @@ public class HeartRateActivity extends BaseActivity {
         });
 
     }
-private List<ExSleepEntity> exSleepList = new ArrayList<>();
+
+    private List<ExSleepEntity> exSleepList = new ArrayList<>();
+
     private void refreshSleepUi(List<DeviceSleepData> sleeps) {
         for (int i = 0; i < sleeps.size(); i++) {
             DeviceSleepData sleep = sleeps.get(i);
-            if(isAdded(sleep)){
+            if (isAdded(sleep)) {
                 int position = getAddedPosition(sleep);
-                if(position == -1){
+                if (position == -1) {
                     continue;
                 }
                 exSleepList.get(position).addEntity(sleep);
-            }else{
+            } else {
                 ExSleepEntity entity = new ExSleepEntity();
                 entity.setTime(sleep.dateTime);
                 entity.addEntity(sleep);
                 exSleepList.add(entity);
             }
         }
-        Logger.d("refreshSleepUi = "+new Gson().toJson(exSleepList));
+        Logger.d("refreshSleepUi = " + new Gson().toJson(exSleepList));
         sqvSleep.refreshView(sleeps);
     }
 
-    private int getAddedPosition(DeviceSleepData sleep){
+    private int getAddedPosition(DeviceSleepData sleep) {
         for (int i = 0; i < exSleepList.size(); i++) {
             ExSleepEntity entity = exSleepList.get(i);
-            if(entity.getTime().equals(sleep)){
+            if (entity.getTime().equals(sleep)) {
                 return i;
             }
         }
@@ -148,16 +166,45 @@ private List<ExSleepEntity> exSleepList = new ArrayList<>();
     }
 
     private boolean isAdded(DeviceSleepData sleep) {
-        if(sleep == null){
+        if (sleep == null) {
             return false;
         }
         for (int i = 0; i < exSleepList.size(); i++) {
             ExSleepEntity entity = exSleepList.get(i);
-            if(entity.getTime().equals(sleep)){
+            if (entity.getTime().equals(sleep)) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public void initWidget() {
+        super.initWidget();
+        llDetailed.setVisibility(View.GONE);
+        rlUndetailed.setVisibility(View.VISIBLE);
+        // 1.配置基础图表配置
+        List<String> xLabels = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            xLabels.add("label"+i);
+        }
+        MPChartUtils.configBarChart(sleepQualityBarchart, xLabels);
+// 2,获取数据Data，这里有2条曲线
+        List<BarEntry> entries = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            float mul = (20 + 1);
+            float val1 = (float) (Math.random() * mul) + mul / 3;
+            float val2 = (float) (Math.random() * mul) + mul / 3;
+            float val3 = (float) (Math.random() * mul) + mul / 3;
+
+            entries.add(new BarEntry(
+                    i,
+                    new float[]{val1, val2, val3},
+                    getResources().getDrawable(R.drawable.png_clear)));
+        }
+        MPChartUtils.getBarDataSet(entries,"label",Color.WHITE,Color.GREEN);
+        //  3,初始化数据并绘制
+        MPChartUtils.initBarChart(sleepQualityBarchart,entries,"title",Color.BLUE);
     }
 
     @OnClick({R.id.tv_detailed_info, R.id.tv_day, R.id.tv_week, R.id.tv_month})
