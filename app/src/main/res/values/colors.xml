@@ -21,4 +21,5 @@
     <color name="bg_comm_color">#EBEBEB</color>
     <color name="ext_text_color">#666666</color>
     <color name="line_color_login">#CCCCCC</color>
+    <color name="char_text_color">#2883ed</color>
 </resources>
