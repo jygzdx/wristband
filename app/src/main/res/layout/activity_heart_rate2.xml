@@ -43,9 +43,27 @@
                 android:layout_height="@dimen/height_chart"
                 android:background="@color/heart_rate_bg" />
 
-            <View
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="28dp" />
+                android:layout_height="28dp"
+                android:background="#fff"
+                android:gravity="center">
+
+                <com.slogan.wristband.wristband.widght.DateSlider.SliderContainer
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/dateSliderContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <com.slogan.wristband.wristband.widght.DateSlider.ScrollLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:childWidth="50dp"
+                        app:labelerClass="com.slogan.wristband.wristband.widght.DateSlider.labeler.DayDateLabeler"
+                        app:labelerFormat="%td %ta %tm" />
+                </com.slogan.wristband.wristband.widght.DateSlider.SliderContainer>
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -269,6 +287,7 @@
                     android:textColor="#666666"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <TextView
                 style="@style/HeartRateText"
                 android:layout_width="wrap_content"
@@ -309,9 +328,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
+                android:layout_marginBottom="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_marginBottom="16dp"
                 android:paddingRight="16dp">
 
                 <com.slogan.wristband.wristband.widght.heartrate.UnableSeekBar
@@ -319,10 +338,10 @@
                     android:layout_height="10dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:max="100"
-                    android:progress="47"
                     android:clickable="false"
                     android:focusable="false"
+                    android:max="100"
+                    android:progress="47"
                     android:progressDrawable="@drawable/bg_sb_heartrate_6"
                     android:thumb="@color/line_bg" />
 
@@ -333,28 +352,32 @@
                     android:textColor="#666666"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@color/c_default" />
+
             <LinearLayout
                 android:id="@+id/ll_hand_test"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
-                android:orientation="horizontal"
+                android:background="@color/white"
                 android:gravity="center"
-                android:background="@color/white">
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/ic_heartrate_hand_test"/>
+                    android:src="@drawable/ic_heartrate_hand_test" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="手动测量"
-                    android:textSize="14sp"
                     android:paddingLeft="10dp"
-                    android:textColor="#2883ed"/>
+                    android:text="手动测量"
+                    android:textColor="#2883ed"
+                    android:textSize="14sp" />
             </LinearLayout>
 
         </LinearLayout>
