@@ -153,6 +153,7 @@ public class SleepQualityActivity extends BaseActivity {
         }
         Logger.d("refreshSleepUi = " + new Gson().toJson(exSleepList));
         sqvSleep.refreshView(sleeps);
+        refreshChartData();
     }
 
     private int getAddedPosition(DeviceSleepData sleep) {
@@ -183,10 +184,14 @@ public class SleepQualityActivity extends BaseActivity {
         super.initWidget();
         llDetailed.setVisibility(View.GONE);
         rlUndetailed.setVisibility(View.VISIBLE);
+
+    }
+
+    private void refreshChartData(){
         // 1.配置基础图表配置
         List<String> xLabels = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            xLabels.add("label"+i);
+        for (int i = 0; i < 20; i++) {
+            xLabels.add("l"+i);
         }
         MPChartUtils.configBarChart(sleepQualityBarchart, xLabels);
 // 2,获取数据Data，这里有2条曲线
@@ -199,8 +204,7 @@ public class SleepQualityActivity extends BaseActivity {
 
             entries.add(new BarEntry(
                     i,
-                    new float[]{val1, val2, val3},
-                    getResources().getDrawable(R.drawable.png_clear)));
+                    new float[]{val1, val2, val3}));
         }
         MPChartUtils.getBarDataSet(entries,"label",Color.WHITE,Color.GREEN);
         //  3,初始化数据并绘制

@@ -64,6 +64,18 @@ public class CommTool {
         return s;
     }
 
+    /**
+     * 20180101->01-01
+     * @param time
+     * @return
+     */
+    public static String getDateString(String time){
+        String s = "";
+        String month = time.substring(4,6);
+        String day = time.substring(6);
+        return month+"/"+day;
+    }
+
     public static String getHearRateTime(String data ,int minute){
         String s = "";
         String month = data.substring(4,6);

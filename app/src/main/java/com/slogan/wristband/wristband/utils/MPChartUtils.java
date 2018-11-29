@@ -262,7 +262,7 @@ public class MPChartUtils {
 
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
-                    return xLabels.get(Math.min(Math.max((int) value, 0), xLabels.size() - 1));
+                    return value+"";
                 }
 
             };
@@ -272,22 +272,22 @@ public class MPChartUtils {
             xAxis.setAxisLineColor(Color.parseColor("#4cffffff"));
             xAxis.setLabelCount(xLabels.size());//设置标签显示的个数
 
-            //y轴设置
-            YAxis leftAxis = barChart.getAxisLeft();//获取左侧y轴
-            leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);//设置y轴标签显示在外侧
-            leftAxis.setAxisMinimum(0f);//设置Y轴最小值
-            leftAxis.setDrawGridLines(false);
-            leftAxis.setDrawLabels(true);//禁止绘制y轴标签
-            leftAxis.setDrawAxisLine(false);//禁止绘制y轴
-            leftAxis.setAxisLineColor(Color.parseColor("#4cffffff"));
-            leftAxis.setTextColor(barChart.getResources().getColor(R.color.char_text_color));
-            leftAxis.setValueFormatter(new IAxisValueFormatter() {
-                @Override
-                public String getFormattedValue(float value, AxisBase axis) {
-                    return ((int) (value * 100)) + "%";
-                }
-            });
-
+//            //y轴设置
+//            YAxis leftAxis = barChart.getAxisLeft();//获取左侧y轴
+//            leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);//设置y轴标签显示在外侧
+//            leftAxis.setAxisMinimum(0f);//设置Y轴最小值
+//            leftAxis.setDrawGridLines(false);
+//            leftAxis.setDrawLabels(true);//禁止绘制y轴标签
+//            leftAxis.setDrawAxisLine(false);//禁止绘制y轴
+//            leftAxis.setAxisLineColor(Color.parseColor("#4cffffff"));
+//            leftAxis.setTextColor(barChart.getResources().getColor(R.color.char_text_color));
+//            leftAxis.setValueFormatter(new IAxisValueFormatter() {
+//                @Override
+//                public String getFormattedValue(float value, AxisBase axis) {
+//                    return ((int) (value * 100)) + "%";
+//                }
+//            });
+            barChart.getAxisLeft().setEnabled(false);
             barChart.getAxisRight().setEnabled(false);//禁用右侧y轴
             barChart.getLegend().setEnabled(false);
             //图例设置
@@ -342,14 +342,20 @@ public class MPChartUtils {
             data.setBarWidth(0.1f);
             // 设置value值 颜色
             data.setValueTextColor(Color.WHITE);
-            //设置y轴显示的标签
-            data.setValueFormatter(new IValueFormatter() {
+//            //设置y轴显示的标签
+//            data.setValueFormatter(new IValueFormatter() {
+//                @Override
+//                public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+//                    return ((int) (value * 100)) + "%";
+//                }
+//            });
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setValueFormatter(new IAxisValueFormatter() {
                 @Override
-                public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                    return ((int) (value * 100)) + "%";
+                public String getFormattedValue(float value, AxisBase axis) {
+                    return value+"";
                 }
             });
-
 
             chart.setData(data);
             chart.invalidate();
