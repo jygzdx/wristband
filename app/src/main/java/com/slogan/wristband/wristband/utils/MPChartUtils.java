@@ -23,6 +23,7 @@ import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.bean.ExSleepEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -243,13 +244,18 @@ public class MPChartUtils {
         /**
          * 配置柱状图基础设置
          * @param barChart
-         * @param xLabels
          */
-        public static void configBarChart(BarChart barChart, final List<String> xLabels) {
+        public static void configBarChart(BarChart barChart) {
             barChart.getDescription().setEnabled(false);//设置描述
             barChart.setPinchZoom(false);//设置按比例放缩柱状图
             barChart.setScaleEnabled(false);
             barChart.setDragEnabled(true);
+
+            barChart.setDrawGridBackground(false);
+            barChart.setDrawBarShadow(false);
+
+            barChart.setDrawValueAboveBar(false);
+            barChart.setHighlightFullBarEnabled(false);
             barChart.setNoDataText(""); // 没有数据时的提示文案
             //x坐标轴设置
             // IAxisValueFormatter xAxisFormatter = new StringAxisValueFormatter(xAxisValue);//设置自定义的x轴值格式化器
@@ -258,19 +264,19 @@ public class MPChartUtils {
             xAxis.setDrawGridLines(false);//不绘制格网线
             xAxis.setGranularity(1f);//设置最小间隔，防止当放大时，出现重复标签。
             // 显示x轴标签
-            IAxisValueFormatter formatter = new IAxisValueFormatter() {
-
-                @Override
-                public String getFormattedValue(float value, AxisBase axis) {
-                    return value+"";
-                }
-
-            };
-            xAxis.setValueFormatter(formatter);
+//            IAxisValueFormatter formatter = new IAxisValueFormatter() {
+//
+//                @Override
+//                public String getFormattedValue(float value, AxisBase axis) {
+//                    return value+"";
+//                }
+//
+//            };
+//            xAxis.setValueFormatter(formatter);
             xAxis.setTextSize(10);//设置标签字体大小
             xAxis.setTextColor(barChart.getResources().getColor(R.color.char_text_color));
-            xAxis.setAxisLineColor(Color.parseColor("#4cffffff"));
-            xAxis.setLabelCount(xLabels.size());//设置标签显示的个数
+            xAxis.setAxisLineColor(Color.parseColor("#2883ed"));
+//            xAxis.setLabelCount(xLabels.size());//设置标签显示的个数
 
 //            //y轴设置
 //            YAxis leftAxis = barChart.getAxisLeft();//获取左侧y轴
@@ -304,18 +310,18 @@ public class MPChartUtils {
             //legend.setYOffset(-2f);
 
 
-            Matrix matrix = new Matrix();
-            // 根据数据量来确定 x轴缩放大倍
-            if (xLabels.size() <= 10) {
-                matrix.postScale(1.0f, 1.0f);
-            } else if (xLabels.size() <= 15) {
-                matrix.postScale(1.5f, 1.0f);
-            } else if (xLabels.size() <= 20) {
-                matrix.postScale(2.0f, 1.0f);
-            } else {
-                matrix.postScale(3.0f, 1.0f);
-            }
-            barChart.getViewPortHandler().refresh(matrix, barChart, false);
+//            Matrix matrix = new Matrix();
+//            // 根据数据量来确定 x轴缩放大倍
+//            if (xLabels.size() <= 10) {
+//                matrix.postScale(1.0f, 1.0f);
+//            } else if (xLabels.size() <= 15) {
+//                matrix.postScale(1.5f, 1.0f);
+//            } else if (xLabels.size() <= 20) {
+//                matrix.postScale(2.0f, 1.0f);
+//            } else {
+//                matrix.postScale(3.0f, 1.0f);
+//            }
+//            barChart.getViewPortHandler().refresh(matrix, barChart, false);
             barChart.setExtraBottomOffset(10);//距视图窗口底部的偏移，类似与paddingbottom
             barChart.setExtraTopOffset(30);//距视图窗口顶部的偏移，类似与paddingtop
             barChart.setFitBars(true);//使两侧的柱图完全显示
@@ -329,19 +335,18 @@ public class MPChartUtils {
          * @param title
          * @param barColor
          */
-        public static void initBarChart(BarChart chart, List<BarEntry> entries, String title, @ColorInt int barColor) {
+        public static void initBarChart(BarChart chart, final List<BarEntry> entries, String title, int[] colors) {
             BarDataSet set1 = new BarDataSet(entries, title);
-            set1.setValueTextColor(Color.WHITE);
-            set1.setColor(barColor);
+            set1.setValueTextColor(R.color.transparent);
+            set1.setColors(colors);
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
-
             BarData data = new BarData(dataSets);
             data.setValueTextSize(10f);
             // 设置bar的宽度，但是点很多少的时候好像没作用，会拉得很宽
-            data.setBarWidth(0.1f);
+            data.setBarWidth(0.5f);
             // 设置value值 颜色
-            data.setValueTextColor(Color.WHITE);
+            data.setValueTextColor(R.color.transparent);
 //            //设置y轴显示的标签
 //            data.setValueFormatter(new IValueFormatter() {
 //                @Override
@@ -353,7 +358,7 @@ public class MPChartUtils {
             xAxis.setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
-                    return value+"";
+                    return CommTool.getDateString(((ExSleepEntity) entries.get((int) value).getData()).getTime());
                 }
             });
 

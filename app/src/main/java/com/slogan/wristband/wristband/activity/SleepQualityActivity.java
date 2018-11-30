@@ -124,12 +124,27 @@ public class SleepQualityActivity extends BaseActivity {
             @Override
             public void onFinish(Object result) {
                 Logger.d("refreshSleep--onFinish" + new Gson().toJson((BleDeviceData) result));
-                BleDeviceData sleepData = (BleDeviceData) result;
+//                BleDeviceData sleepData = (BleDeviceData) result;
+//
+//                sleeps = sleepData.syncSleepDataResult;
 
-                sleeps = sleepData.syncSleepDataResult;
-                refreshSleepUi(sleeps);
+
             }
         });
+
+        //假数据
+        int random = (int) (Math.random()*30);
+        int random1 = (int) (Math.random()*10);
+        for (int i = 0; i < random; i++) {
+            DeviceSleepData deviceSleepData = new DeviceSleepData();
+            deviceSleepData.sleepState = random%5;
+            deviceSleepData.sleepDuration = random*2;
+            deviceSleepData.startTime = random*10;
+            deviceSleepData.deviceId = random+"";
+            deviceSleepData.dateTime = 20181101+i+"";
+            sleeps.add(deviceSleepData);
+        }
+        refreshSleepUi(sleeps);
 
     }
 
@@ -189,26 +204,49 @@ public class SleepQualityActivity extends BaseActivity {
 
     private void refreshChartData(){
         // 1.配置基础图表配置
-        List<String> xLabels = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            xLabels.add("l"+i);
-        }
-        MPChartUtils.configBarChart(sleepQualityBarchart, xLabels);
+//        List<String> xLabels = new ArrayList<>();
+//        for (int i = 0; i < 20; i++) {
+//            xLabels.add("l"+i);
+//        }
+        MPChartUtils.configBarChart(sleepQualityBarchart);
 // 2,获取数据Data，这里有2条曲线
         List<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            float mul = (20 + 1);
-            float val1 = (float) (Math.random() * mul) + mul / 3;
-            float val2 = (float) (Math.random() * mul) + mul / 3;
-            float val3 = (float) (Math.random() * mul) + mul / 3;
-
+        for (int i = 0; i < exSleepList.size(); i++) {
+            ExSleepEntity exSleepEntity = exSleepList.get(i);
+            List<DeviceSleepData> sleepData = exSleepEntity.getSleepDataList();
+            int size = sleepData.size();
+            int deepDuration = 0;
+            int lightDuration = 0;
+            int clearDuration = 0;
+            for (int j = 0; j < size; j++) {
+                DeviceSleepData data = sleepData.get(j);
+                int status = data.sleepState;
+                int duration = data.sleepDuration;
+                if (status <= 1) {
+                    deepDuration = deepDuration + duration;
+                } else if (status > 1 && status <= 3) {
+                    lightDuration = lightDuration + duration;
+                } else {
+                    clearDuration = clearDuration + duration;
+                }
+            }
             entries.add(new BarEntry(
                     i,
-                    new float[]{val1, val2, val3}));
+                    new float[]{deepDuration,lightDuration,clearDuration},
+                    exSleepList.get(i)
+                    ));
         }
         MPChartUtils.getBarDataSet(entries,"label",Color.WHITE,Color.GREEN);
         //  3,初始化数据并绘制
-        MPChartUtils.initBarChart(sleepQualityBarchart,entries,"title",Color.BLUE);
+        MPChartUtils.initBarChart(sleepQualityBarchart,entries,"title", new int[]{rgb("#f5bc47"), rgb("#5C51BD")});
+    }
+
+    public static int rgb(String hex) {
+        int color = (int) Long.parseLong(hex.replace("#", ""), 16);
+        int r = (color >> 16) & 0xFF;
+        int g = (color >> 8) & 0xFF;
+        int b = (color >> 0) & 0xFF;
+        return Color.rgb(r, g, b);
     }
 
     @OnClick({R.id.tv_detailed_info, R.id.tv_day, R.id.tv_week, R.id.tv_month})
