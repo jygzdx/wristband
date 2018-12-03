@@ -127,7 +127,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".activity.HeartRate2Activity">
+        <activity android:name=".activity.HeartRateActivity">
 
         </activity>
         <activity android:name=".activity.HeartRateTipActivity" />

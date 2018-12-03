@@ -9,7 +9,7 @@ import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.utils.SPUtils;
 import com.slogan.wristband.wristband.widght.DateSlider.SliderContainer;
-import com.slogan.wristband.wristband.widght.chart.MyLineChartBloodPressure;
+import com.slogan.wristband.wristband.widght.chart.MyLineChartHeartRate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,11 +19,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BloodPressureActivity extends BaseActivity {
+public class HeartRateActivity extends BaseActivity {
+
     @BindView(R.id.dateSliderContainer)
     SliderContainer mContainer;
     @BindView(R.id.chart)
-    MyLineChartBloodPressure chart;
+    MyLineChartHeartRate chart;
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.tv_value)
@@ -43,8 +44,9 @@ public class BloodPressureActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_blood_pressure);
+        setContentView(R.layout.activity_heart_rate);
         ButterKnife.bind(this);
+
         initChartDate();
         initChart();
         initContainer();
@@ -98,11 +100,10 @@ public class BloodPressureActivity extends BaseActivity {
     }
 
     private void initChart() {
-        chart.setSelectListener(new MyLineChartBloodPressure.OnSelectListener() {
-
+        chart.setSelectListenner(new MyLineChartHeartRate.OnSelectListenner() {
             @Override
-            public void onSelected(float high, float low) {
-                tvValue.setText("血压 "+(int)high+"/"+(int)low+"mmHg");
+            public void onSelected(float x, float y) {
+                tvValue.setText("心率 "+(int)y+"次/分");
             }
         });
     }
@@ -111,16 +112,16 @@ public class BloodPressureActivity extends BaseActivity {
         mContainer.setOnTimeChangeListener(new SliderContainer.OnTimeChangeListener() {
             @Override
             public void onTimeChange(Calendar time) {
+//                Calendar selectedDate = mContainer.getTime();
                 int selectDay = time.get(Calendar.DAY_OF_YEAR);
                 int now = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
                 if (now == selectDay) {
-                    chart.setChartData(data12,data12L);
+                    chart.setChartData(data12);
                 } else {
-                    chart.setChartData(data24,data24L);
+                    chart.setChartData(data24);
                 }
 
                 tvTime.setText(String.format("%d年%d月%d日",time.get(Calendar.YEAR),time.get(Calendar.MONTH),time.get(Calendar.DAY_OF_MONTH)));
-
             }
         });
         mContainer.setMinuteInterval(1);
@@ -128,24 +129,27 @@ public class BloodPressureActivity extends BaseActivity {
         Calendar maxTime = Calendar.getInstance();
         maxTime.add(Calendar.HOUR, 1);
         Calendar minTime = Calendar.getInstance();
-        if (maxTime!=null) {
+        if (maxTime != null) {
             mContainer.setMaxTime(maxTime);
         }
     }
 
-    @OnClick({R.id.iv_left, R.id.ll_hand_test})
+    @OnClick({R.id.iv_left, R.id.ll_heartrate_tips, R.id.ll_hand_test})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
                 onBackPressed();
                 break;
+            case R.id.ll_heartrate_tips:
+                startActivity(new Intent(this, HeartRateTipActivity.class));
+                break;
             case R.id.ll_hand_test:
-                boolean aBoolean = SPUtils.getInstance().getBoolean(SPUtils.SP_OPEN_BLOOD_PRESSURE_FIRST, true);
+                boolean aBoolean = SPUtils.getInstance().getBoolean(SPUtils.SP_OPEN_HEART_RATE_FIRST, true);
                 if (aBoolean) {
-                    startActivity(new Intent(this, BloodPressureFirstTestActivity.class));
+                    startActivity(new Intent(this, HeartRateFirstTestActivity.class));
                 } else {
 
-                    startActivity(new Intent(this, BloodPressureTestActivity.class));
+                    startActivity(new Intent(this, HeartRateTestActivity.class));
                 }
                 break;
         }

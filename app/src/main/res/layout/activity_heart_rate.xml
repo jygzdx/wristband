@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.HeartRate2Activity">
+    tools:context=".activity.HeartRateActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,9 +38,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <View
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:background="@color/heart_rate_bg"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="202020202"
+                    android:textColor="#fff"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#fff"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <com.slogan.wristband.wristband.widght.chart.MyLineChartHeartRate
+                android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_chart"
+                android:layout_marginBottom="5dp"
                 android:background="@color/heart_rate_bg" />
 
             <RelativeLayout
@@ -49,8 +75,7 @@
                 android:background="#fff"
                 android:gravity="center">
 
-                <com.slogan.wristband.wristband.widght.DateSlider.SliderContainer
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.slogan.wristband.wristband.widght.DateSlider.SliderContainer xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/dateSliderContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -61,7 +86,7 @@
                         android:layout_height="match_parent"
                         app:childWidth="50dp"
                         app:labelerClass="com.slogan.wristband.wristband.widght.DateSlider.labeler.DayDateLabeler"
-                        app:labelerFormat="%td %ta %tm" />
+                        app:labelerFormat="%td %tj %tm" />
                 </com.slogan.wristband.wristband.widght.DateSlider.SliderContainer>
             </RelativeLayout>
 

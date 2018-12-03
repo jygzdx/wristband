@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.slogan.wristband.wristband.widght.DateSlider.TimeObject;
 
+import java.util.Calendar;
+
 /**
  * This is a more complex implementation of the TimeView consisting of a LinearLayout with
  * two TimeViews. This allows primary text and sub-text, such as the name of the day
@@ -87,7 +89,7 @@ public class TimeLayoutView extends RelativeLayout implements TimeView {
         centerView = new TextView(context);
         centerView.setGravity(Gravity.CENTER | Gravity.TOP);
         centerView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, centerTextSize);
-        centerView.setPadding(0,10,0,10);
+        centerView.setPadding(0, 10, 0, 10);
         topView = new TextView(context);
         topView.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
         topView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, topTextSize);
@@ -201,11 +203,26 @@ public class TimeLayoutView extends RelativeLayout implements TimeView {
      */
     protected void setText() {
         String[] splitTime = text.split(" ");
-        centerView.setText(splitTime[0]+"/"+splitTime[2]);
-        topView.setText(splitTime[1]);
-        if (splitTime.length >= 3) {
-            bottomView.setText(splitTime[2]);
+        int yue = Integer.parseInt(splitTime[2]);
+        int ri = Integer.parseInt(splitTime[0]);
+        int dayOdYear = Integer.parseInt(splitTime[1]);
+
+        Calendar calendar = Calendar.getInstance();
+        int now = calendar.get(Calendar.DAY_OF_YEAR);
+        if (now == dayOdYear) {
+            centerView.setText("今天");
+        } else if (now - 1 == dayOdYear) {
+            centerView.setText("昨天");
+        } else if (now - 2 == dayOdYear) {
+            centerView.setText("前天");
+        } else {
+            centerView.setText(yue + "/" + ri);
         }
+
+//        topView.setText(splitTime[1]);
+//        if (splitTime.length >= 3) {
+//            bottomView.setText(splitTime[2]);
+//        }
     }
 
 
@@ -237,7 +254,7 @@ public class TimeLayoutView extends RelativeLayout implements TimeView {
 //            topView.setTextColor(outBoundColor);
 //            bottomView.setTextColor(outBoundColor);
 //        }
-        if (outOfBounds){
+        if (outOfBounds) {
             centerView.setTextColor(outBoundColor);
         } else {
             centerView.setTextColor(normalColor);

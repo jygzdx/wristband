@@ -2,6 +2,6 @@
 <resources>
     <dimen name="font_size_title">16sp</dimen>
 
-    <dimen name="height_chart">216dp</dimen>
+    <dimen name="height_chart">200dp</dimen>
     <dimen name="heart_rate_item_height">103dp</dimen>
 </resources>
