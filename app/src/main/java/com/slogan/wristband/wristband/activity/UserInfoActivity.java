@@ -14,6 +14,7 @@ import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.utils.ImageUtil;
+import com.slogan.wristband.wristband.widght.ChangeNicknamePop;
 import com.slogan.wristband.wristband.widght.ChoosePicPop;
 
 import org.devio.takephoto.app.TakePhoto;
@@ -69,6 +70,7 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
     private String DOWNLOADPATH;
     private InvokeParam invokeParam;
     private TakePhoto takePhoto;
+    private ChangeNicknamePop changeNickNamePop;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -125,7 +127,7 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
                 showAddPicPop();
                 break;
             case R.id.ll_nickname:
-
+                showNickNamePop();
                 break;
             case R.id.ll_sex:
                 break;
@@ -136,6 +138,19 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
             case R.id.ll_weight:
                 break;
         }
+    }
+
+    private void showNickNamePop() {
+        if(changeNickNamePop == null){
+           changeNickNamePop = new ChangeNicknamePop(this);
+        }
+        changeNickNamePop.showDialog();
+        changeNickNamePop.setOnClickListener(new ChangeNicknamePop.OnClickListener() {
+            @Override
+            public void onEnsureClick(String text) {
+                tvNickname.setText(text);
+            }
+        });
     }
 
     private void showAddPicPop() {
