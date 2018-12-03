@@ -16,6 +16,7 @@ import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.utils.ImageUtil;
 import com.slogan.wristband.wristband.widght.ChangeNicknamePop;
 import com.slogan.wristband.wristband.widght.ChoosePicPop;
+import com.slogan.wristband.wristband.widght.ChooseSexPop;
 
 import org.devio.takephoto.app.TakePhoto;
 import org.devio.takephoto.app.TakePhotoImpl;
@@ -71,6 +72,7 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
     private InvokeParam invokeParam;
     private TakePhoto takePhoto;
     private ChangeNicknamePop changeNickNamePop;
+    private ChooseSexPop sexPop;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -130,6 +132,7 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
                 showNickNamePop();
                 break;
             case R.id.ll_sex:
+                showSexPop();
                 break;
             case R.id.ll_birthday:
                 break;
@@ -149,6 +152,23 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
             @Override
             public void onEnsureClick(String text) {
                 tvNickname.setText(text);
+            }
+        });
+    }
+
+    private void showSexPop(){
+        if(sexPop == null){
+            sexPop = new ChooseSexPop(this);
+        }
+        sexPop.showDialog();
+        sexPop.setOnClickListener(new ChooseSexPop.OnClickListener() {
+            @Override
+            public void onSex(int sex) {
+                if(sex == 0){
+                    tvSex.setText("男");
+                }else{
+                    tvSex.setText("女");
+                }
             }
         });
     }
