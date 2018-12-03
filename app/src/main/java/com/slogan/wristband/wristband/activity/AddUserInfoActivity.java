@@ -1,6 +1,7 @@
 package com.slogan.wristband.wristband.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,9 +25,16 @@ import com.slogan.wristband.wristband.widght.user.HeightAndWeightView;
 import com.slogan.wristband.wristband.widght.user.SexView;
 import com.slogan.wristband.wristband.widght.user.SportStepView;
 
+import org.devio.takephoto.app.TakePhoto;
 import org.devio.takephoto.app.TakePhotoActivity;
+import org.devio.takephoto.app.TakePhotoImpl;
+import org.devio.takephoto.model.InvokeParam;
+import org.devio.takephoto.model.TContextWrap;
 import org.devio.takephoto.model.TImage;
 import org.devio.takephoto.model.TResult;
+import org.devio.takephoto.permission.InvokeListener;
+import org.devio.takephoto.permission.PermissionManager;
+import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddUserInfoActivity extends TakePhotoActivity {
+public class AddUserInfoActivity extends BaseActivity implements TakePhoto.TakeResultListener, InvokeListener {
 
     @BindView(R.id.iv_left)
     ImageView ivLeft;
@@ -66,12 +74,44 @@ public class AddUserInfoActivity extends TakePhotoActivity {
     private SportStepView sportStepView;
 private int currentPosition = 0;
     public Context mContext;
+    private TakePhoto takePhoto;
+    private InvokeParam invokeParam;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getTakePhoto().onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getTakePhoto().onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //以下代码为处理Android6.0、7.0动态权限所需
+        PermissionManager.TPermissionType type=PermissionManager.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        PermissionManager.handlePermissionsResult(this,type,invokeParam,this);
+    }
+
+    @Override
+    public PermissionManager.TPermissionType invoke(InvokeParam invokeParam) {
+        PermissionManager.TPermissionType type=PermissionManager.checkPermission(TContextWrap.of(this),invokeParam.getMethod());
+        if(PermissionManager.TPermissionType.WAIT.equals(type)){
+            this.invokeParam=invokeParam;
+        }
+        return type;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user_info);
         ButterKnife.bind(this);
+        getTakePhoto().onCreate(savedInstanceState);
         mContext = this;
         initWidget();
     }
@@ -164,7 +204,6 @@ List<View> views = new ArrayList<>();
 
     @Override
     public void takeSuccess(TResult result) {
-        super.takeSuccess(result);
         Logger.d(new Gson().toJson(result));
         if(result.getImage().getFromType().name().equals("CAMERA")){
             String DOWNLOADPATH = Environment.getExternalStorageDirectory().getPath()
@@ -181,11 +220,26 @@ List<View> views = new ArrayList<>();
 
     @Override
     public void takeCancel() {
-        super.takeCancel();
     }
 
     @Override
     public void takeFail(TResult result, String msg) {
-        super.takeFail(result, msg);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    /**
+     * 获取TakePhoto实例
+     *
+     * @return
+     */
+    public TakePhoto getTakePhoto() {
+        if (takePhoto == null) {
+            takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
+        }
+        return takePhoto;
     }
 }

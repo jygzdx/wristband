@@ -17,7 +17,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#f8f8f8" />
         <LinearLayout
+            android:id="@+id/ll_head_title"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:orientation="horizontal"
@@ -39,19 +44,19 @@
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/icon_me_go"
                 android:layout_marginRight="20dp"
                 />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#4c4c4c"
+            android:background="#f8f8f8"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             />
         <LinearLayout
-            android:id="@+id/tv_nickname"
+            android:id="@+id/ll_nickname"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
@@ -65,17 +70,27 @@
                 android:layout_marginLeft="20dp"
                 />
 
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="屎上最衰的服不服"
+                android:textColor="@color/text_999"
+                android:textSize="12sp"
+                android:layout_marginRight="14dp"
+                />
+
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/icon_me_go"
                 android:layout_marginRight="20dp"
                 />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#4c4c4c"
+            android:background="#f8f8f8"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             />
@@ -93,18 +108,26 @@
                 android:text="性别"
                 android:layout_marginLeft="20dp"
                 />
-
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="屎上最衰的服不服"
+                android:textColor="@color/text_999"
+                android:textSize="12sp"
+                android:layout_marginRight="14dp"
+                />
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/icon_me_go"
                 android:layout_marginRight="20dp"
                 />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#4c4c4c"
+            android:background="#f8f8f8"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             />
@@ -122,18 +145,26 @@
                 android:text="生日年月"
                 android:layout_marginLeft="20dp"
                 />
-
+            <TextView
+                android:id="@+id/tv_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="屎上最衰的服不服"
+                android:textColor="@color/text_999"
+                android:textSize="12sp"
+                android:layout_marginRight="14dp"
+                />
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/icon_me_go"
                 android:layout_marginRight="20dp"
                 />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#4c4c4c"
+            android:background="#f8f8f8"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             />
@@ -151,18 +182,26 @@
                 android:text="身高"
                 android:layout_marginLeft="20dp"
                 />
-
+            <TextView
+                android:id="@+id/tv_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="屎上最衰的服不服"
+                android:textColor="@color/text_999"
+                android:textSize="12sp"
+                android:layout_marginRight="14dp"
+                />
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/icon_me_go"
                 android:layout_marginRight="20dp"
                 />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#4c4c4c"
+            android:background="#f8f8f8"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             />
@@ -180,11 +219,19 @@
                 android:text="体重"
                 android:layout_marginLeft="20dp"
                 />
-
+            <TextView
+                android:id="@+id/tv_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="屎上最衰的服不服"
+                android:textColor="@color/text_999"
+                android:textSize="12sp"
+                android:layout_marginRight="14dp"
+                />
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/icon_me_go"
                 android:layout_marginRight="20dp"
                 />
         </LinearLayout>

@@ -237,7 +237,7 @@ public class MPChartUtils {
             dataSet.setBarBorderWidth(5);
             dataSet.setBarShadowColor(lineColor);
             dataSet.setValueTextColor(textColor);
-            dataSet.setDrawValues(false);
+            dataSet.setDrawValues(true);
             return dataSet;
         }
 
