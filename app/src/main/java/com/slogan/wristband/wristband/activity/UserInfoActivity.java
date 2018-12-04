@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
+import com.slogan.wristband.wristband.utils.DisplayUtils;
 import com.slogan.wristband.wristband.utils.ImageUtil;
 import com.slogan.wristband.wristband.widght.ChangeNicknamePop;
 import com.slogan.wristband.wristband.widght.ChoosePicPop;
@@ -28,10 +29,15 @@ import org.devio.takephoto.permission.PermissionManager;
 import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.DatePicker;
+import cn.qqtheme.framework.picker.DoublePicker;
+import cn.qqtheme.framework.util.ConvertUtils;
 
 public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResultListener, InvokeListener {
 
@@ -73,6 +79,9 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
     private TakePhoto takePhoto;
     private ChangeNicknamePop changeNickNamePop;
     private ChooseSexPop sexPop;
+    private DatePicker picker;
+    private DoublePicker weightPicker;
+    private DoublePicker heightPicker;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -121,10 +130,13 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
     }
 
     @OnClick({R.id.ll_nickname, R.id.ll_sex, R.id.ll_birthday, R.id.ll_height, R.id.ll_weight,
-        R.id.ll_head_title
+        R.id.ll_head_title,R.id.iv_left
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_left:
+                finish();
+                break;
             case R.id.ll_head_title:
                 showAddPicPop();
                 break;
@@ -135,12 +147,135 @@ public class UserInfoActivity extends BaseActivity implements TakePhoto.TakeResu
                 showSexPop();
                 break;
             case R.id.ll_birthday:
+                showBirthdayDialog();
                 break;
             case R.id.ll_height:
+                showHeightDialog();
                 break;
             case R.id.ll_weight:
+                showWeightDialog();
                 break;
         }
+    }
+
+    private void showBirthdayDialog(){
+        if(picker == null){
+            picker = new DatePicker(this);
+            Calendar calendar = Calendar.getInstance();
+            int start_year = calendar.get(Calendar.YEAR) - 100;
+            int end_year = calendar.get(Calendar.YEAR);
+            picker.setCanceledOnTouchOutside(true);
+            picker.setUseWeight(true);
+            picker.setTopPadding(30);
+            picker.setRangeEnd(end_year, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            picker.setRangeStart(start_year, 1, 1);
+            picker.setSelectedItem(1990, 6, 15);
+            picker.setResetWhileWheel(false);
+            picker.setCycleDisable(false);
+            picker.setTopLineColor(getResources().getColor(R.color.line_bg));
+            picker.setCancelTextColor(getResources().getColor(R.color.text_666));
+            picker.setSubmitTextColor(getResources().getColor(R.color.main_color));
+            picker.setTopHeight(55);
+            picker.setContentPadding(40,20);
+            picker.setDividerColor(getResources().getColor(R.color.main_color));
+        }
+
+
+        picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+            @Override
+            public void onDatePicked(String year, String month, String day) {
+                tvBirthday.setText(year+"年"+month+"月"+day+"日");
+            }
+        });
+        picker.setOnWheelListener(new DatePicker.OnWheelListener() {
+            @Override
+            public void onYearWheeled(int index, String year) {
+                picker.setTitleText("");
+            }
+
+            @Override
+            public void onMonthWheeled(int index, String month) {
+                picker.setTitleText("");
+            }
+
+            @Override
+            public void onDayWheeled(int index, String day) {
+                picker.setTitleText("");
+            }
+        });
+        picker.show();
+    }
+
+    private void showHeightDialog(){
+        final ArrayList<String> firstData = new ArrayList<>();
+        for (int i = 140; i < 200; i++) {
+            firstData.add(i+"");
+        }
+        final ArrayList<String> secondData = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            secondData.add(i+"");
+        }
+        if(heightPicker == null){
+            heightPicker = new DoublePicker(this,firstData,secondData);
+            heightPicker.setCanceledOnTouchOutside(true);
+            heightPicker.setSelectedIndex(0,0);
+            heightPicker.setFirstLabel("", null);
+            heightPicker.setSecondLabel("点", "厘米");
+            heightPicker.setUseWeight(true);
+            heightPicker.setTopPadding(30);
+            heightPicker.setCycleDisable(false);
+            heightPicker.setTopLineColor(getResources().getColor(R.color.line_bg));
+            heightPicker.setCancelTextColor(getResources().getColor(R.color.text_666));
+            heightPicker.setSubmitTextColor(getResources().getColor(R.color.main_color));
+            heightPicker.setTopHeight(55);
+            heightPicker.setContentPadding(40,20);
+            heightPicker.setDividerColor(getResources().getColor(R.color.main_color));
+        }
+
+
+        heightPicker.setOnPickListener(new DoublePicker.OnPickListener() {
+            @Override
+            public void onPicked(int selectedFirstIndex, int selectedSecondIndex) {
+                tvHeight.setText(firstData.get(selectedFirstIndex)+"."+secondData.get(selectedSecondIndex)+"cm");
+            }
+        });
+        heightPicker.show();
+    }
+
+    private void showWeightDialog(){
+        final ArrayList<String> firstData = new ArrayList<>();
+        for (int i = 30; i < 100; i++) {
+            firstData.add(i+"");
+        }
+        final ArrayList<String> secondData = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            secondData.add(i+"");
+        }
+        if(weightPicker == null){
+            weightPicker = new DoublePicker(this,firstData,secondData);
+            weightPicker.setCanceledOnTouchOutside(true);
+            weightPicker.setUseWeight(true);
+            weightPicker.setTopPadding(30);
+            weightPicker.setCycleDisable(false);
+            weightPicker.setTopLineColor(getResources().getColor(R.color.line_bg));
+            weightPicker.setCancelTextColor(getResources().getColor(R.color.text_666));
+            weightPicker.setSubmitTextColor(getResources().getColor(R.color.main_color));
+            weightPicker.setTopHeight(55);
+            weightPicker.setContentPadding(40,20);
+            weightPicker.setDividerColor(getResources().getColor(R.color.main_color));
+            weightPicker.setSelectedIndex(20, 0);
+            weightPicker.setFirstLabel(null, null);
+            weightPicker.setSecondLabel("点", "千克");
+        }
+
+
+        weightPicker.setOnPickListener(new DoublePicker.OnPickListener() {
+            @Override
+            public void onPicked(int selectedFirstIndex, int selectedSecondIndex) {
+                tvWeight.setText(firstData.get(selectedFirstIndex)+"."+secondData.get(selectedSecondIndex)+"千克");
+            }
+        });
+        weightPicker.show();
     }
 
     private void showNickNamePop() {

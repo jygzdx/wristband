@@ -67,5 +67,7 @@ dependencies {
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'org.devio.takephoto:takephoto_library:4.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
-
+    compile('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6') {
+        exclude group: 'com.android.support'
+    }
 }

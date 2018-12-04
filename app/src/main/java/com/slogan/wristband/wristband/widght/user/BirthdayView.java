@@ -39,7 +39,7 @@ public class BirthdayView extends LinearLayout {
     private void initWidght() {
         Calendar calendar = Calendar.getInstance();
         START_YEAR = calendar.get(Calendar.YEAR) - 100;
-        END_YEAR = calendar.get(Calendar.YEAR) - 17;
+        END_YEAR = calendar.get(Calendar.YEAR);
         initView(1990, 5, 15);
     }
 
