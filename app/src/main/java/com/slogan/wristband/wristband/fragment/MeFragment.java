@@ -63,7 +63,6 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void initView() {
         unbinder = ButterKnife.bind(this, mRootView);
-        rl
     }
 
     @Override
