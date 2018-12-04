@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.BloodOxygenActivity;
 import com.slogan.wristband.wristband.activity.BloodPressureActivity;
-import com.slogan.wristband.wristband.activity.HeartRate2Activity;
+import com.slogan.wristband.wristband.activity.HeartRateActivity;
 import com.slogan.wristband.wristband.activity.SleepQualityActivity;
 import com.slogan.wristband.wristband.utils.CommTool;
 import com.slogan.wristband.wristband.widght.SleepQualityView;
@@ -387,7 +387,7 @@ public class HomeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_heart_rate:
-                startActivity(new Intent(getContext(),HeartRate2Activity.class));
+                startActivity(new Intent(getContext(),HeartRateActivity.class));
                 break;
             case R.id.ll_blood_pressure:
                 startActivity(new Intent(getContext(),BloodPressureActivity.class));
