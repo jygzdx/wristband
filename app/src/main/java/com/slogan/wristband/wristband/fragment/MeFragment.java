@@ -10,7 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.activity.ElectricActivity;
 import com.slogan.wristband.wristband.activity.UserInfoActivity;
+import com.veclink.bracelet.bletask.BleCallBack;
+import com.veclink.sdk.VeclinkSDK;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,8 +63,29 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void initView() {
         unbinder = ButterKnife.bind(this, mRootView);
+        rl
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        VeclinkSDK.getInstance().queryDevicePower(new BleCallBack() {
+            @Override
+            public void onStart(Object o) {
+
+            }
+
+            @Override
+            public void onFailed(Object o) {
+
+            }
+
+            @Override
+            public void onFinish(Object o) {
+                tvElectric.setText("剩余用电量"+o.toString()+"%");
+            }
+        });
+    }
 
     @Override
     public void onDestroyView() {
@@ -78,6 +102,7 @@ public class MeFragment extends BaseFragment {
                 gotoUserInfoActivity();
                 break;
             case R.id.ll_electric:
+                gotoElectricActivity();
                 break;
             case R.id.ll_sport:
                 break;
@@ -88,6 +113,11 @@ public class MeFragment extends BaseFragment {
             case R.id.ll_setting:
                 break;
         }
+    }
+
+    private void gotoElectricActivity() {
+        Intent intent = new Intent(this.getContext(),ElectricActivity.class);
+        startActivity(intent);
     }
 
     private void gotoUserInfoActivity() {

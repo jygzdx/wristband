@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_f8f8f8"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -10,7 +12,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
 
             <TextView
                 android:layout_width="match_parent"
@@ -22,7 +26,9 @@
                 android:id="@+id/ll_user_info"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
 
                 <ImageView
                     android:id="@+id/iv_head"
@@ -58,15 +64,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="lv 1" />
+                    android:drawableRight="@drawable/icon_me_go"
+                    android:layout_marginRight="18dp"
+                    android:text="" />
             </LinearLayout>
             
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="74dp"
                 android:orientation="horizontal"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:background="@color/white"
                 >
                 <LinearLayout
                     android:layout_width="0dp"
@@ -158,7 +167,9 @@
                 android:layout_height="30dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="我的设备" />
+                android:text="我的设备"
+                android:background="@color/white"
+                />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -168,7 +179,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
 
                 <ImageView
                     android:layout_width="30dp"
@@ -202,7 +215,9 @@
                 android:layout_height="30dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="目标设定" />
+                android:text="目标设定"
+                android:background="@color/white"
+                />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -212,7 +227,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
 
                 <ImageView
                     android:layout_width="30dp"
@@ -248,7 +265,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
 
                 <ImageView
                     android:layout_width="30dp"
@@ -281,7 +300,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
 
                 <ImageView
                     android:layout_width="30dp"
@@ -314,7 +335,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
 
                 <ImageView
                     android:layout_width="30dp"

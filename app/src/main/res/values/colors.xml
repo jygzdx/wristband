@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFffffff</color>
     <color name="black">#FF000000</color>
+    <color name="half_black">#80000000</color>
     <color name="transparent">#00000000</color>
     <color name="main_color">#2883ed</color>
     <color name="tab_text_color_unselect">#ABABAB</color>
@@ -22,6 +23,7 @@
     <color name="c_999999">#999999</color>
     <color name="c_default">#F8F8F8</color>
 
+    <color name="bg_f8f8f8">#F8F8F8</color>
     <color name="heart_rate_state_1">#569cf8</color>
     <color name="heart_rate_state_2">#61d268</color>
     <color name="heart_rate_state_3">#f5bc47</color>
@@ -36,4 +38,5 @@
     <color name="line_color_login">#CCCCCC</color>
     <color name="char_text_color">#2883ed</color>
     <color name="sjfkjls">#ac3253</color>
+    <color name="electric_top_color">#357CE8</color>
 </resources>

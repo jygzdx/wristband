@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_f8f8f8"
+    tools:context=".activity.ElectricActivity">
+
+    <include layout="@layout/include_title_bar"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="134dp"
+    android:background="@color/electric_top_color"
+    >
+    <TextView
+        android:id="@+id/tv_electric_per"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="84"
+        android:textColor="#FFFFFFFF"
+        android:textSize="48sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="%"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_toRightOf="@+id/tv_electric_per"
+        android:layout_alignBottom="@+id/tv_electric_per"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:id="@+id/tv_device_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="W030M-LBME"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_electric_per"
+        android:layout_marginTop="4dp"
+        />
+</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_alarm_clock"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_alarm_clock" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:textColor="@color/text_333"
+            android:text="智能闹钟" />
+
+        <TextView
+            android:id="@+id/tv_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="未开启"
+            android:textColor="@color/text_999"
+            android:drawablePadding="12dp"
+            android:drawableRight="@drawable/icon_me_go"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_old_seat"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_old_seat" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:textColor="@color/text_333"
+            android:text="久坐提醒" />
+
+        <TextView
+            android:id="@+id/tv_old_seat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="未开启"
+            android:textColor="@color/text_999"
+            android:drawablePadding="12dp"
+            android:drawableRight="@drawable/icon_me_go"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_remind"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/icon_remind" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_333"
+                android:text="全天候监测"
+                android:textSize="14sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_999"
+                android:text="开启后会大幅度降低续航时间"
+                android:textSize="10sp"
+                />
+        </LinearLayout>
+
+<ImageView
+    android:id="@+id/iv_remind"
+    android:layout_width="32dp"
+    android:layout_height="16dp"
+    android:src="@drawable/icon_switch_close"
+    android:layout_marginRight="20dp"
+    />
+    </LinearLayout>
+</LinearLayout>

@@ -24,4 +24,5 @@
     <string name="ensure">確定</string>
     <string name="sport_step_selected">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020步</string>
     <string name="title_user_info">个人信息</string>
+    <string name="title_electric">华卓手环</string>
 </resources>
