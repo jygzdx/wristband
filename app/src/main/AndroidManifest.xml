@@ -124,19 +124,46 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <activity android:name=".activity.HeartRateActivity">
+        <activity android:name=".activity.HeartRateActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
 
         </activity>
-        <activity android:name=".activity.HeartRateTipActivity" />
-        <activity android:name=".activity.HeartRateTestActivity" />
-        <activity android:name=".activity.HeartRateFirstTestActivity" />
-        <activity android:name=".activity.BloodPressureActivity" />
-        <activity android:name=".activity.BloodPressureTestActivity" />
-        <activity android:name=".activity.BloodPressureFirstTestActivity" />
-        <activity android:name=".activity.BloodOxygenActivity" />
-        <activity android:name=".activity.BloodOxygenFirstTestActivity" />
-        <activity android:name=".activity.BloodOxygenTestActivity" />
-        <activity android:name=".activity.ElectricActivity"></activity>
+        <activity android:name=".activity.HeartRateTipActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.HeartRateTestActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.HeartRateFirstTestActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.BloodPressureActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.BloodPressureTestActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.BloodPressureFirstTestActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.BloodOxygenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.BloodOxygenFirstTestActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.BloodOxygenTestActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.ElectricActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
