@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">wristband</string>
+    <string name="app_name">华卓健康</string>
     <string name="title_activity_login_main">Sign in</string>
     <string name="main_tab_home">状态</string>
     <string name="main_tab_find">发现</string>
