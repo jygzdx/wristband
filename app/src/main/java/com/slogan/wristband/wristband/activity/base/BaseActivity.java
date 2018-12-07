@@ -154,15 +154,6 @@ public class BaseActivity extends Activity implements HttpMsg, RequestTypeCode {
     }
 
     /**
-     * @return 当前操作用户靓号*/
-    public long getMyShortId() {
-        if (shortId == 0) {
-            shortId = UserInfoSharedPreference.getUserInfoLong(BaseActivity.this, UserInfoConfig.SHORT_ID, 0);
-        }
-        return shortId;
-    }
-
-    /**
      * @return 当前操作用户LOGIN_KEY
      */
     public String getLoginKey() {

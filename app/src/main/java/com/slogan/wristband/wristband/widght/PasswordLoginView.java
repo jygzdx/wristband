@@ -16,17 +16,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.MainActivity;
 import com.slogan.wristband.wristband.activity.RegisterActivity;
 import com.slogan.wristband.wristband.activity.RegisterSuccessActivity;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
+import com.slogan.wristband.wristband.api.ApiFactory;
+import com.slogan.wristband.wristband.api.model.base.TokenResp;
+import com.slogan.wristband.wristband.db.AppConfigSharedPreferences;
+import com.slogan.wristband.wristband.db.UserInfoConfig;
+import com.slogan.wristband.wristband.db.UserInfoSharedPreference;
 import com.slogan.wristband.wristband.utils.CommTool;
+import com.slogan.wristband.wristband.utils.ResponseUtils;
 import com.slogan.wristband.wristband.utils.StringUtils;
+import com.slogan.wristband.wristband.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by free_boy on 2018/10/24.
@@ -135,7 +146,33 @@ public class PasswordLoginView extends LinearLayout {
                 mContext.startActivity(loginSuccess);
                 break;
             case R.id.tv_login:
-                gotoMainActivity();
+                String username = etUser.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+                if(StringUtils.isBlank(username)){
+                    ToastUtils.showToast("用户名不能为空");
+                    return;
+                }
+                if(StringUtils.isBlank(password)){
+                    ToastUtils.showToast("密码不能为空");
+                    return;
+                }
+                Call<TokenResp> tokenRespCall = ApiFactory.provideAccountUserService().login(username, password);
+                tokenRespCall.enqueue(new Callback<TokenResp>() {
+                    @Override
+                    public void onResponse(Call<TokenResp> call, Response<TokenResp> response) {
+                        TokenResp tokenResp = response.body();
+                        if(ResponseUtils.isSuccess(tokenResp)){
+                            UserInfoSharedPreference.saveUserInfoString(mContext,UserInfoConfig.TOKEN,tokenResp.getToken());
+                            gotoMainActivity();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TokenResp> call, Throwable t) {
+
+                    }
+                });
+
                 break;
         }
     }
@@ -143,6 +180,7 @@ public class PasswordLoginView extends LinearLayout {
     private void gotoMainActivity() {
         Intent intent = new Intent(mContext,MainActivity.class);
         mContext.startActivity(intent);
+        ((Activity) mContext).finish();
     }
 
     public void closeKeybroad() {

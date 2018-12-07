@@ -39,6 +39,7 @@ switch (message.what){
     case 1:
         Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
         startActivity(intent);
+        finish();
         break;
 }
     }

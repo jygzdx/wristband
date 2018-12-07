@@ -26,7 +26,7 @@ public interface AccountUserService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/api/front/auth/token")
+    @POST("api/front/auth/token")
     Call<TokenResp> login(@Field("username") String username, @Field("password") String password);
 
     /**
@@ -35,7 +35,7 @@ public interface AccountUserService {
      * @param access_token
      * @return
      */
-    @GET("/api/front/auth/user")
+    @GET("api/front/auth/user")
     Call<ModelResp<FrontUserInfo>> getUserInfo(@Header("access-token") String access_token);
 
     /**
@@ -44,7 +44,7 @@ public interface AccountUserService {
      * @param access_token
      * @return
      */
-    @GET("/api/front/auth/refresh")
+    @GET("api/front/auth/refresh")
     Call<TokenResp> refreshToken(@Header("access-token") String access_token);
 
     /**
@@ -53,7 +53,7 @@ public interface AccountUserService {
      * @param access_token
      * @return
      */
-    @GET("/api/front/auth/invalid")
+    @GET("api/front/auth/invalid")
     Call<BaseResp> invalid(@Header("access-token") String access_token);
 
     /**
@@ -62,7 +62,7 @@ public interface AccountUserService {
      * @param access_token
      * @return
      */
-    @GET("/api/front/auth/validateToken")
+    @GET("api/front/auth/validateToken")
     Call<BaseResp> validateToken(@Header("access-token") String access_token);
 
 
@@ -72,7 +72,7 @@ public interface AccountUserService {
      * @param mobile
      * @return
      */
-    @POST("/api/front/register/checkMobile")
+    @POST("api/front/register/checkMobile")
     Call<BaseResp> checkMobile(@Query("mobile") String mobile);
 
     /**
@@ -81,7 +81,7 @@ public interface AccountUserService {
      * @param mobile
      * @return
      */
-    @POST("/api/front/register/sendSms")
+    @POST("api/front/register/sendSms")
     Call<BaseResp> sendMsg(@Query("mobile") String mobile);
 
     /**
@@ -92,7 +92,7 @@ public interface AccountUserService {
      * @param validCode 验证码
      * @return
      */
-    @POST("/api/front/register/register")
+    @POST("api/front/register/register")
     Call<BaseResp> register(@Query("username") String username, @Query("password") String password, @Query("validCode") String validCode);
 
     /**
@@ -103,7 +103,7 @@ public interface AccountUserService {
      * @param validCode 验证码
      * @return
      */
-    @POST("/api/front/register/resetPassword")
+    @POST("api/front/register/resetPassword")
     Call<BaseResp> resetPassword(@Query("username") String mobile, @Query("newPwd") String newPwd, @Query("validCode") String validCode);
 
 }

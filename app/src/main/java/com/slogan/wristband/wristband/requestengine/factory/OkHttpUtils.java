@@ -1,8 +1,12 @@
 package com.slogan.wristband.wristband.requestengine.factory;
 
+
+import com.orhanobut.logger.Logger;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class OkHttpUtils {
     private static volatile OkHttpUtils sInstance;
@@ -13,6 +17,7 @@ public class OkHttpUtils {
 
     private OkHttpUtils() {
         mOkHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .readTimeout(DEFAULT_READ_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                 .writeTimeout(DEFAULT_WRITE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                 .connectTimeout(DEFAULT_CONNECT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS).build();
