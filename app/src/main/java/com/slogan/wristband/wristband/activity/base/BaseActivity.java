@@ -152,6 +152,13 @@ public class BaseActivity extends Activity implements HttpMsg, RequestTypeCode {
         }
         return myUid;
     }
+    private String token;
+    public String getToken(){
+        if(StringUtils.isBlank(token)){
+            token = UserInfoSharedPreference.getUserInfoString(mContext,UserInfoConfig.TOKEN,"");
+        }
+        return token;
+    }
 
     /**
      * @return 当前操作用户LOGIN_KEY
