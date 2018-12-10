@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.slogan.wristband.wristband.R;
+import com.slogan.wristband.wristband.app.Configs;
 import com.slogan.wristband.wristband.bean.MessageEvent;
 import com.slogan.wristband.wristband.db.UserInfoConfig;
 import com.slogan.wristband.wristband.db.UserInfoSharedPreference;
@@ -69,7 +70,22 @@ public class BaseActivity extends Activity implements HttpMsg, RequestTypeCode {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Configs.ACTION_ACTIVITY_FINISH);
+        registerReceiver(this.broadcastReceiver, filter);
     }
+    // 写一个广播的内部类，当收到动作时，结束activity
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            if (intent.getAction().equals(Configs.ACTION_ACTIVITY_FINISH))
+            {
+                finish();
+            }
+        }
+    };
 
     public void setStatusBarTint(int color, boolean dark) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)

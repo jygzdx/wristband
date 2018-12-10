@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.slogan.wristband.wristband.activity.RegisterActivity">
 
     <include layout="@layout/include_title_bar"
@@ -28,9 +29,12 @@
         android:layout_marginTop="48dp"
         >
         <TextView
+            android:id="@+id/tv_area_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+86"
+            android:drawableRight="@drawable/icon_mobile_area_select"
+            android:drawablePadding="3dp"
             />
         <EditText
             android:id="@+id/et_phone_number"
@@ -51,7 +55,7 @@
             android:id="@+id/iv_delete_phone"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/back"
+            android:src="@drawable/png_clear"
             />
     </LinearLayout>
     <View
@@ -65,7 +69,7 @@
         android:id="@+id/tv_gain_sms"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@drawable/shape_check_code_unselect_bg"
+        android:background="@drawable/selector_register_bg"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="40dp"
@@ -85,9 +89,10 @@
         >
         <ImageView
             android:id="@+id/iv_choose_agreement"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@drawable/back"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/icon_sex_selected"
+            android:layout_marginRight="2dp"
             />
         <TextView
             android:layout_width="wrap_content"

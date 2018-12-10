@@ -30,6 +30,16 @@ public interface AccountUserService {
     Call<TokenResp> login(@Field("username") String username, @Field("password") String password);
 
     /**
+     * 手机验证码登录
+     *
+     * @param mobile 手机号码
+     * @param validCode 验证码
+     * @return
+     */
+    @POST("api/front/auth/mobileToken")
+    Call<TokenResp> loginByCode(@Query("mobile") String mobile, @Query("validCode") String validCode);
+
+    /**
      * 获取用户信息
      *
      * @param access_token
@@ -87,13 +97,13 @@ public interface AccountUserService {
     /**
      * 注册
      *
-     * @param username 手机号码
+     * @param mobile 手机号码
      * @param password base64编码后的密码
      * @param validCode 验证码
      * @return
      */
     @POST("api/front/register/register")
-    Call<BaseResp> register(@Query("username") String username, @Query("password") String password, @Query("validCode") String validCode);
+    Call<BaseResp> register(@Query("mobile") String mobile, @Query("password") String password, @Query("validCode") String validCode);
 
     /**
      * 重置密码

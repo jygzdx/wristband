@@ -151,6 +151,7 @@ public class PasswordLoginView extends LinearLayout {
             case R.id.tv_to_register:
                 Intent register = new Intent(mContext, RegisterActivity.class);
                 mContext.startActivity(register);
+                ((Activity) mContext).finish();
                 break;
             case R.id.tv_forget_password:
                 Intent loginSuccess = new Intent(mContext,RegisterSuccessActivity.class);

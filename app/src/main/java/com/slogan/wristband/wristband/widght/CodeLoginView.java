@@ -127,7 +127,7 @@ public class CodeLoginView extends LinearLayout {
                     case 1:
                         if(mCodeSecond>0){
                             mCodeSecond --;
-                            handler.sendEmptyMessageAtTime(1,1000);
+                            handler.sendEmptyMessageDelayed(1,1000);
                             tvVerifyTime.setText("重新发送("+mCodeSecond+")");
                             tvVerifyTime.setEnabled(false);
                         }else if(mCodeSecond<= 0){
@@ -147,12 +147,12 @@ public class CodeLoginView extends LinearLayout {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_verify_time:
-                handler.sendEmptyMessage(1);
                 String mobile = etPhoneNumber.getText().toString().trim();
                 if(StringUtils.isBlank(mobile)){
                     WristbandApplication.getInstance().showToast("手机号码不能为空");
                     return;
                 }
+                handler.sendEmptyMessage(1);
                 Call<BaseResp> call = ApiFactory.provideAccountUserService().sendMsg(mobile);
                 call.enqueue(new Callback<BaseResp>() {
                     @Override
@@ -170,7 +170,22 @@ public class CodeLoginView extends LinearLayout {
                 });
                 break;
             case R.id.tv_login:
-                gotoMainActivity();
+                Call<TokenResp> codeCall = ApiFactory.provideAccountUserService().loginByCode(phone,code);
+                codeCall.enqueue(new Callback<TokenResp>() {
+                    @Override
+                    public void onResponse(Call<TokenResp> call, Response<TokenResp> response) {
+                        TokenResp tokenResp = response.body();
+                        if(ResponseUtils.isSuccess(tokenResp)){
+                            UserInfoSharedPreference.saveUserInfoString(mContext,UserInfoConfig.TOKEN,tokenResp.getToken());
+                            gotoMainActivity();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TokenResp> call, Throwable t) {
+
+                    }
+                });
                 break;
         }
     }

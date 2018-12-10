@@ -3,7 +3,6 @@ package com.slogan.wristband.wristband.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -14,11 +13,20 @@ import android.widget.TextView;
 
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
+import com.slogan.wristband.wristband.api.ApiFactory;
+import com.slogan.wristband.wristband.api.model.base.BaseResp;
+import com.slogan.wristband.wristband.app.ActivityResultCode;
+import com.slogan.wristband.wristband.app.WristbandApplication;
+import com.slogan.wristband.wristband.utils.ResponseUtils;
 import com.slogan.wristband.wristband.utils.StringUtils;
+import com.slogan.wristband.wristband.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -38,6 +46,8 @@ public class RegisterActivity extends BaseActivity {
     TextView tvGainSms;
     @BindView(R.id.iv_choose_agreement)
     ImageView ivChooseAgreement;
+    @BindView(R.id.tv_area_select)
+    TextView tvAreaSelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,15 @@ public class RegisterActivity extends BaseActivity {
         ButterKnife.bind(this);
         initHandler();
         initWidget();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ActivityResultCode.ACTIVITY_MOBILE_AREA&&resultCode == ActivityResultCode.ACTIVITY_MOBILE_AREA){
+            String code = data.getStringExtra("area_code");
+            tvAreaSelect.setText("+"+code);
+        }
     }
 
     @Override
@@ -60,11 +79,9 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(StringUtils.isBlank(s.toString())){
-                    tvGainSms.setBackgroundResource(R.drawable.shape_check_code_unselect_bg);
                     tvGainSms.setEnabled(false);
                     ivDeletePhone.setVisibility(View.GONE);
                 }else{
-                    tvGainSms.setBackgroundResource(R.drawable.shape_check_code_bg);
                     tvGainSms.setEnabled(true);
                     ivDeletePhone.setVisibility(View.VISIBLE);
                 }
@@ -76,12 +93,17 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
-
-    @OnClick({R.id.iv_left, R.id.iv_delete_phone, R.id.tv_gain_sms, R.id.iv_choose_agreement})
+private int isAgree = 1;
+    @OnClick({R.id.iv_left, R.id.iv_delete_phone, R.id.tv_gain_sms, R.id.iv_choose_agreement
+    ,R.id.tv_area_select
+    })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_left:
                 finish();
+                break;
+            case R.id.tv_area_select:
+                gotoMobileAreaActivity();
                 break;
             case R.id.iv_delete_phone:
                 etPhoneNumber.setText("");
@@ -90,12 +112,43 @@ public class RegisterActivity extends BaseActivity {
                 sendGainSmsRequest();
                 break;
             case R.id.iv_choose_agreement:
+                isAgree = isAgree == 0?1:0;
+                if(isAgree == 1){
+                    ivChooseAgreement.setImageDrawable(getResources().getDrawable(R.drawable.icon_sex_selected));
+                }else{
+                    ivChooseAgreement.setImageDrawable(getResources().getDrawable(R.drawable.icon_sex_unselected));
+                }
                 break;
         }
     }
 
+    private void gotoMobileAreaActivity() {
+        Intent intent = new Intent(this,MobileAreaActivity.class);
+        startActivityForResult(intent,ActivityResultCode.ACTIVITY_MOBILE_AREA);
+    }
+
     private void sendGainSmsRequest(){
-        handler.sendEmptyMessageDelayed(1,3000);
+        if(isAgree != 1){
+            WristbandApplication.getInstance().showToast("需同意用户协议及隐私政策才能注册");
+            return;
+        }
+        final String mobile = etPhoneNumber.getText().toString().trim();
+        Call<BaseResp> call = ApiFactory.provideAccountUserService().sendMsg(mobile);
+        call.enqueue(new Callback<BaseResp>() {
+            @Override
+            public void onResponse(Call<BaseResp> call, Response<BaseResp> response) {
+                BaseResp baseResp = response.body();
+                if(ResponseUtils.isSuccess(baseResp)){
+                    WristbandApplication.getInstance().showToast("获取验证码成功");
+                    gotoVerifyActivity(mobile);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResp> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -103,13 +156,13 @@ public class RegisterActivity extends BaseActivity {
         super.handleMessageInfo(msg);
         switch (msg.what){
             case 1:
-                gotoVerifyActivity();
                 break;
         }
     }
 
-    private void gotoVerifyActivity() {
+    private void gotoVerifyActivity(String mobile) {
         Intent intent = new Intent(this,VerifyCodeActivity.class);
+        intent.putExtra("mobile",mobile);
         startActivity(intent);
     }
 }

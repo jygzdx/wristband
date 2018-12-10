@@ -91,6 +91,6 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:enabled="true"
+        android:enabled="false"
         />
 </LinearLayout>
