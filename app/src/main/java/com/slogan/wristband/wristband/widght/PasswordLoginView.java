@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -59,6 +61,7 @@ public class PasswordLoginView extends LinearLayout {
     TextView tvLogin;
     private View view;
     private Handler handler;
+    private int mShowPassword = 0;
 
     public PasswordLoginView(Context context) {
         super(context);
@@ -136,6 +139,14 @@ public class PasswordLoginView extends LinearLayout {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_show_password:
+                mShowPassword = mShowPassword == 0?1:0;
+                if(mShowPassword == 1){
+                    tvShowPassword.setImageDrawable(mContext.getResources().getDrawable(R.drawable.open_eye));
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else{
+                    tvShowPassword.setImageDrawable(mContext.getResources().getDrawable(R.drawable.close_eye));
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
                 break;
             case R.id.tv_to_register:
                 Intent register = new Intent(mContext, RegisterActivity.class);

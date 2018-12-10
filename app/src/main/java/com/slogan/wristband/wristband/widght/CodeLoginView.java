@@ -18,12 +18,23 @@ import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.MainActivity;
 import com.slogan.wristband.wristband.activity.RegisterActivity;
 import com.slogan.wristband.wristband.activity.VerifyCodeActivity;
+import com.slogan.wristband.wristband.api.ApiFactory;
+import com.slogan.wristband.wristband.api.model.base.BaseResp;
+import com.slogan.wristband.wristband.api.model.base.TokenResp;
+import com.slogan.wristband.wristband.app.WristbandApplication;
+import com.slogan.wristband.wristband.db.UserInfoConfig;
+import com.slogan.wristband.wristband.db.UserInfoSharedPreference;
 import com.slogan.wristband.wristband.utils.CommTool;
+import com.slogan.wristband.wristband.utils.ResponseUtils;
 import com.slogan.wristband.wristband.utils.StringUtils;
+import com.slogan.wristband.wristband.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by free_boy on 2018/10/24.
@@ -52,8 +63,13 @@ public class CodeLoginView extends LinearLayout {
         initWidget();
     }
 
+    public void onDestroy(){
+        handler.removeCallbacksAndMessages(null);
+    }
+
     private void initWidget() {
         tvLogin.setEnabled(false);
+        tvVerifyTime.setEnabled(true);
         etPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -109,17 +125,49 @@ public class CodeLoginView extends LinearLayout {
                 super.handleMessage(msg);
                 switch (msg.what) {
                     case 1:
+                        if(mCodeSecond>0){
+                            mCodeSecond --;
+                            handler.sendEmptyMessageAtTime(1,1000);
+                            tvVerifyTime.setText("重新发送("+mCodeSecond+")");
+                            tvVerifyTime.setEnabled(false);
+                        }else if(mCodeSecond<= 0){
+                            mCodeSecond = 60;
+                            handler.removeMessages(1);
+                            tvVerifyTime.setText("获取验证码");
+                            tvVerifyTime.setEnabled(true);
+                        }
                         break;
                 }
             }
         };
     }
 
-
+    int mCodeSecond = 60;
     @OnClick({R.id.tv_verify_time, R.id.tv_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_verify_time:
+                handler.sendEmptyMessage(1);
+                String mobile = etPhoneNumber.getText().toString().trim();
+                if(StringUtils.isBlank(mobile)){
+                    WristbandApplication.getInstance().showToast("手机号码不能为空");
+                    return;
+                }
+                Call<BaseResp> call = ApiFactory.provideAccountUserService().sendMsg(mobile);
+                call.enqueue(new Callback<BaseResp>() {
+                    @Override
+                    public void onResponse(Call<BaseResp> call, Response<BaseResp> response) {
+                        BaseResp baseResp = response.body();
+                        if(ResponseUtils.isSuccess(baseResp)){
+                            WristbandApplication.getInstance().showToast("获取验证码成功");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResp> call, Throwable t) {
+
+                    }
+                });
                 break;
             case R.id.tv_login:
                 gotoMainActivity();

@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.slogan.wristband.wristband.utils.StringUtils;
+import com.slogan.wristband.wristband.widght.CommToast;
 import com.veclink.sdk.VeclinkSDK;
 
 /**
@@ -12,6 +14,8 @@ import com.veclink.sdk.VeclinkSDK;
 
 public class WristbandApplication extends Application {
     private static WristbandApplication instance;
+    private CommToast commToast;
+
     public static WristbandApplication getInstance() {
         return instance;
     }
@@ -24,5 +28,12 @@ public class WristbandApplication extends Application {
         veclinkSDK.init(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
     }
-
+    public void showToast(String toast) {
+        if (!StringUtils.isBlank(toast)) {
+            if (commToast == null) {
+                commToast = new CommToast();
+            }
+            commToast.showToast(WristbandApplication.this, toast);
+        }
+    }
 }

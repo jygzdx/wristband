@@ -3,6 +3,7 @@ package com.slogan.wristband.wristband.activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,8 +40,11 @@ public class LoginMainActivity extends BaseActivity {
     LinearLayout llVerify;
     @BindView(R.id.vp_login)
     ViewPager vpLogin;
+    @BindView(R.id.iv_left)
+    ImageView ivLeft;
     private List<View> views = new ArrayList<>();
     private CommonPagerAdapter adapter;
+    private CodeLoginView codeLoginView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +56,19 @@ public class LoginMainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        codeLoginView.onDestroy();
+    }
+
+    @Override
     public void initWidget() {
         super.initWidget();
-
+        ivLeft.setVisibility(View.VISIBLE);
+        ivLeft.setImageDrawable(getResources().getDrawable(R.drawable.back));
         final PasswordLoginView passwordLoginView = new PasswordLoginView(mContext);
         views.add(passwordLoginView);
-        final CodeLoginView codeLoginView = new CodeLoginView(mContext);
+        codeLoginView = new CodeLoginView(mContext);
         views.add(codeLoginView);
         adapter = new CommonPagerAdapter(views);
         vpLogin.setAdapter(adapter);
@@ -81,9 +92,12 @@ public class LoginMainActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.ll_password, R.id.ll_verify})
+    @OnClick({R.id.ll_password, R.id.ll_verify,R.id.iv_left})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_left:
+                finish();
+                break;
             case R.id.ll_password:
                 vpLogin.setCurrentItem(0);
                 switchView(0);

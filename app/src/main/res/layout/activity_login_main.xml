@@ -4,14 +4,9 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.slogan.wristband.wristband.activity.LoginMainActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="华卓登录"
-        android:textSize="16sp"
-        android:layout_marginTop="30dp"
-        />
+    <include layout="@layout/include_title_bar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,12 +27,14 @@
                 android:layout_height="wrap_content"
                 android:text="账号密码登录"
                 android:gravity="center"
+                android:textSize="20sp"
                 />
             <TextView
                 android:id="@+id/tv_line1"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="#000000"
+                android:layout_marginTop="5dp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -53,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="手机验证码登录"
                 android:gravity="center"
+                android:textSize="20sp"
                 />
             <TextView
                 android:id="@+id/tv_line2"
@@ -60,6 +58,7 @@
                 android:layout_height="2dp"
                 android:background="#000000"
                 android:visibility="gone"
+                android:layout_marginTop="5dp"
                 />
         </LinearLayout>
         </LinearLayout>
