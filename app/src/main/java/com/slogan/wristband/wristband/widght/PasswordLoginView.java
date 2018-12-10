@@ -161,11 +161,11 @@ public class PasswordLoginView extends LinearLayout {
                 String username = etUser.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
                 if(StringUtils.isBlank(username)){
-                    ToastUtils.showToast("用户名不能为空");
+                    ToastUtils.showToast(mContext,"用户名不能为空");
                     return;
                 }
                 if(StringUtils.isBlank(password)){
-                    ToastUtils.showToast("密码不能为空");
+                    ToastUtils.showToast(mContext,"密码不能为空");
                     return;
                 }
                 Call<TokenResp> tokenRespCall = ApiFactory.provideAccountUserService().login(username, password);

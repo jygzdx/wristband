@@ -33,7 +33,7 @@ public class FindFragment extends BaseFragment {
     @Override
     protected void initView() {
         unbinder = ButterKnife.bind(this, mRootView);
-        webview.loadUrl("https://www.bestgo.tech/#/home/index");
+        webview.loadUrl("https://www.bestgo.tech/#/home/index?clienId=app&token="+getToken());
         WebSettings settings = webview.getSettings();
         settings.setJavaScriptEnabled(true);// JavaScript可用
         // webView.setInitialScale(100);// 初始显示比例100%

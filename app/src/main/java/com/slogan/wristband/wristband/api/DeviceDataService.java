@@ -30,7 +30,7 @@ public interface DeviceDataService {
      * @param pageSize 每页大小
      * @return
      */
-    @GET("/api/front/deviceBind/list")
+    @GET("api/front/deviceBind/list")
     Call<PageResp<DeviceBindInfoListVO>> deviceBindList(@Header("access-token") String access_token, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
 
@@ -40,7 +40,7 @@ public interface DeviceDataService {
      * @param deviceBindInfo 设备信息
      * @return
      */
-    @POST("/api/front/deviceBind/create")
+    @POST("api/front/deviceBind/create")
     Call<BaseResp> deviceBindCreate(@Header("access-token") String access_token, @Body DeviceBindInfo deviceBindInfo);
 
     /**
@@ -49,8 +49,8 @@ public interface DeviceDataService {
      * @param deviceCodeNo 设备编码
      * @return
      */
-    @POST("/api/front/deviceBind/unbind/{deviceCodeNo}")
-    Call<BaseResp> deviceBindCreate(@Header("access-token") String access_token, @Path("deviceCodeNo") String deviceCodeNo);
+    @POST("api/front/deviceBind/unbind/{deviceCodeNo}")
+    Call<BaseResp> deviceUnbindCreate(@Header("access-token") String access_token, @Path("deviceCodeNo") String deviceCodeNo);
 
     /**
      * 设备健康数据记录表列表
@@ -59,7 +59,7 @@ public interface DeviceDataService {
      * @param pageSize
      * @return
      */
-    @GET("/api/front/deviceHealth/list")
+    @GET("api/front/deviceHealth/list")
     Call<PageResp<DeviceHealthDataLog>> deviceHealthList(@Header("access-token") String access_token, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     /**
@@ -68,7 +68,7 @@ public interface DeviceDataService {
      * @param deviceHealthDataLog
      * @return
      */
-    @POST("/api/front/deviceHealth/create")
+    @POST("api/front/deviceHealth/create")
     Call<BaseResp> deviceHealthCreate(@Header("access-token") String access_token, @Body DeviceHealthDataLog deviceHealthDataLog);
 
     /**
@@ -78,7 +78,7 @@ public interface DeviceDataService {
      * @param pageSize
      * @return
      */
-    @GET("/api/front/deviceMotion/list")
+    @GET("api/front/deviceMotion/list")
     Call<PageResp<DeviceMotionDataLog>> deviceMotionList(@Header("access-token") String access_token, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     /**
@@ -87,7 +87,7 @@ public interface DeviceDataService {
      * @param deviceMotionDataLog
      * @return
      */
-    @POST("/api/front/deviceMotion/create")
+    @POST("api/front/deviceMotion/create")
     Call<BaseResp> deviceMotionCreate(@Header("access-token") String access_token, @Body DeviceMotionDataLog deviceMotionDataLog);
 
     /**
@@ -97,7 +97,7 @@ public interface DeviceDataService {
      * @param pageSize
      * @return
      */
-    @GET("/api/front/deviceWarningLog/list")
+    @GET("api/front/deviceWarningLog/list")
     Call<PageResp<DeviceWarningLog>> deviceWarningLogList(@Header("access-token") String access_token, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
     /**
@@ -106,6 +106,6 @@ public interface DeviceDataService {
      * @param deviceWarningLog
      * @return
      */
-    @POST("/api/front/deviceWarningLog/create")
+    @POST("api/front/deviceWarningLog/create")
     Call<BaseResp> deviceWarningLogCreate(@Header("access-token") String access_token, @Body DeviceWarningLog deviceWarningLog);
 }

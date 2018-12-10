@@ -18,11 +18,18 @@ import com.orhanobut.logger.Logger;
 import com.slogan.wristband.wristband.R;
 import com.slogan.wristband.wristband.activity.base.BaseActivity;
 import com.slogan.wristband.wristband.adapter.BleDeviceListAdapter;
+import com.slogan.wristband.wristband.api.ApiFactory;
+import com.slogan.wristband.wristband.api.model.DeviceBindInfo;
+import com.slogan.wristband.wristband.api.model.base.BaseResp;
 import com.slogan.wristband.wristband.app.WristbandApplication;
+import com.slogan.wristband.wristband.db.AppConfigSharedPreferences;
+import com.slogan.wristband.wristband.db.UserAppConfig;
 import com.slogan.wristband.wristband.utils.LogDataUtils;
+import com.slogan.wristband.wristband.utils.ResponseUtils;
 import com.slogan.wristband.wristband.utils.ToastUtils;
 import com.veclink.bracelet.bean.BleUserInfoBean;
 import com.veclink.bracelet.bean.BluetoothDeviceBean;
+import com.veclink.bracelet.bean.DeviceInfo;
 import com.veclink.bracelet.bletask.BleAppConfirmBindSuccess;
 import com.veclink.bracelet.bletask.BleCallBack;
 import com.veclink.bracelet.bletask.BleRequestBindDevice;
@@ -44,6 +51,9 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BindDeviceActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
@@ -56,6 +66,8 @@ public class BindDeviceActivity extends BaseActivity implements AdapterView.OnIt
     @BindView(R.id.listView)
     ListView listView;
     private BleDeviceListAdapter adapter;
+    private String name;
+    private String addr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +127,7 @@ public class BindDeviceActivity extends BaseActivity implements AdapterView.OnIt
     private BindDeviceListener bindDeviceListener = new BindDeviceListener() {
         @Override
         public void onClickToBind() {
-            ToastUtils.showToast("请敲击手环");
+            ToastUtils.showToast(mContext,"请敲击手环");
             Logger.d("onClickToBind");
         }
 
@@ -135,8 +147,8 @@ public class BindDeviceActivity extends BaseActivity implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         BluetoothDeviceBean device = (BluetoothDeviceBean) adapter.listItems
                 .get(position);
-        String addr = device.getAddress();
-        String name = device.getName();
+        addr = device.getAddress();
+        name = device.getName();
         VeclinkSDK.getInstance().bindDevice(name,addr,bindDeviceListener);
     }
 
@@ -300,10 +312,25 @@ public class BindDeviceActivity extends BaseActivity implements AdapterView.OnIt
             }
 
             @Override
-            public void onFinish(Object o) {
+            public void onFinish(Object result) {
 //                Gson  gson  =  new  Gson();
-//                DeviceInfo  deviceInfo  =  (DeviceInfo)  result;
-                ToastUtils.showToast("同步参数成功");
+                DeviceInfo  deviceInfo  =  (DeviceInfo)  result;
+                ToastUtils.showToast(mContext,"同步参数成功");
+                DeviceBindInfo deviceBindInfo = new DeviceBindInfo();
+                deviceBindInfo.setDeviceCode(deviceInfo.deviceId);
+                AppConfigSharedPreferences.setAppInfoString(mContext,UserAppConfig.DEVICE_ID,deviceInfo.deviceId);
+                Call<BaseResp> call = ApiFactory.provideDeviceDataService().deviceBindCreate(getToken(),deviceBindInfo);
+                call.enqueue(new Callback<BaseResp>() {
+                    @Override
+                    public void onResponse(Call<BaseResp> call, Response<BaseResp> response) {
+                        BaseResp baseResp = response.body();
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResp> call, Throwable t) {
+
+                    }
+                });
                 finish();
             }
         });

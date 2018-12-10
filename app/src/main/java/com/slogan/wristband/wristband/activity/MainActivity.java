@@ -126,14 +126,14 @@ public class MainActivity extends BaseFragmentActivity implements RssiListener {
         @Override
         public void disConnected() {
             Logger.d("disConnected");
-            ToastUtils.showToast("蓝牙断开连接，请检查手机蓝牙是否打开");
+            ToastUtils.showToast(mContext,"蓝牙断开连接，请检查手机蓝牙是否打开");
             VeclinkSDK.getInstance().reConnectDevice();
         }
 
         @Override
         public void blueToothClose() {
             Logger.d("blueToothClose");
-            ToastUtils.showToast("请打开蓝牙");
+            ToastUtils.showToast(mContext,"请打开蓝牙");
         }
     };
 

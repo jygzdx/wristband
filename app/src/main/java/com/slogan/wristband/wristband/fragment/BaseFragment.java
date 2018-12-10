@@ -137,6 +137,14 @@ public abstract class BaseFragment extends Fragment implements HttpMsg,RequestTy
         handler.sendMessage(message);
     }
 
+    private String token;
+    public String getToken(){
+        if(StringUtils.isBlank(token)){
+            token = UserInfoSharedPreference.getUserInfoString(mContext,UserInfoConfig.TOKEN,"");
+        }
+        return token;
+    }
+
     /**
      *
      * @return 当前操作用户ID

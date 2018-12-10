@@ -223,6 +223,9 @@ public class BaseActivity extends Activity implements HttpMsg, RequestTypeCode {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(broadcastReceiver != null){
+            unregisterReceiver(broadcastReceiver);
+        }
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
